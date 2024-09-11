@@ -9,7 +9,7 @@ const Navbar : React.FC = () => {
   return (
     <div className="bg-white px-4 rounded-md shadow-md flex items-center justify-between">
       <div className="w-96 h-10 relative">
-        <Search className="absolute top-2.5 left-1 text-gray-300 text-[20px]" fontSize={10}></Search>
+        <Search className="absolute top-2.5 left-1 text-gray-300 text-[20px]" fontSize={8}></Search>
         <Input className="h-full w-full px-7 placeholder:text-gray-300" placeholder="Recherche"></Input>
       </div>
 
