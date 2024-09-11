@@ -1,22 +1,40 @@
 import React from "react";
+import { Link } from "react-router-dom";
 
 interface NavLinkProps {
-  icon: string;
-  href: string;
-  text: string;
+  name: string;
+  icon: React.ComponentType<React.SVGProps<SVGSVGElement>>;
+  link: string;
+  isActive: boolean;
 }
 
-const NavLink: React.FC<NavLinkProps> = ({ icon, href, text }) => {
+const NavLink: React.FC<NavLinkProps> = ({ name,  icon: Icon, link, isActive }) => {
   return (
-    <div className="mb-1.5 rounded-lg shadow px-1.5 py-2 flex items-center gap-4">
-      <div className="shadow-lg rounded-lg p-2 bg-gradient-to-tr from-teal-300 to-teal-400 text-white">
-        {icon}
+    <Link
+      to={link}
+      className={`mb-1.5 rounded-lg px-1.5 py-3 flex items-center gap-4 transition-colors ${
+        isActive
+          ? "bg-teal-100 dark:bg-teal-600 text-teal-600 dark:text-teal-100"
+          : "hover:bg-teal-50 dark:hover:bg-teal-700"
+      }`}
+    >
+      <div
+        className={`shadow-lg rounded-lg p-2 ${
+          isActive
+            ? "bg-gradient-to-tr from-teal-400 to-teal-500"
+            : "bg-gradient-to-tr from-teal-300 to-teal-400"
+        }`}
+      >
+        <Icon className="text-white" />
       </div>
-
-      <a href={href} className="font-semibold text-base">
-        {text}
-      </a>
-    </div>
+      <span
+        className={`font-semibold text-base ${
+          isActive ? "text-teal-600 dark:text-teal-100" : ""
+        }`}
+      >
+        {name}
+      </span>
+    </Link>
   );
 };
 
