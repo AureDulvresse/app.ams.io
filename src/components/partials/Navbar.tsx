@@ -5,7 +5,8 @@ import { AvatarFallback, AvatarImage } from "../ui/avatar";
 import { Search, Bell, MessageCircle, Moon, Sun, Trash2 } from "lucide-react";
 import logo from "/logo.png"; // Logo de l'utilisateur
 import schoolLogo from "/vite.svg"; // Logo de l'école
-import Modal from "@/components/ui/modal";
+import { Button } from "../ui/button";
+import Modal from "../common/Modal";
 
 const Navbar: React.FC = () => {
   const [isDarkMode, setIsDarkMode] = useState(false);
@@ -14,7 +15,6 @@ const Navbar: React.FC = () => {
   const [selectedNotification, setSelectedNotification] = useState<
     string | null
   >(null);
-  const [selectedMessage, setSelectedMessage] = useState<string | null>(null);
 
   // Exemple de données
   const [notifications, setNotifications] = useState([
@@ -59,11 +59,6 @@ const Navbar: React.FC = () => {
   const openNotificationDetails = (notification: string) => {
     setSelectedNotification(notification);
     setIsNotificationsOpen(false);
-  };
-
-  const openMessageDetails = (message: string) => {
-    setSelectedMessage(message);
-    setIsMessagesOpen(false);
   };
 
   return (
@@ -187,7 +182,6 @@ const Navbar: React.FC = () => {
               >
                 <span
                   className="text-gray-600 dark:text-gray-300 cursor-pointer"
-                  onClick={() => openMessageDetails(message)}
                 >
                   {message}
                 </span>
@@ -214,20 +208,6 @@ const Navbar: React.FC = () => {
           content={<p>{selectedNotification}</p>}
           footer={
             <Button onClick={() => setSelectedNotification(null)}>Close</Button>
-          }
-        />
-      )}
-
-      {/* Modal pour les messages */}
-      {selectedMessage && (
-        <Modal
-          isOpen={!!selectedMessage}
-          onClose={() => setSelectedMessage(null)}
-          title="Message Details"
-          description="Here are the details of the selected message."
-          content={<p>{selectedMessage}</p>}
-          footer={
-            <Button onClick={() => setSelectedMessage(null)}>Close</Button>
           }
         />
       )}
