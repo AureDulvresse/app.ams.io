@@ -2,14 +2,31 @@ import React, { useState } from "react";
 import { Input } from "../ui/input";
 import { Avatar } from "@radix-ui/react-avatar";
 import { AvatarFallback, AvatarImage } from "../ui/avatar";
-import { Search, Bell, MessageCircle, Moon, Sun } from "lucide-react";
+import { Search, Bell, MessageCircle, Moon, Sun, Trash2 } from "lucide-react";
 import logo from "/logo.png"; // Logo de l'utilisateur
 import schoolLogo from "/vite.svg"; // Logo de l'école
+import Modal from "@/components/ui/modal";
 
 const Navbar: React.FC = () => {
   const [isDarkMode, setIsDarkMode] = useState(false);
   const [isNotificationsOpen, setIsNotificationsOpen] = useState(false);
   const [isMessagesOpen, setIsMessagesOpen] = useState(false);
+  const [selectedNotification, setSelectedNotification] = useState<
+    string | null
+  >(null);
+  const [selectedMessage, setSelectedMessage] = useState<string | null>(null);
+
+  // Exemple de données
+  const [notifications, setNotifications] = useState([
+    "Notification 1",
+    "Notification 2",
+    "Notification 3",
+  ]);
+  const [messages, setMessages] = useState([
+    "Message 1",
+    "Message 2",
+    "Message 3",
+  ]);
 
   const toggleTheme = () => {
     setIsDarkMode(!isDarkMode);
@@ -28,6 +45,24 @@ const Navbar: React.FC = () => {
 
   const closeAsides = () => {
     setIsNotificationsOpen(false);
+    setIsMessagesOpen(false);
+  };
+
+  const handleDeleteNotification = (index: number) => {
+    setNotifications(notifications.filter((_, i) => i !== index));
+  };
+
+  const handleDeleteMessage = (index: number) => {
+    setMessages(messages.filter((_, i) => i !== index));
+  };
+
+  const openNotificationDetails = (notification: string) => {
+    setSelectedNotification(notification);
+    setIsNotificationsOpen(false);
+  };
+
+  const openMessageDetails = (message: string) => {
+    setSelectedMessage(message);
     setIsMessagesOpen(false);
   };
 
@@ -99,7 +134,7 @@ const Navbar: React.FC = () => {
         </div>
       </div>
 
-      {/* Boîte de notifications */}
+      {/* Overlay */}
       {(isNotificationsOpen || isMessagesOpen) && (
         <div
           className="fixed inset-0 bg-transparent z-40"
@@ -107,36 +142,33 @@ const Navbar: React.FC = () => {
         ></div>
       )}
 
+      {/* Boîte de notifications */}
       {isNotificationsOpen && (
         <aside className="fixed right-0 top-0 h-full w-64 bg-white dark:bg-gray-800 shadow-2xl p-6 rounded-l-lg transition-transform transform translate-x-0 border-l-4 border-teal-500 dark:border-teal-400 z-50">
           <h2 className="text-lg font-fredoka font-semibold mb-4 text-gray-800 dark:text-gray-100">
             Notifications
           </h2>
           <ul className="space-y-4">
-            <li className="flex items-center justify-between bg-gray-100 dark:bg-gray-700 px-4 py-2 rounded-lg shadow-sm hover:bg-teal-50 dark:hover:bg-teal-900 transition-all">
-              <span className="text-gray-600 dark:text-gray-300">
-                Notification 1
-              </span>
-              <span className="bg-teal-500 text-white text-xs px-2 py-1 rounded-full">
-                Nouveau
-              </span>
-            </li>
-            <li className="flex items-center justify-between bg-gray-100 dark:bg-gray-700 px-4 py-2 rounded-lg shadow-sm hover:bg-teal-50 dark:hover:bg-teal-900 transition-all">
-              <span className="text-gray-600 dark:text-gray-300">
-                Notification 2
-              </span>
-              <span className="bg-teal-500 text-white text-xs px-2 py-1 rounded-full">
-                Nouveau
-              </span>
-            </li>
-            <li className="flex items-center justify-between bg-gray-100 dark:bg-gray-700 px-4 py-2 rounded-lg shadow-sm hover:bg-teal-50 dark:hover:bg-teal-900 transition-all">
-              <span className="text-gray-600 dark:text-gray-300">
-                Notification 3
-              </span>
-              <span className="bg-teal-500 text-white text-xs px-2 py-1 rounded-full">
-                Nouveau
-              </span>
-            </li>
+            {notifications.map((notification, index) => (
+              <li
+                key={index}
+                className="relative flex items-center justify-between bg-gray-100 dark:bg-gray-700 px-4 py-2 rounded-lg shadow-sm hover:bg-teal-50 dark:hover:bg-teal-900 transition-all"
+              >
+                <span
+                  className="text-gray-600 dark:text-gray-300 cursor-pointer"
+                  onClick={() => openNotificationDetails(notification)}
+                >
+                  {notification}
+                </span>
+                <button
+                  className="absolute top-1/2 right-4 transform -translate-y-1/2 text-gray-400 dark:text-gray-500 hover:text-red-600 dark:hover:text-red-400 transition-colors"
+                  onClick={() => handleDeleteNotification(index)}
+                  title="supprimer"
+                >
+                  <Trash2 size={16} />
+                </button>
+              </li>
+            ))}
           </ul>
         </aside>
       )}
@@ -148,11 +180,56 @@ const Navbar: React.FC = () => {
             Messages
           </h2>
           <ul className="space-y-4">
-            <li className="text-gray-600 dark:text-gray-300">Message 1</li>
-            <li className="text-gray-600 dark:text-gray-300">Message 2</li>
-            <li className="text-gray-600 dark:text-gray-300">Message 3</li>
+            {messages.map((message, index) => (
+              <li
+                key={index}
+                className="relative flex items-center justify-between bg-gray-100 dark:bg-gray-700 px-4 py-2 rounded-lg shadow-sm hover:bg-teal-50 dark:hover:bg-teal-900 transition-all"
+              >
+                <span
+                  className="text-gray-600 dark:text-gray-300 cursor-pointer"
+                  onClick={() => openMessageDetails(message)}
+                >
+                  {message}
+                </span>
+                <button
+                  className="absolute top-1/2 right-4 transform -translate-y-1/2 text-gray-400 dark:text-gray-500 hover:text-red-600 dark:hover:text-red-400 transition-colors"
+                  onClick={() => handleDeleteMessage(index)}
+                  title="supprimer"
+                >
+                  <Trash2 size={16} />
+                </button>
+              </li>
+            ))}
           </ul>
         </aside>
+      )}
+
+      {/* Modal pour les notifications */}
+      {selectedNotification && (
+        <Modal
+          isOpen={!!selectedNotification}
+          onClose={() => setSelectedNotification(null)}
+          title="Notification Details"
+          description="Here are the details of the selected notification."
+          content={<p>{selectedNotification}</p>}
+          footer={
+            <Button onClick={() => setSelectedNotification(null)}>Close</Button>
+          }
+        />
+      )}
+
+      {/* Modal pour les messages */}
+      {selectedMessage && (
+        <Modal
+          isOpen={!!selectedMessage}
+          onClose={() => setSelectedMessage(null)}
+          title="Message Details"
+          description="Here are the details of the selected message."
+          content={<p>{selectedMessage}</p>}
+          footer={
+            <Button onClick={() => setSelectedMessage(null)}>Close</Button>
+          }
+        />
       )}
     </div>
   );

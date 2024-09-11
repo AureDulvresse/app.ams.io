@@ -14,7 +14,7 @@ const Sidebar: React.FC = () => {
     <div className="w-64 h-full bg-white dark:bg-gray-800 text-gray-600 shadow">
       <div className="flex items-center gap-4 border-b border-b-gray-50">
         <img src={logo} className="w-20 h-auto" alt="logo" />
-        <h1 className="text-base font-bold text-teal-400">
+        <h1 className="text-base font-bold text-teal-400 font-fredoka">
           Academia Management Sync
         </h1>
       </div>
