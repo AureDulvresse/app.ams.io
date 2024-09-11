@@ -26,8 +26,13 @@ const Navbar: React.FC = () => {
     setIsNotificationsOpen(false); // Ferme les notifications si ouvertes
   };
 
+  const closeAsides = () => {
+    setIsNotificationsOpen(false);
+    setIsMessagesOpen(false);
+  };
+
   return (
-    <div>
+    <div className="relative">
       {/* Navbar */}
       <div
         className={`bg-white dark:bg-gray-800 px-4 py-4 rounded-md shadow-md flex items-center justify-between transition-all`}
@@ -95,9 +100,16 @@ const Navbar: React.FC = () => {
       </div>
 
       {/* Boîte de notifications */}
+      {(isNotificationsOpen || isMessagesOpen) && (
+        <div
+          className="fixed inset-0 bg-transparent z-40"
+          onClick={closeAsides}
+        ></div>
+      )}
+
       {isNotificationsOpen && (
-        <aside className="fixed right-0 top-0 h-full w-64 bg-white dark:bg-gray-800 shadow-2xl p-6 rounded-l-lg transition-transform transform translate-x-0 border-l-4 border-teal-500 dark:border-teal-400">
-          <h2 className="text-lg font-semibold mb-4 text-gray-800 dark:text-gray-100">
+        <aside className="fixed right-0 top-0 h-full w-64 bg-white dark:bg-gray-800 shadow-2xl p-6 rounded-l-lg transition-transform transform translate-x-0 border-l-4 border-teal-500 dark:border-teal-400 z-50">
+          <h2 className="text-lg font-fredoka font-semibold mb-4 text-gray-800 dark:text-gray-100">
             Notifications
           </h2>
           <ul className="space-y-4">
@@ -131,8 +143,10 @@ const Navbar: React.FC = () => {
 
       {/* Boîte de messagerie */}
       {isMessagesOpen && (
-        <aside className="fixed right-0 top-0 h-full w-64 bg-white dark:bg-gray-800 shadow-lg p-4 transition-transform transform translate-x-0">
-          <h2 className="text-lg font-semibold mb-4">Messages</h2>
+        <aside className="fixed right-0 top-0 h-full w-64 bg-white dark:bg-gray-800 shadow-2xl p-6 rounded-l-lg transition-transform transform translate-x-0 border-l-4 border-teal-500 dark:border-teal-400 z-50">
+          <h2 className="text-lg font-fredoka font-semibold mb-4 text-gray-800 dark:text-gray-100">
+            Messages
+          </h2>
           <ul className="space-y-4">
             <li className="text-gray-600 dark:text-gray-300">Message 1</li>
             <li className="text-gray-600 dark:text-gray-300">Message 2</li>
