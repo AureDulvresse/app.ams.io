@@ -1,8 +1,13 @@
 import React from "react";
-import { Card, CardContent } from "./ui/card";
 import FiliereChart from "./common/FiliereChart";
 import FinancialChart from "./common/FinancialChart";
-import ActivitySummary from "./common/ActivitySummary";
+import ActivitySummary from "./common/ActivitySummery";
+import {
+  GraduationCap as GraduationCapIcon,
+  Users2 as UsersIcon,
+  Wallet as WalletIcon,
+} from "lucide-react";
+import StatCard from "./common/StatCard";
 
 const Dashboard: React.FC = () => {
   return (
@@ -11,28 +16,24 @@ const Dashboard: React.FC = () => {
 
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
         {/* Student count */}
-        <Card className="py-4 hover:shadow-lg transition-shadow duration-200 ease-in-out">
-          <CardContent>
-            <h3 className="text-xl font-semibold mb-2">Total Students</h3>
-            <p className="text-4xl font-bold text-teal-500">1,200</p>
-          </CardContent>
-        </Card>
+
+        <StatCard
+          libelle={"Nombre total étudiant"}
+          data={1200}
+          icon={GraduationCapIcon}
+        />
 
         {/* Teachers count */}
-        <Card className="py-4 hover:shadow-lg transition-shadow duration-200 ease-in-out">
-          <CardContent>
-            <h3 className="text-xl font-semibold mb-2">Total Teachers</h3>
-            <p className="text-4xl font-bold text-teal-500">150</p>
-          </CardContent>
-        </Card>
+        <StatCard libelle={"Nombre personnel"} data={160} icon={UsersIcon} />
 
         {/* Revenue */}
-        <Card className="py-4 hover:shadow-lg transition-shadow duration-200 ease-in-out">
-          <CardContent>
-            <h3 className="text-xl font-semibold mb-2">Total Revenue</h3>
-            <p className="text-4xl font-bold text-teal-500">$80,000</p>
-          </CardContent>
-        </Card>
+        <StatCard
+          libelle={"Revenu total"}
+          data={230600}
+          icon={WalletIcon}
+          unity="XAF"
+        />
+
       </div>
 
       {/* Charts */}
