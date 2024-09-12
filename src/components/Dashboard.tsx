@@ -2,10 +2,9 @@ import React from "react";
 import { Card, CardContent } from "./ui/card";
 import FiliereChart from "./common/FiliereChart";
 import FinancialChart from "./common/FinancialChart";
-
+import ActivitySummary from "./common/ActivitySummary";
 
 const Dashboard: React.FC = () => {
-
   return (
     <div className="p-6">
       <h2 className="text-3xl font-bold mb-6">Overview</h2>
@@ -38,10 +37,13 @@ const Dashboard: React.FC = () => {
 
       {/* Charts */}
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 mt-6">
-
         <FinancialChart />
         <FiliereChart />
-        
+      </div>
+
+      {/* Latest Activities */}
+      <div className="mt-6">
+        <ActivitySummary />
       </div>
     </div>
   );
