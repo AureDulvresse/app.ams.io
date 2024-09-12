@@ -1,8 +1,8 @@
 import React from "react";
 
-import Sidebar from "@/components/partials/sidebar";
 import Navbar from "@/components/partials/Navbar";
 import Dashboard from "@/components/Dashboard";
+import Sidebar from "@/components/partials/Sidebar";
 
 const DashboardPage : React.FC = () => {
   return (
