@@ -14,7 +14,7 @@ const NavLink: React.FC<NavLinkProps> = ({ name,  icon: Icon, link, isActive }) 
       to={link}
       className={`mb-1.5 rounded-lg px-1.5 py-3 flex items-center gap-4 transition-colors ${
         isActive
-          ? "bg-teal-100 dark:bg-teal-600 text-teal-600 dark:text-teal-100"
+          ? "bg-teal-100 dark:bg-teal-600 text-teal-600 dark:text-teal-100 shadow-sm"
           : "hover:bg-teal-50 dark:hover:bg-teal-700"
       }`}
     >
