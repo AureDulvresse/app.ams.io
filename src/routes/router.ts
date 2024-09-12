@@ -8,13 +8,13 @@ import {
   Book as BookCheck,
 } from "lucide-react";
 
-export interface SidebarRoute {
+export interface Route {
   path: string;
   name: string;
   icon: ComponentType; // Utilisez ComponentType pour les icônes
 }
 
-export const routes: SidebarRoute[] = [
+export const routes: Route[] = [
   { path: "/", name: "Dashboard", icon: HomeIcon },
   { path: "/students", name: "Gestion étudiant", icon: GraduationCapIcon },
   { path: "/hr", name: "Ressources Humaine", icon: UsersIcon },
