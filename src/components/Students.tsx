@@ -9,7 +9,7 @@ const Students: React.FC = () => {
             
       </div>
     </div>
-  );
+  ); 
 };
 
 export default Students;
