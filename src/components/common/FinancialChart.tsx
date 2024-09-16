@@ -51,7 +51,7 @@ const chartConfig = {
 
 const FinancialChart = () => {
   return (
-    <Card className="bg-white dark:bg-slate-800">
+    <Card className="bg-white dark:bg-gray-900">
       <CardHeader>
         <CardTitle>Revenus Financiers - Derniers 6 Mois</CardTitle>
         <CardDescription>
