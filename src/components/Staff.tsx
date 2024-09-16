@@ -108,10 +108,10 @@ const Staff: React.FC = () => {
   return (
     <div className="p-6">
       <div className="flex justify-between items-center mb-6">
-        <h2 className="text-3xl font-bold">Gestion des étudiants</h2>
+        <h2 className="text-3xl font-bold">Ressources Humaine</h2>
         <Button className="flex items-center gap-2">
           <Plus size={16} />
-          Ajouter un étudiant
+          Ajouter un personnel
         </Button>
       </div>
 
