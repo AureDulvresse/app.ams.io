@@ -17,7 +17,7 @@ const Sidebar: React.FC = () => {
         </h1>
       </div>
 
-      <div className="mt-3 px-2">
+      <div className="mt-3 px-2 min-h-[20px] overflow-x-hidden">
         {routes.map((route) => (
           <NavLink
             key={route.path}
