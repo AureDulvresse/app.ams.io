@@ -17,7 +17,7 @@ const StatCard: React.FC<StatCardProps> = ({
   unity,
 }) => {
   return (
-    <Card className="py-4 hover:shadow-lg transition-shadow duration-200 ease-in-out">
+    <Card className="py-4 hover:shadow-lg transition-shadow duration-200 ease-in-out bg-white dark:bg-slate-800">
       <CardContent>
         <h3 className="text-xl text-gray-500 font-semibold mb-2">{libelle}</h3>
         <div className="flex items-center justify-between">

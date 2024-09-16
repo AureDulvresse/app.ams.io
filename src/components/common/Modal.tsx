@@ -6,7 +6,6 @@ import {
   DialogFooter,
   DialogHeader,
   DialogTitle,
-  DialogTrigger,
 } from "@/components/ui/dialog";
 
 interface ModalProps {
@@ -28,10 +27,7 @@ const Modal: React.FC<ModalProps> = ({
 }) => {
   return (
     <Dialog open={isOpen} onOpenChange={onClose}>
-      <DialogTrigger asChild>
-        <Button variant="outline">Open Modal</Button>
-      </DialogTrigger>
-      <DialogContent className="sm:max-w-[425px]">
+      <DialogContent className="sm:max-w-[425px] bg-white dark:bg-slate-800">
         <DialogHeader>
           <DialogTitle>{title}</DialogTitle>
           {description && <DialogDescription>{description}</DialogDescription>}
@@ -41,7 +37,7 @@ const Modal: React.FC<ModalProps> = ({
           {footer ? (
             footer
           ) : (
-            <Button type="button" onClick={onClose}>
+            <Button type="button" onClick={onClose} className="bg-teal-500">
               Close
             </Button>
           )}

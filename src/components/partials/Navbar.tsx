@@ -7,9 +7,10 @@ import logo from "/logo.png"; // Logo de l'utilisateur
 import schoolLogo from "/vite.svg"; // Logo de l'école
 import { Button } from "../ui/button";
 import Modal from "../common/Modal";
+import { useTheme } from "../theme-provider";
 
 const Navbar: React.FC = () => {
-  const [isDarkMode, setIsDarkMode] = useState(false);
+  const { theme, setTheme } = useTheme();
   const [isNotificationsOpen, setIsNotificationsOpen] = useState(false);
   const [isMessagesOpen, setIsMessagesOpen] = useState(false);
   const [selectedNotification, setSelectedNotification] = useState<
@@ -29,8 +30,7 @@ const Navbar: React.FC = () => {
   ]);
 
   const toggleTheme = () => {
-    setIsDarkMode(!isDarkMode);
-    document.body.classList.toggle("dark-mode", !isDarkMode);
+    setTheme(theme === "light" ? "dark" : "light");
   };
 
   const toggleNotifications = () => {
@@ -101,7 +101,7 @@ const Navbar: React.FC = () => {
 
           {/* Toggle du thème sombre */}
           <div className="cursor-pointer" onClick={toggleTheme}>
-            {isDarkMode ? (
+            {theme === "dark" ? (
               <Sun className="text-yellow-300" size={24} />
             ) : (
               <Moon className="text-gray-500 dark:text-gray-300" size={24} />
@@ -180,9 +180,7 @@ const Navbar: React.FC = () => {
                 key={index}
                 className="relative flex items-center justify-between bg-gray-100 dark:bg-gray-700 px-4 py-2 rounded-lg shadow-sm hover:bg-teal-50 dark:hover:bg-teal-900 transition-all"
               >
-                <span
-                  className="text-gray-600 dark:text-gray-300 cursor-pointer"
-                >
+                <span className="text-gray-600 dark:text-gray-300 cursor-pointer">
                   {message}
                 </span>
                 <button
@@ -207,7 +205,12 @@ const Navbar: React.FC = () => {
           description="Here are the details of the selected notification."
           content={<p>{selectedNotification}</p>}
           footer={
-            <Button onClick={() => setSelectedNotification(null)}>Close</Button>
+            <Button
+              onClick={() => setSelectedNotification(null)}
+              className="bg-teal-500 border-teal-400 hover:bg-teal-400"
+            >
+              Close
+            </Button>
           }
         />
       )}
