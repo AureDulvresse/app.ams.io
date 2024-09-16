@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import { Edit, Trash2, Plus } from "lucide-react";
 import { Button } from "./ui/button";
-import { Input } from "./ui/input";
 import DataTable from "./common/DataTable";
 
 interface Student {
@@ -50,13 +49,6 @@ const Students: React.FC = () => {
     { id: 3, name: "Alice Johnson", age: 21, course: "History" },
   ]);
 
-  // Filtrer les étudiants
-  const [searchQuery, setSearchQuery] = useState("");
-
-  const filteredStudents = students.filter((student) =>
-    student.name.toLowerCase().includes(searchQuery.toLowerCase())
-  );
-
   return (
     <div className="p-6">
       <div className="flex justify-between items-center mb-6">
@@ -67,16 +59,7 @@ const Students: React.FC = () => {
         </Button>
       </div>
 
-      <div className="mb-4">
-        <Input
-          placeholder="Rechercher un étudiant..."
-          value={searchQuery}
-          onChange={(e) => setSearchQuery(e.target.value)}
-          className="w-full"
-        />
-      </div>
-
-      <DataTable data={filteredStudents} columns={columns} />
+      <DataTable data={students} columns={columns} />
     </div>
   );
 };
