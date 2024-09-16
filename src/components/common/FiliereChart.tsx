@@ -67,7 +67,7 @@ const FiliereChart = () => {
   }, []);
 
   return (
-    <Card className="flex flex-col bg-white dark:bg-slate-800">
+    <Card className="flex flex-col bg-white dark:bg-gray-900">
       <CardHeader className="items-center pb-0">
         <CardTitle>Répartition des Étudiants</CardTitle>
         <CardDescription>Semestre Janvier - Juin 2024</CardDescription>
