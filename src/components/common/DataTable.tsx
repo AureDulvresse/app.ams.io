@@ -75,7 +75,7 @@ const DataTable = <T,>({ data, columns, filters }: DataTableProps<T>) => {
           onChange={(event) =>
             table.getColumn(filters)?.setFilterValue(event.target.value)
           }
-          className="w-64"
+          className="w-80 placeholder:text-gray-400 dark:placeholder:text-gray-500 bg-gray-100 dark:bg-gray-800"
         />
         <DropdownMenu>
           <DropdownMenuTrigger asChild>
