@@ -2,27 +2,41 @@ import React, { useState } from "react";
 import { Edit, Trash2, Plus } from "lucide-react";
 import { Button } from "./ui/button";
 import DataTable from "./common/DataTable";
-
-interface Student {
-  id: number;
-  name: string;
-  age: number;
-  course: string;
-}
+import { Student } from "@/types";
 
 // Définition des colonnes pour DataTable
 const columns = [
   {
-    accessorKey: "name",
+    accessorKey: "first_name",
+    header: "Prénom",
+  },
+  {
+    accessorKey: "last_name",
     header: "Nom",
   },
   {
-    accessorKey: "age",
-    header: "Âge",
+    accessorKey: "dob",
+    header: "Date de naissance",
   },
   {
-    accessorKey: "course",
-    header: "Cours",
+    accessorKey: "pob",
+    header: "Lieu de naissance",
+  },
+  {
+    accessorKey: "gender",
+    header: "Sexe",
+  },
+  {
+    accessorKey: "class_id",
+    header: "Classe",
+  },
+  {
+    accessorKey: "email",
+    header: "Adresse e-mail",
+  },
+  {
+    accessorKey: "address",
+    header: "Adresse",
   },
   {
     accessorFn: (row: Student) => row,
@@ -44,9 +58,51 @@ const columns = [
 const Students: React.FC = () => {
   // Exemple de données
   const [students] = useState<Student[]>([
-    { id: 1, name: "John Doe", age: 20, course: "Math" },
-    { id: 2, name: "Jane Smith", age: 22, course: "Science" },
-    { id: 3, name: "Alice Johnson", age: 21, course: "History" },
+    {
+      id: 1,
+      first_name: "John",
+      last_name: "Doe",
+      dob: "2005-06-03",
+      pob: "Pointe-Noire",
+      gender: "M",
+      phone: "05 568 68 68",
+      address: "Siafoumou",
+      email: "john-doe@gmail.com",
+      guardian_name: "Jenathan Doe",
+      guardian_phone: "04 456 46 46",
+      class_id: 1,
+      school_id: 1,
+    },
+    {
+      id: 2,
+      first_name: "Daniel",
+      last_name: "Williams",
+      dob: "2005-04-13",
+      pob: "Pointe-Noire",
+      gender: "M",
+      phone: "05 568 68 68",
+      address: "Siafoumou",
+      email: "daniel-jones@gmail.com",
+      guardian_name: "Roger Williams",
+      guardian_phone: "04 456 46 46",
+      class_id: 1,
+      school_id: 1,
+    },
+    {
+      id: 3,
+      first_name: "Jane",
+      last_name: "Jones",
+      dob: "2005-09-23",
+      pob: "Pointe-Noire",
+      gender: "F",
+      phone: "05 568 68 68",
+      address: "Siafoumou",
+      email: "jane-jones@gmail.com",
+      guardian_name: "Sonia Lewis",
+      guardian_phone: "04 456 46 46",
+      class_id: 1,
+      school_id: 1,
+    },
   ]);
 
   return (
@@ -59,7 +115,7 @@ const Students: React.FC = () => {
         </Button>
       </div>
 
-      <DataTable data={students} columns={columns} />
+      <DataTable data={students} columns={columns} filters="first_name" />
     </div>
   );
 };

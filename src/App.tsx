@@ -12,6 +12,10 @@ const router = createBrowserRouter([
     path: "/students",
     element: <StudentPage />,
   },
+  {
+    path: "/hr",
+    element: <StudentPage />,
+  },
 ]);
 
 const App = () => {

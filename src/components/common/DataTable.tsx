@@ -35,9 +35,10 @@ import { Card } from "../ui/card";
 interface DataTableProps<T> {
   data: T[];
   columns: ColumnDef<T>[];
+  filters: string;
 }
 
-const DataTable = <T,>({ data, columns }: DataTableProps<T>) => {
+const DataTable = <T,>({ data, columns, filters }: DataTableProps<T>) => {
   const [sorting, setSorting] = React.useState<SortingState>([]);
   const [columnFilters, setColumnFilters] = React.useState<ColumnFiltersState>(
     []
@@ -70,9 +71,9 @@ const DataTable = <T,>({ data, columns }: DataTableProps<T>) => {
       <div className="flex items-center justify-between py-4">
         <Input
           placeholder="Filter..."
-          value={(table.getColumn("name")?.getFilterValue() as string) ?? ""}
+          value={(table.getColumn(filters)?.getFilterValue() as string) ?? ""}
           onChange={(event) =>
-            table.getColumn("name")?.setFilterValue(event.target.value)
+            table.getColumn(filters)?.setFilterValue(event.target.value)
           }
           className="w-64"
         />
