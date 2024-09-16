@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { Edit, Trash2, Plus } from "lucide-react";
 import { Button } from "./ui/button";
 import { Input } from "./ui/input";
+import DataTable from "./common/DataTable";
 
 interface Student {
   id: number;
@@ -9,6 +10,37 @@ interface Student {
   age: number;
   course: string;
 }
+
+// Définition des colonnes pour DataTable
+const columns = [
+  {
+    accessorKey: "name",
+    header: "Nom",
+  },
+  {
+    accessorKey: "age",
+    header: "Âge",
+  },
+  {
+    accessorKey: "course",
+    header: "Cours",
+  },
+  {
+    accessorFn: (row: Student) => row,
+    id: "actions",
+    cell: (_info) => (
+      <div className="flex items-center gap-4">
+        <Button variant="outline" className="p-2">
+          <Edit size={16} />
+        </Button>
+        <Button variant="outline" className="p-2">
+          <Trash2 size={16} />
+        </Button>
+      </div>
+    ),
+    header: "Actions",
+  },
+];
 
 const Students: React.FC = () => {
   // Exemple de données
@@ -44,48 +76,7 @@ const Students: React.FC = () => {
         />
       </div>
 
-      <div className="overflow-x-auto">
-        <table className="min-w-full bg-white dark:bg-gray-800 shadow-md rounded">
-          <thead>
-            <tr>
-              <th className="px-4 py-2 border-b dark:border-gray-700">Nom</th>
-              <th className="px-4 py-2 border-b dark:border-gray-700">Âge</th>
-              <th className="px-4 py-2 border-b dark:border-gray-700">Cours</th>
-              <th className="px-4 py-2 border-b dark:border-gray-700">
-                Actions
-              </th>
-            </tr>
-          </thead>
-          <tbody>
-            {filteredStudents.map((student) => (
-              <tr
-                key={student.id}
-                className="hover:bg-gray-100 dark:hover:bg-gray-700"
-              >
-                <td className="px-4 py-2 border-b dark:border-gray-700">
-                  {student.name}
-                </td>
-                <td className="px-4 py-2 border-b dark:border-gray-700">
-                  {student.age}
-                </td>
-                <td className="px-4 py-2 border-b dark:border-gray-700">
-                  {student.course}
-                </td>
-                <td className="px-4 py-2 border-b dark:border-gray-700">
-                  <div className="flex items-center gap-4">
-                    <Button variant="outline" className="p-2">
-                      <Edit size={16} />
-                    </Button>
-                    <Button variant="outline" className="p-2">
-                      <Trash2 size={16} />
-                    </Button>
-                  </div>
-                </td>
-              </tr>
-            ))}
-          </tbody>
-        </table>
-      </div>
+      <DataTable data={filteredStudents} columns={columns} />
     </div>
   );
 };
