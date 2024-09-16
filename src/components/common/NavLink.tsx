@@ -29,7 +29,7 @@ const NavLink: React.FC<NavLinkProps> = ({ name,  icon: Icon, link, isActive }) 
       </div>
       <span
         className={`font-semibold text-base ${
-          isActive ? "text-teal-600 dark:text-teal-100" : ""
+          isActive ? "text-teal-600 dark:text-teal-100" : "text-gray-700 dark:text-white"
         }`}
       >
         {name}

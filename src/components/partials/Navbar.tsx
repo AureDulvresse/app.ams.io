@@ -65,7 +65,7 @@ const Navbar: React.FC = () => {
     <div className="relative">
       {/* Navbar */}
       <div
-        className={`bg-white dark:bg-gray-800 px-4 py-4 rounded-md shadow-md flex items-center justify-between transition-all`}
+        className={`bg-white dark:bg-slate-800 px-4 py-4 rounded-md shadow-md flex items-center justify-between transition-all`}
       >
         {/* Recherche */}
         <div className="w-96 h-10 relative">
@@ -111,7 +111,7 @@ const Navbar: React.FC = () => {
           {/* Avatar Utilisateur avec logo de l'école derrière */}
           <div className="relative">
             {/* Avatar de l'école */}
-            <div className="absolute -bottom-1 -right-1 w-5 h-5 rounded-full border-2 border-white dark:border-gray-800 bg-white dark:bg-gray-800">
+            <div className="absolute -bottom-1 -right-1 w-5 h-5 rounded-full border-2 border-slate-800 dark:border-white bg-white dark:bg-gray-800">
               <Avatar>
                 <AvatarImage src={schoolLogo} alt="school-logo" />
                 <AvatarFallback>SL</AvatarFallback>
@@ -119,7 +119,7 @@ const Navbar: React.FC = () => {
             </div>
 
             {/* Avatar de l'utilisateur */}
-            <div className="w-10 h-10 rounded-full border border-teal-300 dark:border-teal-500">
+            <div className="w-10 h-10 rounded-full border-2 border-teal-300 dark:border-teal-500">
               <Avatar>
                 <AvatarImage src={logo} alt="profile" />
                 <AvatarFallback>U</AvatarFallback>
