@@ -16,21 +16,25 @@ const activities: Activity[] = [
 
 const ActivitySummary: React.FC = () => {
   return (
-    <Card>
+    <Card className="bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-700 shadow-md">
       <CardHeader>
-        <CardTitle>Latest Activities</CardTitle>
+        <CardTitle className="text-gray-800 dark:text-gray-200">
+          Latest Activities
+        </CardTitle>
       </CardHeader>
       <CardContent>
         <div className="space-y-2">
           {activities.map((activity, index) => (
             <div
               key={index}
-              className="flex justify-between items-center py-2 border-b last:border-b-0"
+              className="flex justify-between items-center py-2 border-b border-gray-200 dark:border-gray-700 last:border-b-0 hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors"
             >
-              <div className="text-sm text-gray-600">
+              <div className="text-sm text-gray-700 dark:text-gray-300">
                 {activity.description}
               </div>
-              <div className="text-xs text-gray-400">{activity.date}</div>
+              <div className="text-xs text-gray-500 dark:text-gray-400">
+                {activity.date}
+              </div>
             </div>
           ))}
         </div>
