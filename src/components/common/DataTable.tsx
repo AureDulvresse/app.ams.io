@@ -66,7 +66,7 @@ const DataTable = <T,>({ data, columns }: DataTableProps<T>) => {
   });
 
   return (
-    <Card className="p-4 bg-white dark:bg-gray-900 shadow-lg rounded-lg border border-gray-200">
+    <Card className="p-4 bg-white dark:bg-gray-900 shadow-lg rounded-lg">
       <div className="flex items-center justify-between py-4">
         <Input
           placeholder="Filter..."
@@ -99,7 +99,7 @@ const DataTable = <T,>({ data, columns }: DataTableProps<T>) => {
           </DropdownMenuContent>
         </DropdownMenu>
       </div>
-      <div className="rounded-md border border-gray-200 overflow-x-auto">
+      <div className="rounded-md overflow-x-auto">
         <Table>
           <TableHeader>
             {table.getHeaderGroups().map((headerGroup) => (
