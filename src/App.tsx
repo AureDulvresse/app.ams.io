@@ -1,5 +1,5 @@
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
-import { ThemeProvider } from "@/components/theme-provider";
+import { ThemeProvider } from "@/hooks/theme-provider";
 import DashboardPage from "./pages/DashboardPage";
 import StudentPage from "./pages/modules/StudentPage";
 

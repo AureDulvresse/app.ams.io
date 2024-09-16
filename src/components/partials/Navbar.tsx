@@ -7,7 +7,7 @@ import logo from "/logo.png"; // Logo de l'utilisateur
 import schoolLogo from "/vite.svg"; // Logo de l'école
 import { Button } from "../ui/button";
 import Modal from "../common/Modal";
-import { useTheme } from "../theme-provider";
+import { useTheme } from "../../hooks/theme-provider";
 
 const Navbar: React.FC = () => {
   const { theme, setTheme } = useTheme();
