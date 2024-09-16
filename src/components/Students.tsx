@@ -28,7 +28,7 @@ const columns = [
   {
     accessorFn: (row: Student) => row,
     id: "actions",
-    cell: (_info) => (
+    cell: () => (
       <div className="flex items-center gap-4">
         <Button variant="outline" className="p-2">
           <Edit size={16} />
