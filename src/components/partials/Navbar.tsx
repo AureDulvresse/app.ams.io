@@ -74,7 +74,7 @@ const Navbar: React.FC = () => {
             fontSize={8}
           />
           <Input
-            className="h-full w-full pl-10 pr-3 placeholder:text-gray-400 dark:placeholder:text-gray-500 bg-gray-100 dark:bg-gray-700"
+            className="h-full w-full pl-10 pr-3 placeholder:text-gray-400 dark:placeholder:text-gray-500 bg-gray-100 dark:bg-gray-800"
             placeholder="Recherche"
           />
         </div>
