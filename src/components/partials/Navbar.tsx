@@ -65,7 +65,7 @@ const Navbar: React.FC = () => {
     <div className="relative">
       {/* Navbar */}
       <div
-        className={`bg-white dark:bg-slate-800 px-4 py-4 rounded-md shadow-md flex items-center justify-between transition-all`}
+        className="bg-white dark:bg-gray-900 px-4 py-4 rounded-md shadow-md flex items-center justify-between transition-all"
       >
         {/* Recherche */}
         <div className="w-96 h-10 relative">
