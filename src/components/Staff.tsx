@@ -3,6 +3,7 @@ import { Plus } from "lucide-react";
 import { Button } from "./ui/button";
 import DataTable from "./common/DataTable";
 import { Student } from "@/types";
+import { Link } from "react-router-dom";
 
 // Définition des colonnes pour DataTable
 const columns = [
@@ -95,11 +96,16 @@ const Staff: React.FC = () => {
   return (
     <div className="p-6">
       <div className="flex justify-between items-center mb-6">
-        <h2 className="text-3xl font-bold">Ressources Humaine</h2>
-        <Button className="flex items-center gap-2">
-          <Plus size={16} />
+        <h2 className="text-3xl font-semibold font-fredoka text-teal-400">
+          Ressources Humaine
+        </h2>
+        <Link
+          to={"/"}
+          className="flex items-center gap-2 bg-gradient-to-tr from-teal-400 to-teal-500 px-3 py-2 rounded-md shadow-sm text-white dark:text-gray-950 font-semibold hover:scale-[1.02] transition-all"
+        >
+          <Plus className="font-semibold" size={16} />
           Ajouter un personnel
-        </Button>
+        </Link>
       </div>
 
       <DataTable
