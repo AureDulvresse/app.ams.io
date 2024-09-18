@@ -17,8 +17,8 @@ const Sidebar: React.FC = () => {
         </h1>
       </div>
 
-      {/* Apply overflow and full height to make the sidebar scrollable */}
-      <div className="mt-3 px-2 h-[calc(100vh-120px)] overflow-y-auto scrollbar-thin scrollbar-thumb-teal-500">
+      {/* Ajout de la classe scrollbar-custom */}
+      <div className="mt-3 mr-1 px-2 h-[calc(100vh-120px)] overflow-y-auto scrollbar-custom">
         {routes.map((route) => (
           <NavLink
             key={route.path}
