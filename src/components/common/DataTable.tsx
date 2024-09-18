@@ -1,5 +1,6 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import * as React from "react";
-import { ChevronDownIcon } from "@radix-ui/react-icons";
+import { ChevronDownIcon, DotsHorizontalIcon } from "@radix-ui/react-icons";
 import {
   ColumnDef,
   SortingState,
@@ -24,18 +25,19 @@ import {
 
 import {
   DropdownMenu,
-  DropdownMenuCheckboxItem,
   DropdownMenuContent,
+  DropdownMenuItem,
   DropdownMenuTrigger,
 } from "../ui/dropdown-menu";
 import { Card } from "../ui/card";
-import { Checkbox } from "../ui/checkbox"; // Import Checkbox component
+import { Checkbox } from "../ui/checkbox";
+import { Pencil, Trash2 } from "lucide-react";
 
 interface DataTableProps<T> {
   data: T[];
   columns: ColumnDef<T>[];
-  filters: string[]; // Columns to be included in the global search
-  showSelection?: boolean; // New prop to control the visibility of selection checkboxes
+  filters: string[];
+  showSelection?: boolean;
 }
 
 const DataTable = <T,>({
@@ -47,16 +49,16 @@ const DataTable = <T,>({
   const [sorting, setSorting] = React.useState<SortingState>([]);
   const [columnVisibility, setColumnVisibility] =
     React.useState<VisibilityState>({});
-  const [rowSelection, setRowSelection] = React.useState({});
+  const [rowSelection, setRowSelection] = React.useState<
+    Record<string, boolean>
+  >({});
   const [globalFilter, setGlobalFilter] = React.useState("");
 
-  // Function to apply global filter to the data
   const filteredData = React.useMemo(() => {
     if (!globalFilter) return data;
 
     return data.filter((row) =>
       filters.some((filter) => {
-        // eslint-disable-next-line @typescript-eslint/no-explicit-any
         const cellValue = (row as any)[filter];
         return String(cellValue)
           .toLowerCase()
@@ -65,44 +67,86 @@ const DataTable = <T,>({
     );
   }, [data, filters, globalFilter]);
 
-  // Conditionally add the selection column
-  const columnsWithSelection = React.useMemo(() => {
-    if (!showSelection) return columns;
+  const handleEdit = React.useCallback((row: T) => {
+    console.log("Editer la ligne :", row);
+  }, []);
 
-    return [
+  const handleDelete = React.useCallback((row: T) => {
+    console.log("Supprimer la ligne :", row);
+  }, []);
+
+  const columnsWithExtras = React.useMemo(() => {
+    const extraColumns: ColumnDef<T>[] = [
+      ...(showSelection
+        ? [
+            {
+              id: "select",
+              header: ({ table }: { table: any }) => (
+                <Checkbox
+                  className="mx-4"
+                  checked={
+                    table.getIsAllPageRowsSelected() ||
+                    (table.getIsSomePageRowsSelected() && "indeterminate")
+                  }
+                  onCheckedChange={(value) =>
+                    table.toggleAllPageRowsSelected(!!value)
+                  }
+                  aria-label="Select all"
+                />
+              ),
+              cell: ({ row }: { row: any }) => (
+                <Checkbox
+                  className="mx-4"
+                  checked={row.getIsSelected()}
+                  onCheckedChange={(value) => row.toggleSelected(!!value)}
+                  aria-label="Select row"
+                />
+              ),
+              enableSorting: false,
+              enableHiding: false,
+            },
+          ]
+        : []),
+      ...columns,
       {
-        id: "select",
-        header: ({ table }) => (
-          <Checkbox
-            className="mx-4"
-            checked={
-              table.getIsAllPageRowsSelected() ||
-              (table.getIsSomePageRowsSelected() && "indeterminate")
-            }
-            onCheckedChange={(value) =>
-              table.toggleAllPageRowsSelected(!!value)
-            }
-            aria-label="Select all"
-          />
-        ),
-        cell: ({ row }) => (
-          <Checkbox
-            className="mx-4"
-            checked={row.getIsSelected()}
-            onCheckedChange={(value) => row.toggleSelected(!!value)}
-            aria-label="Select row"
-          />
+        id: "actions",
+        header: "Actions",
+        cell: ({ row }: { row: any }) => (
+          <DropdownMenu>
+            <DropdownMenuTrigger asChild>
+              <Button variant="ghost" className="text-center">
+                <DotsHorizontalIcon className="h-4 w-4" />
+              </Button>
+            </DropdownMenuTrigger>
+            <DropdownMenuContent>
+              <DropdownMenuItem
+                className="flex items-center gap-2"
+                onClick={() => handleEdit(row.original)}
+              >
+                <Pencil size={16} />
+                <span>Modifier</span>
+              </DropdownMenuItem>
+              <DropdownMenuItem
+                className="flex items-center gap-2 text-red-500 focus:bg-red-500 hover:bg-red-500"
+                onClick={() => handleDelete(row.original)}
+              >
+                <Trash2 size={16} />
+                <span>Supprimer</span>
+              </DropdownMenuItem>
+            </DropdownMenuContent>
+          </DropdownMenu>
         ),
         enableSorting: false,
         enableHiding: false,
       },
-      ...columns,
     ];
-  }, [columns, showSelection]);
+
+    return extraColumns;
+  }, [columns, showSelection, handleEdit, handleDelete]); // Ajout des dépendances
 
   const table = useReactTable({
     data: filteredData,
-    columns: columnsWithSelection,
+    columns: columnsWithExtras,
     onSortingChange: setSorting,
     getCoreRowModel: getCoreRowModel(),
     getPaginationRowModel: getPaginationRowModel(),
@@ -120,7 +164,7 @@ const DataTable = <T,>({
     <Card className="p-4 bg-white dark:bg-gray-900 shadow-lg rounded-lg">
       <div className="flex items-center justify-between py-4">
         <Input
-          placeholder="Search..."
+          placeholder="Recherche..."
           value={globalFilter}
           onChange={(event) => setGlobalFilter(event.target.value)}
           className="w-80 placeholder:text-gray-400 dark:placeholder:text-gray-500 bg-gray-100 dark:bg-gray-800"
@@ -128,7 +172,7 @@ const DataTable = <T,>({
         <DropdownMenu>
           <DropdownMenuTrigger asChild>
             <Button variant="outline" className="flex items-center">
-              Columns <ChevronDownIcon className="ml-2 h-4 w-4" />
+              Colonnes <ChevronDownIcon className="ml-2 h-4 w-4" />
             </Button>
           </DropdownMenuTrigger>
           <DropdownMenuContent align="end">
@@ -136,14 +180,15 @@ const DataTable = <T,>({
               .getAllColumns()
               .filter((column) => column.getCanHide())
               .map((column) => (
-                <DropdownMenuCheckboxItem
+                <DropdownMenuItem
                   key={column.id}
                   className="capitalize"
-                  checked={column.getIsVisible()}
-                  onCheckedChange={(value) => column.toggleVisibility(!!value)}
+                  onClick={() =>
+                    column.toggleVisibility(!column.getIsVisible())
+                  }
                 >
                   {column.id}
-                </DropdownMenuCheckboxItem>
+                </DropdownMenuItem>
               ))}
           </DropdownMenuContent>
         </DropdownMenu>
@@ -189,7 +234,7 @@ const DataTable = <T,>({
                   colSpan={columns.length}
                   className="h-24 text-center"
                 >
-                  No results.
+                  Aucun résultat.
                 </TableCell>
               </TableRow>
             )}
@@ -198,8 +243,8 @@ const DataTable = <T,>({
       </div>
       <div className="flex items-center justify-between py-4">
         <div className="text-sm text-muted-foreground">
-          {table.getFilteredSelectedRowModel().rows.length} of{" "}
-          {table.getFilteredRowModel().rows.length} row(s) selected.
+          {table.getFilteredSelectedRowModel().rows.length} sur{" "}
+          {table.getFilteredRowModel().rows.length} ligne(s) sélectionnée(s).
         </div>
         <div className="space-x-2">
           <Button
@@ -208,7 +253,7 @@ const DataTable = <T,>({
             onClick={() => table.previousPage()}
             disabled={!table.getCanPreviousPage()}
           >
-            Previous
+            Précédent
           </Button>
           <Button
             variant="outline"
@@ -216,7 +261,7 @@ const DataTable = <T,>({
             onClick={() => table.nextPage()}
             disabled={!table.getCanNextPage()}
           >
-            Next
+            Suivant
           </Button>
         </div>
       </div>

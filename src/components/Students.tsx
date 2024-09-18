@@ -1,6 +1,5 @@
 import React, { useState } from "react";
-import { Trash2, Plus, Pencil } from "lucide-react";
-import { Button } from "./ui/button";
+import { Plus, } from "lucide-react";
 import DataTable from "./common/DataTable";
 import { Student } from "@/types";
 import { Link } from "react-router-dom";
@@ -38,21 +37,6 @@ const columns = [
   {
     accessorKey: "address",
     header: "Adresse",
-  },
-  {
-    accessorFn: (row: Student) => row,
-    id: "actions",
-    cell: () => (
-      <div className="flex items-center gap-4">
-        <Button variant="ghost" className="p-2">
-          <Pencil size={16} />
-        </Button>
-        <Button variant="ghost" className="p-2">
-          <Trash2 className="text-red-600" size={16} />
-        </Button>
-      </div>
-    ),
-    header: "Actions",
   },
 ];
 

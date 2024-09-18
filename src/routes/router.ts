@@ -22,7 +22,7 @@ export const routes: SidebarRoute[] = [
   { path: "/hr", name: "Ressources Humaine", icon: UsersIcon },
   { path: "/schedules", name: "Emploi du temps", icon: CalendarIcon },
   { path: "/finance", name: "Finance", icon: WalletIcon },
-  { path: "/finance", name: "Evenement", icon: Smile },
+  { path: "/events", name: "Evenement", icon: Smile },
   { path: "/material", name: "Patrimoine", icon: BookCheck },
   { path: "/settings", name: "Settings", icon: SettingsIcon },
 ];
