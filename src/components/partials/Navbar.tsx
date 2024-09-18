@@ -111,7 +111,7 @@ const Navbar: React.FC = () => {
           {/* Avatar Utilisateur avec logo de l'école derrière */}
           <div className="relative">
             {/* Avatar de l'école */}
-            <div className="absolute -bottom-1 -right-1 w-5 h-5 rounded-full border-2 border-slate-800 dark:border-white bg-white dark:bg-gray-800">
+            <div className="absolute -bottom-1 -right-1 w-5 h-5 rounded-full border-2 border-slate-100 dark:border-gray-800 bg-white dark:bg-gray-900">
               <Avatar>
                 <AvatarImage src={schoolLogo} alt="school-logo" />
                 <AvatarFallback>SL</AvatarFallback>

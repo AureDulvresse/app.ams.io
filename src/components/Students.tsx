@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Edit, Trash2, Plus } from "lucide-react";
+import { Trash2, Plus, Pencil } from "lucide-react";
 import { Button } from "./ui/button";
 import DataTable from "./common/DataTable";
 import { Student } from "@/types";
@@ -43,11 +43,11 @@ const columns = [
     id: "actions",
     cell: () => (
       <div className="flex items-center gap-4">
-        <Button variant="outline" className="p-2">
-          <Edit size={16} />
+        <Button variant="ghost" className="p-2">
+          <Pencil size={16} />
         </Button>
-        <Button variant="outline" className="p-2">
-          <Trash2 size={16} />
+        <Button variant="ghost" className="p-2">
+          <Trash2 className="text-red-600" size={16} />
         </Button>
       </div>
     ),
