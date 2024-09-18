@@ -4,6 +4,7 @@ import DashboardPage from "./pages/DashboardPage";
 import StudentPage from "./pages/modules/students/StudentPage";
 import StaffPage from "./pages/modules/hr/StaffPage";
 import NotFoundPage from "./pages/NotFoundPage";
+import StudentDetailPage from "./pages/modules/students/DetailsPage";
 
 const router = createBrowserRouter([
   {
@@ -13,6 +14,10 @@ const router = createBrowserRouter([
   {
     path: "/students",
     element: <StudentPage />,
+  },
+  {
+    path: "/students/:id",
+    element: <StudentDetailPage />,
   },
   {
     path: "/hr",
