@@ -38,21 +38,6 @@ const columns = [
     accessorKey: "address",
     header: "Adresse",
   },
-  {
-    accessorFn: (row: Student) => row,
-    id: "actions",
-    cell: () => (
-      <div className="flex items-center gap-4">
-        <Button variant="outline" className="p-2">
-          <Edit size={16} />
-        </Button>
-        <Button variant="outline" className="p-2">
-          <Trash2 size={16} />
-        </Button>
-      </div>
-    ),
-    header: "Actions",
-  },
 ];
 
 const Staff: React.FC = () => {
