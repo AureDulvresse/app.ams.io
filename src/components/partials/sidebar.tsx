@@ -9,7 +9,7 @@ const Sidebar: React.FC = () => {
   const currentPath = location.pathname;
 
   return (
-    <div className="fixed top-0 left-0 w-64 h-full bg-white dark:bg-gray-900 shadow-lg z-50">
+    <div className="fixed top-0 left-0 w-64 h-screen bg-white dark:bg-gray-900 shadow-lg z-50">
       <div className="flex items-center gap-4 border-b p-4">
         <img src={logo} className="w-20 h-auto" alt="logo" />
         <h1 className="text-base font-bold text-teal-400 font-fredoka">
@@ -17,7 +17,8 @@ const Sidebar: React.FC = () => {
         </h1>
       </div>
 
-      <div className="mt-3 px-2 min-h-[20px] overflow-x-hidden">
+      {/* Apply overflow and full height to make the sidebar scrollable */}
+      <div className="mt-3 px-2 h-[calc(100vh-120px)] overflow-y-auto scrollbar-thin scrollbar-thumb-teal-500">
         {routes.map((route) => (
           <NavLink
             key={route.path}
