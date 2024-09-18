@@ -96,7 +96,7 @@ const DataTable = <T,>({
   const handleRowClick = (row: T) => {
     // Logique pour définir l'ID ou tout autre paramètre dynamique
     const id = (row as any).id;
-    navigate(`/path-vers-page/${id}`);
+    navigate(`/students/${id}`);
   };
 
   const columnsWithExtras = React.useMemo(() => {
