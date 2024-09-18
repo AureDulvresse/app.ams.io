@@ -1,5 +1,6 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import * as React from "react";
+import { useNavigate } from "react-router-dom";
 import { ChevronDownIcon, DotsHorizontalIcon } from "@radix-ui/react-icons";
 import {
   ColumnDef,
@@ -31,7 +32,7 @@ import {
 } from "../ui/dropdown-menu";
 import { Card } from "../ui/card";
 import { Checkbox } from "../ui/checkbox";
-import { Pencil, Trash2 } from "lucide-react";
+import { FileUp, Pencil, Trash2 } from "lucide-react";
 
 interface DataTableProps<T> {
   data: T[];
@@ -46,6 +47,9 @@ const DataTable = <T,>({
   filters,
   showSelection = false,
 }: DataTableProps<T>) => {
+
+  const navigate = useNavigate();
+
   const [sorting, setSorting] = React.useState<SortingState>([]);
   const [columnVisibility, setColumnVisibility] =
     React.useState<VisibilityState>({});
@@ -74,6 +78,26 @@ const DataTable = <T,>({
   const handleDelete = React.useCallback((row: T) => {
     console.log("Supprimer la ligne :", row);
   }, []);
+
+  // Fonction pour gérer la suppression des lignes sélectionnées
+  const handleDeleteSelected = React.useCallback(() => {
+    const selectedRows = Object.keys(rowSelection).filter(
+      (key) => rowSelection[key]
+    );
+    console.log("Supprimer les lignes sélectionnées :", selectedRows);
+  }, [rowSelection]);
+
+  // Fonction pour exporter les données
+  const handleExport = React.useCallback(() => {
+    console.log("Exporter les données : ", filteredData);
+    // Logique d'exportation à implémenter (e.g., CSV, PDF)
+  }, [filteredData]);
+
+  const handleRowClick = (row: T) => {
+    // Logique pour définir l'ID ou tout autre paramètre dynamique
+    const id = (row as any).id;
+    navigate(`/path-vers-page/${id}`);
+  };
 
   const columnsWithExtras = React.useMemo(() => {
     const extraColumns: ColumnDef<T>[] = [
@@ -127,7 +151,7 @@ const DataTable = <T,>({
                 <span>Modifier</span>
               </DropdownMenuItem>
               <DropdownMenuItem
-                className="flex items-center gap-2 text-red-500 focus:bg-red-500 hover:bg-red-500"
+                className="flex items-center gap-2 text-red-500 focus:bg-red-500 focus:text-white"
                 onClick={() => handleDelete(row.original)}
               >
                 <Trash2 size={16} />
@@ -142,7 +166,7 @@ const DataTable = <T,>({
     ];
 
     return extraColumns;
-  }, [columns, showSelection, handleEdit, handleDelete]); // Ajout des dépendances
+  }, [columns, showSelection, handleEdit, handleDelete]);
 
   const table = useReactTable({
     data: filteredData,
@@ -169,29 +193,48 @@ const DataTable = <T,>({
           onChange={(event) => setGlobalFilter(event.target.value)}
           className="w-80 placeholder:text-gray-400 dark:placeholder:text-gray-500 bg-gray-100 dark:bg-gray-800"
         />
-        <DropdownMenu>
-          <DropdownMenuTrigger asChild>
-            <Button variant="outline" className="flex items-center">
-              Colonnes <ChevronDownIcon className="ml-2 h-4 w-4" />
-            </Button>
-          </DropdownMenuTrigger>
-          <DropdownMenuContent align="end">
-            {table
-              .getAllColumns()
-              .filter((column) => column.getCanHide())
-              .map((column) => (
-                <DropdownMenuItem
-                  key={column.id}
-                  className="capitalize"
-                  onClick={() =>
-                    column.toggleVisibility(!column.getIsVisible())
-                  }
-                >
-                  {column.id}
-                </DropdownMenuItem>
-              ))}
-          </DropdownMenuContent>
-        </DropdownMenu>
+        <div className="flex items-center space-x-2">
+          <Button
+            variant="outline"
+            className="flex items-center gap-2 border-red-500 text-red-500 hover:text-white hover:bg-red-400 hover:border-red-400"
+            onClick={handleDeleteSelected}
+          >
+            <Trash2 size={14} />
+            <span>Supprimer</span>
+          </Button>
+          <Button
+            variant="outline"
+            className="flex items-center gap-2"
+            onClick={handleExport}
+          >
+            <FileUp size={14} />
+            <span>Exporter</span>
+          </Button>
+
+          <DropdownMenu>
+            <DropdownMenuTrigger asChild>
+              <Button variant="outline" className="flex items-center">
+                Colonnes <ChevronDownIcon className="ml-2 h-4 w-4" />
+              </Button>
+            </DropdownMenuTrigger>
+            <DropdownMenuContent align="end">
+              {table
+                .getAllColumns()
+                .filter((column) => column.getCanHide())
+                .map((column) => (
+                  <DropdownMenuItem
+                    key={column.id}
+                    className="capitalize"
+                    onClick={() =>
+                      column.toggleVisibility(!column.getIsVisible())
+                    }
+                  >
+                    {column.id}
+                  </DropdownMenuItem>
+                ))}
+            </DropdownMenuContent>
+          </DropdownMenu>
+        </div>
       </div>
       <div className="rounded-md overflow-x-auto">
         <Table>
@@ -217,6 +260,8 @@ const DataTable = <T,>({
                 <TableRow
                   key={row.id}
                   data-state={row.getIsSelected() && "selected"}
+                  onClick={() => handleRowClick(row.original)}
+                  className="cursor-pointer"
                 >
                   {row.getVisibleCells().map((cell) => (
                     <TableCell key={cell.id} className="py-2">
