@@ -2,12 +2,10 @@ import * as React from "react";
 import { ChevronDownIcon } from "@radix-ui/react-icons";
 import {
   ColumnDef,
-  ColumnFiltersState,
   SortingState,
   VisibilityState,
   flexRender,
   getCoreRowModel,
-  getFilteredRowModel,
   getPaginationRowModel,
   getSortedRowModel,
   useReactTable,
@@ -35,32 +33,42 @@ import { Card } from "../ui/card";
 interface DataTableProps<T> {
   data: T[];
   columns: ColumnDef<T>[];
-  filters: string;
+  filters: string[]; // Columns to be included in the global search
 }
 
 const DataTable = <T,>({ data, columns, filters }: DataTableProps<T>) => {
   const [sorting, setSorting] = React.useState<SortingState>([]);
-  const [columnFilters, setColumnFilters] = React.useState<ColumnFiltersState>(
-    []
-  );
   const [columnVisibility, setColumnVisibility] =
     React.useState<VisibilityState>({});
   const [rowSelection, setRowSelection] = React.useState({});
+  const [globalFilter, setGlobalFilter] = React.useState(""); // State for the global search filter
+
+  // Function to apply global filter to the data
+  const filteredData = React.useMemo(() => {
+    if (!globalFilter) return data;
+
+    return data.filter((row) =>
+      filters.some((filter) => {
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+        const cellValue = (row as any)[filter];
+        return String(cellValue)
+          .toLowerCase()
+          .includes(globalFilter.toLowerCase());
+      })
+    );
+  }, [data, filters, globalFilter]);
 
   const table = useReactTable({
-    data,
+    data: filteredData,
     columns,
     onSortingChange: setSorting,
-    onColumnFiltersChange: setColumnFilters,
     getCoreRowModel: getCoreRowModel(),
     getPaginationRowModel: getPaginationRowModel(),
     getSortedRowModel: getSortedRowModel(),
-    getFilteredRowModel: getFilteredRowModel(),
     onColumnVisibilityChange: setColumnVisibility,
     onRowSelectionChange: setRowSelection,
     state: {
       sorting,
-      columnFilters,
       columnVisibility,
       rowSelection,
     },
@@ -70,11 +78,9 @@ const DataTable = <T,>({ data, columns, filters }: DataTableProps<T>) => {
     <Card className="p-4 bg-white dark:bg-gray-900 shadow-lg rounded-lg">
       <div className="flex items-center justify-between py-4">
         <Input
-          placeholder="Filter..."
-          value={(table.getColumn(filters)?.getFilterValue() as string) ?? ""}
-          onChange={(event) =>
-            table.getColumn(filters)?.setFilterValue(event.target.value)
-          }
+          placeholder="Search..."
+          value={globalFilter}
+          onChange={(event) => setGlobalFilter(event.target.value)}
           className="w-80 placeholder:text-gray-400 dark:placeholder:text-gray-500 bg-gray-100 dark:bg-gray-800"
         />
         <DropdownMenu>

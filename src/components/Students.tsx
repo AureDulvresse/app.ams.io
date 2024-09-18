@@ -115,7 +115,7 @@ const Students: React.FC = () => {
         </Button>
       </div>
 
-      <DataTable data={students} columns={columns} filters="first_name" />
+      <DataTable data={students} columns={columns} filters={["first_name", "last_name"]} />
     </div>
   );
 };
