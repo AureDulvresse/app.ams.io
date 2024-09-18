@@ -234,7 +234,7 @@ const Students: React.FC = () => {
         </h2>
         <Link
           to={"/"}
-          className="flex items-center gap-2 bg-gradient-to-tr from-teal-400 to-teal-500 px-3 py-2 rounded-md shadow-sm text-white dark:text-gray-950 font-semibold hover:scale-[1.02] transition-all"
+          className="font-inter flex items-center gap-2 bg-gradient-to-tr from-teal-400 to-teal-500 px-3 py-2 rounded-md shadow-sm text-white dark:text-gray-950 font-semibold hover:scale-[1.02] transition-all"
         >
           <Plus className="font-semibold" size={16} />
           Ajouter un étudiant
