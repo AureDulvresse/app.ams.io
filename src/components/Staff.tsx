@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Edit, Trash2, Plus } from "lucide-react";
+import { Plus } from "lucide-react";
 import { Button } from "./ui/button";
 import DataTable from "./common/DataTable";
 import { Student } from "@/types";
@@ -27,8 +27,8 @@ const columns = [
     header: "Sexe",
   },
   {
-    accessorKey: "class_id",
-    header: "Classe",
+    accessorKey: "phone",
+    header: "Téléphone",
   },
   {
     accessorKey: "email",
@@ -39,6 +39,8 @@ const columns = [
     header: "Adresse",
   },
 ];
+
+const filters = ["first_name", "last_name", "email"];
 
 const Staff: React.FC = () => {
   // Exemple de données
@@ -100,7 +102,12 @@ const Staff: React.FC = () => {
         </Button>
       </div>
 
-      <DataTable data={students} columns={columns} filters="first_name" />
+      <DataTable
+        data={students}
+        columns={columns}
+        filters={filters}
+        module_name="staff"
+      />
     </div>
   );
 };

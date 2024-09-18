@@ -195,14 +195,18 @@ const DataTable = <T,>({
           className="w-80 placeholder:text-gray-400 dark:placeholder:text-gray-500 bg-gray-100 dark:bg-gray-800"
         />
         <div className="flex items-center space-x-2">
-          <Button
-            variant="outline"
-            className="flex items-center gap-2 border-red-500 text-red-500 hover:text-white hover:bg-red-400 hover:border-red-400"
-            onClick={handleDeleteSelected}
-          >
-            <Trash2 size={14} />
-            <span>Supprimer</span>
-          </Button>
+          {showSelection ? (
+            <Button
+              variant="outline"
+              className="flex items-center gap-2 border-red-500 text-red-500 hover:text-white hover:bg-red-400 hover:border-red-400"
+              onClick={handleDeleteSelected}
+            >
+              <Trash2 size={14} />
+              <span>Supprimer</span>
+            </Button>
+          ) : (
+            ""
+          )}
           <Button
             variant="outline"
             className="flex items-center gap-2"
