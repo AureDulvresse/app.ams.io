@@ -1,6 +1,6 @@
 import Navbar from "@/components/partials/Navbar";
 import Sidebar from "@/components/partials/Sidebar";
-import Staff from "@/components/Staff";
+import Staff from "@/components/modules/hr/Staff";
 import React from "react";
 
 const StudentPage: React.FC = () => {

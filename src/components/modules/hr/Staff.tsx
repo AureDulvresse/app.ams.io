@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { Plus } from "lucide-react";
-import DataTable from "./common/DataTable";
+import DataTable from "../../common/DataTable";
 import { Student } from "@/types";
 import { Link } from "react-router-dom";
 
