@@ -3,6 +3,7 @@ import { ThemeProvider } from "@/hooks/theme-provider";
 import DashboardPage from "./pages/DashboardPage";
 import StudentPage from "./pages/modules/StudentPage";
 import StaffPage from "./pages/modules/StaffPage";
+import NotFoundPage from "./pages/NotFoundPage";
 
 const router = createBrowserRouter([
   {
@@ -16,6 +17,10 @@ const router = createBrowserRouter([
   {
     path: "/hr",
     element: <StaffPage />,
+  },
+  {
+    path: "*",
+    element: <NotFoundPage />,
   },
 ]);
 
