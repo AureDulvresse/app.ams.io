@@ -29,19 +29,26 @@ import {
   DropdownMenuTrigger,
 } from "../ui/dropdown-menu";
 import { Card } from "../ui/card";
+import { Checkbox } from "../ui/checkbox"; // Import Checkbox component
 
 interface DataTableProps<T> {
   data: T[];
   columns: ColumnDef<T>[];
   filters: string[]; // Columns to be included in the global search
+  showSelection?: boolean; // New prop to control the visibility of selection checkboxes
 }
 
-const DataTable = <T,>({ data, columns, filters }: DataTableProps<T>) => {
+const DataTable = <T,>({
+  data,
+  columns,
+  filters,
+  showSelection = false,
+}: DataTableProps<T>) => {
   const [sorting, setSorting] = React.useState<SortingState>([]);
   const [columnVisibility, setColumnVisibility] =
     React.useState<VisibilityState>({});
   const [rowSelection, setRowSelection] = React.useState({});
-  const [globalFilter, setGlobalFilter] = React.useState(""); // State for the global search filter
+  const [globalFilter, setGlobalFilter] = React.useState("");
 
   // Function to apply global filter to the data
   const filteredData = React.useMemo(() => {
@@ -58,9 +65,42 @@ const DataTable = <T,>({ data, columns, filters }: DataTableProps<T>) => {
     );
   }, [data, filters, globalFilter]);
 
+  // Conditionally add the selection column
+  const columnsWithSelection = React.useMemo(() => {
+    if (!showSelection) return columns;
+
+    return [
+      {
+        id: "select",
+        header: ({ table }) => (
+          <Checkbox
+            checked={
+              table.getIsAllPageRowsSelected() ||
+              (table.getIsSomePageRowsSelected() && "indeterminate")
+            }
+            onCheckedChange={(value) =>
+              table.toggleAllPageRowsSelected(!!value)
+            }
+            aria-label="Select all"
+          />
+        ),
+        cell: ({ row }) => (
+          <Checkbox
+            checked={row.getIsSelected()}
+            onCheckedChange={(value) => row.toggleSelected(!!value)}
+            aria-label="Select row"
+          />
+        ),
+        enableSorting: false,
+        enableHiding: false,
+      },
+      ...columns,
+    ];
+  }, [columns, showSelection]);
+
   const table = useReactTable({
     data: filteredData,
-    columns,
+    columns: columnsWithSelection,
     onSortingChange: setSorting,
     getCoreRowModel: getCoreRowModel(),
     getPaginationRowModel: getPaginationRowModel(),
