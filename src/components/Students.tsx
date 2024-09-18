@@ -1,9 +1,8 @@
 import React, { useState } from "react";
-import { Plus, } from "lucide-react";
+import { Plus } from "lucide-react";
 import DataTable from "./common/DataTable";
 import { Student } from "@/types";
 import { Link } from "react-router-dom";
-
 
 const columns = [
   {
@@ -180,7 +179,7 @@ const Students: React.FC = () => {
       class_id: 1,
       school_id: 1,
     },
-     {
+    {
       id: 10,
       first_name: "John",
       last_name: "Doe",
@@ -247,6 +246,7 @@ const Students: React.FC = () => {
         columns={columns}
         filters={filters}
         showSelection={true}
+        module_name="students"
       />
     </div>
   );

@@ -39,6 +39,7 @@ interface DataTableProps<T> {
   columns: ColumnDef<T>[];
   filters: string[];
   showSelection?: boolean;
+  module_name: string;
 }
 
 const DataTable = <T,>({
@@ -46,8 +47,8 @@ const DataTable = <T,>({
   columns,
   filters,
   showSelection = false,
+  module_name,
 }: DataTableProps<T>) => {
-
   const navigate = useNavigate();
 
   const [sorting, setSorting] = React.useState<SortingState>([]);
@@ -96,7 +97,7 @@ const DataTable = <T,>({
   const handleRowClick = (row: T) => {
     // Logique pour définir l'ID ou tout autre paramètre dynamique
     const id = (row as any).id;
-    navigate(`/students/${id}`);
+    navigate(`/${module_name}/${id}`);
   };
 
   const columnsWithExtras = React.useMemo(() => {
