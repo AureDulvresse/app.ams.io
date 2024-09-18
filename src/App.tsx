@@ -1,8 +1,8 @@
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import { ThemeProvider } from "@/hooks/theme-provider";
 import DashboardPage from "./pages/DashboardPage";
-import StudentPage from "./pages/modules/StudentPage";
-import StaffPage from "./pages/modules/StaffPage";
+import StudentPage from "./pages/modules/students/StudentPage";
+import StaffPage from "./pages/modules/hr/StaffPage";
 import NotFoundPage from "./pages/NotFoundPage";
 
 const router = createBrowserRouter([
