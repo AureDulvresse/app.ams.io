@@ -258,7 +258,12 @@ const Students: React.FC = () => {
         </Link>
       </div>
 
-      <DataTable data={students} columns={columns} filters={filters} />
+      <DataTable
+        data={students}
+        columns={columns}
+        filters={filters}
+        showSelection={true}
+      />
     </div>
   );
 };
