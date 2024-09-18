@@ -4,7 +4,7 @@ import { Button } from "./ui/button";
 import DataTable from "./common/DataTable";
 import { Student } from "@/types";
 
-// Définition des colonnes pour DataTable
+
 const columns = [
   {
     accessorKey: "first_name",
@@ -54,6 +54,8 @@ const columns = [
     header: "Actions",
   },
 ];
+
+const filters = ["first_name", "last_name"];
 
 const Students: React.FC = () => {
   // Exemple de données
@@ -115,7 +117,7 @@ const Students: React.FC = () => {
         </Button>
       </div>
 
-      <DataTable data={students} columns={columns} filters={["first_name", "last_name"]} />
+      <DataTable data={students} columns={columns} filters={filters} />
     </div>
   );
 };
