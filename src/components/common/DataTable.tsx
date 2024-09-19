@@ -198,7 +198,7 @@ const DataTable = <T,>({
           {showSelection ? (
             <Button
               variant="outline"
-              className="flex items-center gap-2 border-red-500 text-red-500 hover:text-white hover:bg-red-400 hover:border-red-400"
+              className="flex items-center gap-2 bg-white dark:bg-gray-900 border-red-500 text-red-500 hover:text-white hover:bg-red-400 hover:border-red-400"
               onClick={handleDeleteSelected}
             >
               <Trash2 size={14} />
