@@ -2,7 +2,7 @@ import { Card } from "@/components/ui/card";
 import { Student } from "@/types";
 import React, { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
-import { User, Mail, Phone, Calendar, Home } from "lucide-react";
+import { User, Mail, Phone } from "lucide-react";
 
 // Exemple de données fictives conformes à l'interface Student
 const exampleStudent = {
@@ -22,7 +22,7 @@ const exampleStudent = {
   school_id: 202,
 };
 
-const StudentDetailPage = () => {
+const StudentDetailPage : React.FC = () => {
   const { studentId } = useParams();
   const [student, setStudent] = useState<Student>();
   const [loading, setLoading] = useState(true);
