@@ -209,7 +209,7 @@ const DataTable = <T,>({
           )}
           <Button
             variant="ghost"
-            className="flex items-center gap-2 border hover:bg-purple-400"
+            className="flex items-center gap-2 border"
             onClick={handleExport}
           >
             <FileUp size={14} />
