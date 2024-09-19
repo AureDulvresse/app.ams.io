@@ -2,9 +2,21 @@ import { Card } from "@/components/ui/card";
 import { Student } from "@/types";
 import React, { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
-import { File, IdCardIcon, Mail, PenLineIcon, PrinterIcon, User2 } from "lucide-react";
+import {
+  File,
+  IdCardIcon,
+  Mail,
+  PenLineIcon,
+  PrinterIcon,
+  User2,
+} from "lucide-react";
 import { Button } from "@/components/ui/button";
-import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from "@/components/ui/dropdown-menu";
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu";
 import Modal from "@/components/common/Modal";
 import TutorForm from "@/components/forms/TutorForm";
 
@@ -65,22 +77,22 @@ const StudentDetailPage: React.FC = () => {
 
   const handlePrintPDF = (): void => {
     throw new Error("Function not implemented.");
-  }
+  };
 
   const handlePrintStudentCard = (): void => {
     throw new Error("Function not implemented.");
-  }
+  };
 
   const openTutorForm = (): void => {
     setIsTutorFormOpen(!isTutorFormOpen);
-  }
+  };
 
   const closeModal = (): void => {
     setIsTutorFormOpen(false);
-  }
+  };
 
   return (
-    <div className="max-w-5xl mx-auto p-6 space-y-6">
+    <div className="mx-auto p-6 space-y-6">
       <Card className="flex items-start justify-between p-6 bg-gradient-to-r from-indigo-500 to-indigo-600 text-white shadow-lg rounded-lg">
         <div className="flex items-center space-x-4">
           <img
@@ -105,11 +117,9 @@ const StudentDetailPage: React.FC = () => {
           </Button>
           <DropdownMenu>
             <DropdownMenuTrigger asChild>
-              <Button variant="ghost" className="text-center">
-                <Button variant={"ghost"} className="flex items-center gap-2">
-                  <PrinterIcon size={14} />
-                  Imprimer
-                </Button>
+              <Button variant={"ghost"} className="flex items-center gap-2">
+                <PrinterIcon size={14} />
+                Imprimer
               </Button>
             </DropdownMenuTrigger>
             <DropdownMenuContent>
@@ -194,27 +204,31 @@ const StudentDetailPage: React.FC = () => {
             </li>
           </ul>
         </Card>
+
+        {/* Overlay */}
+        {isTutorFormOpen && (
+          <div
+            className="fixed inset-0 bg-transparent z-40"
+            onClick={closeModal}
+          ></div>
+        )}
+
+        {/* Modal Formulaire tuteur */}
+        {isTutorFormOpen && (
+          <Modal
+            isOpen={!!isTutorFormOpen}
+            onClose={() => setIsTutorFormOpen(false)}
+            title="Modification"
+            description="Modifier les informations du tuteur."
+            content={<TutorForm />}
+            footer={
+              <p className="text-[11px] text-gray-400">
+                Veuillez à bien remplir le formulaire
+              </p>
+            }
+          />
+        )}
       </div>
-
-      {/* Overlay */}
-      {isTutorFormOpen && (
-        <div
-          className="fixed inset-0 bg-transparent z-40"
-          onClick={closeModal}
-        ></div>
-      )}
-
-      {/* Modal Formulaire tuteur */}
-      {isTutorFormOpen && (
-        <Modal
-          isOpen={!!isTutorFormOpen}
-          onClose={() => setIsTutorFormOpen(false)}
-          title="Modification"
-          description="Modifier les informations du tuteur."
-          content={<TutorForm />}
-          footer={<p className="text-[11px] text-gray-400">Veuillez à bien remplir le formulaire</p>}
-        />
-      )}
     </div>
   );
 };
