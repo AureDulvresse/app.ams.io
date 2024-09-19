@@ -119,7 +119,7 @@ const Navbar: React.FC = () => {
             </div>
 
             {/* Avatar de l'utilisateur */}
-            <div className="w-10 h-10 rounded-full border-2 border-purple-400 dark:border-purple-500">
+            <div className="w-10 h-10 rounded-full border-2 border-indigo-400 dark:border-indigo-500">
               <Avatar>
                 <AvatarImage src={logo} alt="profile" />
                 <AvatarFallback>U</AvatarFallback>
@@ -139,7 +139,7 @@ const Navbar: React.FC = () => {
 
       {/* Boîte de notifications */}
       {isNotificationsOpen && (
-        <aside className="fixed right-0 top-0 h-full w-64 bg-white dark:bg-gray-800 shadow-2xl p-6 rounded-l-lg transition-transform transform translate-x-0 border-l-4 border-purple-500 dark:border-purple-400 z-50">
+        <aside className="fixed right-0 top-0 h-full w-64 bg-white dark:bg-gray-800 shadow-2xl p-6 rounded-l-lg transition-transform transform translate-x-0 border-l-4 border-indigo-500 dark:border-indigo-400 z-50">
           <h2 className="text-lg font-fredoka font-semibold mb-4 text-gray-800 dark:text-gray-100">
             Notifications
           </h2>
@@ -147,7 +147,7 @@ const Navbar: React.FC = () => {
             {notifications.map((notification, index) => (
               <li
                 key={index}
-                className="relative flex items-center justify-between bg-gray-100 dark:bg-gray-700 px-4 py-2 rounded-lg shadow-sm hover:bg-purple-50 dark:hover:bg-purple-900 transition-all"
+                className="relative flex items-center justify-between bg-gray-100 dark:bg-gray-700 px-4 py-2 rounded-lg shadow-sm hover:bg-indigo-50 dark:hover:bg-indigo-900 transition-all"
               >
                 <span
                   className="text-gray-600 dark:text-gray-300 cursor-pointer"
@@ -170,7 +170,7 @@ const Navbar: React.FC = () => {
 
       {/* Boîte de messagerie */}
       {isMessagesOpen && (
-        <aside className="fixed right-0 top-0 h-full w-64 bg-white dark:bg-gray-800 shadow-2xl p-6 rounded-l-lg transition-transform transform translate-x-0 border-l-4 border-purple-500 dark:border-purple-400 z-50">
+        <aside className="fixed right-0 top-0 h-full w-64 bg-white dark:bg-gray-800 shadow-2xl p-6 rounded-l-lg transition-transform transform translate-x-0 border-l-4 border-indigo-500 dark:border-indigo-400 z-50">
           <h2 className="text-lg font-fredoka font-semibold mb-4 text-gray-800 dark:text-gray-100">
             Messages
           </h2>
@@ -178,7 +178,7 @@ const Navbar: React.FC = () => {
             {messages.map((message, index) => (
               <li
                 key={index}
-                className="relative flex items-center justify-between bg-gray-100 dark:bg-gray-700 px-4 py-2 rounded-lg shadow-sm hover:bg-purple-50 dark:hover:bg-purple-900 transition-all"
+                className="relative flex items-center justify-between bg-gray-100 dark:bg-gray-700 px-4 py-2 rounded-lg shadow-sm hover:bg-indigo-50 dark:hover:bg-indigo-900 transition-all"
               >
                 <span className="text-gray-600 dark:text-gray-300 cursor-pointer">
                   {message}
@@ -207,7 +207,7 @@ const Navbar: React.FC = () => {
           footer={
             <Button
               onClick={() => setSelectedNotification(null)}
-              className="bg-purple-500 border-purple-400 hover:bg-purple-400"
+              className="bg-indigo-500 border-indigo-400 hover:bg-indigo-400"
             >
               Close
             </Button>
