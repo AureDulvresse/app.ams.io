@@ -1,10 +1,10 @@
 import React from "react";
 
 import Navbar from "@/components/partials/Navbar";
-import Dashboard from "@/components/Dashboard";
+import Dashboard from "@/components/modules/Dashboard";
 import Sidebar from "@/components/partials/Sidebar";
 
-const DashboardPage : React.FC = () => {
+const DashboardPage: React.FC = () => {
   return (
     <div className="flex min-h-screen">
       <Sidebar />

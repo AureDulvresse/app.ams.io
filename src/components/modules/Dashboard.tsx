@@ -1,13 +1,13 @@
 import React from "react";
-import FiliereChart from "./common/FiliereChart";
-import FinancialChart from "./common/FinancialChart";
-import ActivitySummary from "./common/ActivitySummery";
+import FiliereChart from "../common/FiliereChart";
+import FinancialChart from "../common/FinancialChart";
+import ActivitySummary from "../common/ActivitySummery";
 import {
   GraduationCap as GraduationCapIcon,
   Users2 as UsersIcon,
   Wallet as WalletIcon,
 } from "lucide-react";
-import StatCard from "./common/StatCard";
+import StatCard from "../common/StatCard";
 
 const Dashboard: React.FC = () => {
   return (
@@ -33,7 +33,6 @@ const Dashboard: React.FC = () => {
           icon={WalletIcon}
           unity="XAF"
         />
-
       </div>
 
       {/* Charts */}
