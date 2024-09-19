@@ -61,7 +61,7 @@ const StudentDetailPage : React.FC = () => {
   return (
     <div className="max-w-5xl mx-auto p-6 space-y-6">
       {/* Student Profile Header */}
-      <Card className="flex items-center p-6 space-x-4 bg-gradient-to-r from-teal-500 to-purple-600 text-white shadow-lg rounded-lg">
+      <Card className="flex items-center p-6 space-x-4 bg-gradient-to-r from-purple-500 to-purple-600 text-white shadow-lg rounded-lg">
         <img
           src={student.picture}
           alt={`${student.first_name} ${student.last_name} Profile`}
@@ -79,9 +79,9 @@ const StudentDetailPage : React.FC = () => {
 
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
         {/* Informations Personnelles */}
-        <Card className="p-6 bg-white dark:bg-gray-800 shadow-lg rounded-lg">
+        <Card className="p-6 bg-white dark:bg-gray-900 shadow-lg rounded-lg">
           <h2 className="flex items-center text-xl font-semibold mb-4">
-            <User className="text-blue-600 mr-2" /> Informations Personnelles
+            <User className="text-purple-500 mr-2" /> Informations Personnelles
           </h2>
           <ul className="space-y-2">
             <li>
@@ -97,9 +97,9 @@ const StudentDetailPage : React.FC = () => {
         </Card>
 
         {/* Informations de Contact */}
-        <Card className="p-6 bg-white dark:bg-gray-800 shadow-lg rounded-lg">
+        <Card className="p-6 bg-white dark:bg-gray-900 shadow-lg rounded-lg">
           <h2 className="flex items-center text-xl font-semibold mb-4">
-            <Mail className="text-blue-600 mr-2" /> Informations de Contact
+            <Mail className="text-purple-500 mr-2" /> Informations de Contact
           </h2>
           <ul className="space-y-2">
             <li>
@@ -118,9 +118,9 @@ const StudentDetailPage : React.FC = () => {
         </Card>
 
         {/* Informations du Tuteur */}
-        <Card className="md:col-span-2 p-6 bg-white dark:bg-gray-800 shadow-lg rounded-lg">
+        <Card className="md:col-span-2 p-6 bg-white dark:bg-gray-900 shadow-lg rounded-lg">
           <h2 className="flex items-center text-xl font-semibold mb-4">
-            <User className="text-blue-600 mr-2" /> Informations du Tuteur
+            <User className="text-purple-500 mr-2" /> Informations du Tuteur
           </h2>
           <ul className="space-y-2">
             <li>
