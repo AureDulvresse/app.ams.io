@@ -98,12 +98,12 @@ const Staff: React.FC = () => {
   return (
     <div className="p-6">
       <div className="flex justify-between items-center mb-6">
-        <h2 className="text-3xl font-semibold font-fredoka text-purple-400">
+        <h2 className="text-3xl font-semibold font-fredoka text-indigo-500">
           Ressources Humaine
         </h2>
         <Link
           to={"/"}
-          className="font-inter flex items-center gap-2 bg-gradient-to-tr from-purple-400 to-purple-500 px-3 py-2 rounded-md shadow-sm text-white dark:text-gray-950 font-semibold hover:scale-[1.02] transition-all"
+          className="font-inter flex items-center gap-2 bg-gradient-to-tr from-indigo-400 to-indigo-500 px-3 py-2 rounded-md shadow-sm text-white dark:text-gray-950 font-semibold hover:scale-[1.02] transition-all"
         >
           <Plus className="font-semibold" size={16} />
           Ajouter un personnel
