@@ -62,7 +62,7 @@ const StudentDetailPage: React.FC = () => {
   return (
     <div className="max-w-5xl mx-auto p-6 space-y-6">
       {/* Student Profile Header */}
-      <Card className="flex justify-between p-6 bg-gradient-to-r from-purple-500 to-purple-600 text-white shadow-lg rounded-lg">
+      <Card className="flex justify-between p-6 bg-gradient-to-r from-indigo-500 to-indigo-600 text-white shadow-lg rounded-lg">
         <div className="flex items-center space-x-4">
           <img
             src={student.picture}
@@ -87,7 +87,7 @@ const StudentDetailPage: React.FC = () => {
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
         {/* Informations Personnelles */}
         <Card className="p-6 bg-white dark:bg-gray-900 shadow-lg rounded-lg">
-          <h2 className="flex items-center font-bold mb-4 text-purple-500">
+          <h2 className="flex items-center font-bold mb-4 text-indigo-500">
             <User2 className=" mr-2" /> Informations Personnelles
           </h2>
           <ul className="space-y-2">
@@ -107,7 +107,7 @@ const StudentDetailPage: React.FC = () => {
 
         {/* Informations de Contact */}
         <Card className="p-6 bg-white dark:bg-gray-900 shadow-lg rounded-lg">
-          <h2 className="flex items-center font-bold mb-4 text-purple-500">
+          <h2 className="flex items-center font-bold mb-4 text-indigo-500">
             <Mail className="mr-2" /> Informations de Contact
           </h2>
           <ul className="space-y-2">
@@ -123,7 +123,7 @@ const StudentDetailPage: React.FC = () => {
 
         {/* Informations du Tuteur */}
         <Card className="md:col-span-2 p-6 bg-white dark:bg-gray-900 shadow-lg rounded-lg">
-          <h2 className="flex items-center font-bold mb-4 text-purple-600">
+          <h2 className="flex items-center font-bold mb-4 text-indigo-600">
             <User2 className="mr-2" /> Informations du Tuteur
           </h2>
           <ul className="space-y-2">
