@@ -209,7 +209,7 @@ const DataTable = <T,>({
           )}
           <Button
             variant="ghost"
-            className="flex items-center gap-2 border"
+            className="flex items-center gap-2 border hover:bg-gray-800"
             onClick={handleExport}
           >
             <FileUp size={14} />
@@ -218,11 +218,17 @@ const DataTable = <T,>({
 
           <DropdownMenu>
             <DropdownMenuTrigger asChild>
-              <Button variant="ghost" className="flex items-center border">
+              <Button
+                variant="ghost"
+                className="flex items-center border hover:bg-gray-800"
+              >
                 Colonnes <ChevronDownIcon className="ml-2 h-4 w-4" />
               </Button>
             </DropdownMenuTrigger>
-            <DropdownMenuContent className="bg-gray-900" align="end">
+            <DropdownMenuContent
+              className="bg-white dark:bg-gray-800"
+              align="end"
+            >
               {table
                 .getAllColumns()
                 .filter((column) => column.getCanHide())
