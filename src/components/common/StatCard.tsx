@@ -21,13 +21,13 @@ const StatCard: React.FC<StatCardProps> = ({
       <CardContent>
         <h3 className="text-xl text-gray-500 font-semibold mb-2">{libelle}</h3>
         <div className="flex items-center justify-between">
-          <p className="text-teal-500">
+          <p className="text-purple-500">
             <span className="text-3xl font-bold">{data} </span>
             <span className="text-gray-400 dark:text-gray-700 text-md">
               {unity}
             </span>
           </p>
-          <Icon className="text-teal-500" size={34} />
+          <Icon className="text-purple-500" size={34} />
         </div>
       </CardContent>
     </Card>
