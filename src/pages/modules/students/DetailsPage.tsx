@@ -5,11 +5,10 @@ import StudentDetail from "@/components/modules/students/StudentDetail";
 import DynamicBreadcrumb from "@/components/common/DynamicBreadcrumb";
 
 
-// Définir les éléments de fil d'Ariane pour cette page
 const breadcrumbItems = [
-  { href: "/", label: "Home" },
-  { href: "/students", label: "Students" },
-  { label: "Student Detail", isCurrent: true },
+  { href: "/", label: "Accueil" },
+  { href: "/students", label: "Etudiant" },
+  { label: "Information Etudiant", isCurrent: true },
 ];
 
 const StudentDetailPage: React.FC = () => {
