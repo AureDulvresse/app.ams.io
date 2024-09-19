@@ -37,7 +37,7 @@ const Modal: React.FC<ModalProps> = ({
           {footer ? (
             footer
           ) : (
-            <Button type="button" onClick={onClose} className="bg-purple-500">
+            <Button type="button" onClick={onClose} className="bg-indigo-500">
               Close
             </Button>
           )}
