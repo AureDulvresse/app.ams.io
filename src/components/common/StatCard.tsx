@@ -17,15 +17,19 @@ const StatCard: React.FC<StatCardProps> = ({
   unity,
 }) => {
   return (
-    <Card className="py-4 hover:shadow-lg transition-shadow duration-200 ease-in-out bg-white  dark:bg-gray-900">
+    <Card className="py-4 hover:shadow-lg transition-shadow duration-200 ease-in-out bg-white dark:bg-gray-900">
       <CardContent>
         <h3 className="text-xl text-gray-500 font-semibold mb-2">{libelle}</h3>
         <div className="flex items-center justify-between">
           <p className="text-indigo-500">
-            <span className="text-3xl font-bold">{data} </span>
-            <span className="text-gray-400 dark:text-gray-700 text-md">
-              {unity}
-            </span>
+            <span className="text-3xl font-bold font-inter">{data} </span>
+            {unity ? (
+              <span className="text-gray-400 dark:text-gray-700 text-md">
+                {unity}
+              </span>
+            ) : (
+              ""
+            )}
           </p>
           <Icon className="text-indigo-500" size={34} />
         </div>
