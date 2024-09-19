@@ -10,6 +10,7 @@ export interface Student {
   email: string;
   guardian_name: string;
   guardian_phone: string;
+  picture: string;
   class_id: number;
   school_id: number;
 }
