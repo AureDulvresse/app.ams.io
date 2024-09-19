@@ -139,15 +139,15 @@ const Navbar: React.FC = () => {
 
       {/* Boîte de notifications */}
       {isNotificationsOpen && (
-        <aside className="fixed right-0 top-0 h-full w-64 bg-white dark:bg-gray-800 shadow-2xl p-6 rounded-l-lg transition-transform transform translate-x-0 border-l-4 border-indigo-500 dark:border-indigo-400 z-50">
-          <h2 className="text-lg font-fredoka font-semibold mb-4 text-gray-800 dark:text-gray-100">
+        <aside className="fixed right-0 top-0 h-full w-64 bg-white dark:bg-gray-900 shadow-2xl p-6 rounded-l-lg transition-transform transform translate-x-0 border-l-4 border-indigo-500 dark:border-indigo-400 z-50">
+          <h2 className="text-lg font-fredoka font-semibold mb-4 text-gray-900 dark:text-gray-100">
             Notifications
           </h2>
           <ul className="space-y-4">
             {notifications.map((notification, index) => (
               <li
                 key={index}
-                className="relative flex items-center justify-between bg-gray-100 dark:bg-gray-700 px-4 py-2 rounded-lg shadow-sm hover:bg-indigo-50 dark:hover:bg-indigo-900 transition-all"
+                className="relative flex items-center justify-between bg-gray-100 dark:bg-gray-800 px-4 py-2 rounded-lg shadow-sm hover:bg-indigo-50 dark:hover:bg-indigo-900 transition-all"
               >
                 <span
                   className="text-gray-600 dark:text-gray-300 cursor-pointer"
@@ -170,15 +170,15 @@ const Navbar: React.FC = () => {
 
       {/* Boîte de messagerie */}
       {isMessagesOpen && (
-        <aside className="fixed right-0 top-0 h-full w-64 bg-white dark:bg-gray-800 shadow-2xl p-6 rounded-l-lg transition-transform transform translate-x-0 border-l-4 border-indigo-500 dark:border-indigo-400 z-50">
-          <h2 className="text-lg font-fredoka font-semibold mb-4 text-gray-800 dark:text-gray-100">
+        <aside className="fixed right-0 top-0 h-full w-64 bg-white dark:bg-gray-900 shadow-2xl p-6 rounded-l-lg transition-transform transform translate-x-0 border-l-4 border-indigo-500 dark:border-indigo-400 z-50">
+          <h2 className="text-lg font-fredoka font-semibold mb-4 text-gray-900 dark:text-gray-100">
             Messages
           </h2>
           <ul className="space-y-4">
             {messages.map((message, index) => (
               <li
                 key={index}
-                className="relative flex items-center justify-between bg-gray-100 dark:bg-gray-700 px-4 py-2 rounded-lg shadow-sm hover:bg-indigo-50 dark:hover:bg-indigo-900 transition-all"
+                className="relative flex items-center justify-between bg-gray-100 dark:bg-gray-800 px-4 py-2 rounded-lg shadow-sm hover:bg-indigo-50 dark:hover:bg-indigo-900 transition-all"
               >
                 <span className="text-gray-600 dark:text-gray-300 cursor-pointer">
                   {message}
