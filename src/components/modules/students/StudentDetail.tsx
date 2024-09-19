@@ -2,8 +2,9 @@ import { Card } from "@/components/ui/card";
 import { Student } from "@/types";
 import React, { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
-import { Mail, PenLineIcon, PrinterIcon, User2 } from "lucide-react";
+import { File, IdCardIcon, Mail, PenLineIcon, PrinterIcon, User2 } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from "@/components/ui/dropdown-menu";
 
 // Exemple de données fictives conformes à l'interface Student
 const exampleStudent = {
@@ -59,6 +60,14 @@ const StudentDetailPage: React.FC = () => {
     return <div>Aucun étudiant trouvé.</div>;
   }
 
+  function handlePrintPDF(): void {
+    throw new Error("Function not implemented.");
+  }
+
+  function handlePrintStudentCard(): void {
+    throw new Error("Function not implemented.");
+  }
+
   return (
     <div className="max-w-5xl mx-auto p-6 space-y-6">
       <Card className="flex items-start justify-between p-6 bg-gradient-to-r from-indigo-500 to-indigo-600 text-white shadow-lg rounded-lg">
@@ -83,10 +92,32 @@ const StudentDetailPage: React.FC = () => {
             <PenLineIcon size={14} />
             Modifier informations
           </Button>
-          <Button variant={"ghost"} className="flex items-center gap-2">
-            <PrinterIcon size={14} />
-            Imprimer
-          </Button>
+          <DropdownMenu>
+            <DropdownMenuTrigger asChild>
+              <Button variant="ghost" className="text-center">
+                <Button variant={"ghost"} className="flex items-center gap-2">
+                  <PrinterIcon size={14} />
+                  Imprimer
+                </Button>
+              </Button>
+            </DropdownMenuTrigger>
+            <DropdownMenuContent>
+              <DropdownMenuItem
+                className="flex items-center gap-2"
+                onClick={() => handlePrintStudentCard()}
+              >
+                <IdCardIcon size={16} />
+                <span>Carte Etudiante</span>
+              </DropdownMenuItem>
+              <DropdownMenuItem
+                className="flex items-center gap-2"
+                onClick={() => handlePrintPDF()}
+              >
+                <File size={16} />
+                <span>Format PDF</span>
+              </DropdownMenuItem>
+            </DropdownMenuContent>
+          </DropdownMenu>
         </div>
       </Card>
 

@@ -9,6 +9,7 @@ import {
   Smile as SmileIcon,
   Computer as ComputerIcon,
   Settings as SettingsIcon,
+  NotebookPenIcon,
 } from "lucide-react";
 
 export interface SidebarRoute {
@@ -22,6 +23,7 @@ export const routes: SidebarRoute[] = [
   { path: "/students", name: "Gestion étudiant", icon: GraduationCapIcon },
   { path: "/courses", name: "Gestion cours", icon: SwatchBookIcon },
   { path: "/schedules", name: "Emploi du temps", icon: CalendarIcon },
+  { path: "/performances", name: "Performances academique", icon: NotebookPenIcon },
   { path: "/hr", name: "Ressources Humaine", icon: UsersIcon },
   { path: "/finance", name: "Finance", icon: WalletIcon },
   { path: "/events", name: "Evenement", icon: SmileIcon },
