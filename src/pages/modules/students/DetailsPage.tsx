@@ -7,7 +7,7 @@ import DynamicBreadcrumb from "@/components/common/DynamicBreadcrumb";
 
 const breadcrumbItems = [
   { href: "/", label: "Accueil" },
-  { href: "/students", label: "Etudiant" },
+  { href: "/students", label: "Gestion Etudiant" },
   { label: "Information Etudiant", isCurrent: true },
 ];
 

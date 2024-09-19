@@ -3,6 +3,11 @@ import Sidebar from "@/components/partials/Sidebar";
 import Students from "@/components/modules/students/Students";
 import React from "react";
 
+const breadcrumbItems = [
+  { href: "/", label: "Accueil" },
+  { label: "Gestion Etudiant", isCurrent: true },
+];
+
 const StudentPage: React.FC = () => {
   return (
     <div className="flex min-h-screen">
