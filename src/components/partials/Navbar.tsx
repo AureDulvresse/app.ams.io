@@ -3,11 +3,11 @@ import { Input } from "../ui/input";
 import { Avatar } from "@radix-ui/react-avatar";
 import { AvatarFallback, AvatarImage } from "../ui/avatar";
 import { Search, Bell, MessageCircle, Moon, Sun, Trash2 } from "lucide-react";
-import logo from "/logo.png"; // Logo de l'utilisateur
 import schoolLogo from "/vite.svg"; // Logo de l'école
 import { Button } from "../ui/button";
 import Modal from "../common/Modal";
 import { useTheme } from "../../hooks/theme-provider";
+import logo from '/logo_light.png';
 
 const Navbar: React.FC = () => {
   const { theme, setTheme } = useTheme();
@@ -119,7 +119,7 @@ const Navbar: React.FC = () => {
             </div>
 
             {/* Avatar de l'utilisateur */}
-            <div className="w-10 h-10 rounded-full border-2 border-purple-300 dark:border-purple-500">
+            <div className="w-10 h-10 rounded-full border-2 border-purple-400 dark:border-purple-500">
               <Avatar>
                 <AvatarImage src={logo} alt="profile" />
                 <AvatarFallback>U</AvatarFallback>
