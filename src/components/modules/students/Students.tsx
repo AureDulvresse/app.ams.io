@@ -241,7 +241,7 @@ const Students: React.FC = () => {
   return (
     <div className="p-6">
       <div className="flex justify-between items-center mb-6">
-        <h2 className="text-3xl font-semibold font-fredoka text-indigo-400">
+        <h2 className="text-3xl font-semibold font-fredoka text-indigo-500">
           Gestion des étudiants
         </h2>
         <Link
