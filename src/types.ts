@@ -16,7 +16,7 @@ export interface Student {
 }
 
 export interface StudentTutor {
-  name: string;
-  phone: string;
+  name?: string;
+  phone?: string;
   email?: string;
 }

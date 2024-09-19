@@ -6,6 +6,7 @@ import { File, IdCardIcon, Mail, PenLineIcon, PrinterIcon, User2 } from "lucide-
 import { Button } from "@/components/ui/button";
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from "@/components/ui/dropdown-menu";
 import Modal from "@/components/common/Modal";
+import TutorForm from "@/components/forms/TutorForm";
 
 // Exemple de données fictives conformes à l'interface Student
 const exampleStudent = {
@@ -210,7 +211,7 @@ const StudentDetailPage: React.FC = () => {
           onClose={() => setIsTutorFormOpen(false)}
           title="Modification"
           description="Modifier les informations du tuteur."
-          content={<p>{"Hello"}</p>}
+          content={<TutorForm />}
           footer={
             <Button
               onClick={() => setIsTutorFormOpen(false)}

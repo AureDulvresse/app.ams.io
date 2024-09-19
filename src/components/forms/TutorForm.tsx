@@ -2,7 +2,7 @@ import React from "react";
 import { StudentTutor } from "@/types";
 import { Input } from "@/components/ui/input";
 
-const TutorForm: React.FC<StudentTutor> = ({ name, phone, email = "" }) => {
+const TutorForm: React.FC<StudentTutor> = ({ name = "", phone = "", email = "" }) => {
   return (
     <div className="flex flex-col gap-3">
       <Input
