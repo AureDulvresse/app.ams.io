@@ -2,7 +2,7 @@ import { Card } from "@/components/ui/card";
 import { Student } from "@/types";
 import React, { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
-import { Mail, User2 } from "lucide-react";
+import { Mail, PenLineIcon, PrinterIcon, User2 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 
 // Exemple de données fictives conformes à l'interface Student
@@ -61,15 +61,14 @@ const StudentDetailPage: React.FC = () => {
 
   return (
     <div className="max-w-5xl mx-auto p-6 space-y-6">
-      {/* Student Profile Header */}
-      <Card className="flex justify-between p-6 bg-gradient-to-r from-indigo-500 to-indigo-600 text-white shadow-lg rounded-lg">
+      <Card className="flex items-start justify-between p-6 bg-gradient-to-r from-indigo-500 to-indigo-600 text-white shadow-lg rounded-lg">
         <div className="flex items-center space-x-4">
           <img
             src={student.picture}
             alt={`${student.first_name} ${student.last_name} Profile`}
             className="w-24 h-24 rounded-full shadow-md"
           />
-          <div>
+          <div className="font-inter">
             <h1 className="text-2xl font-bold">
               {student.first_name} {student.last_name}
             </h1>
@@ -80,12 +79,18 @@ const StudentDetailPage: React.FC = () => {
         </div>
 
         <div className="flex items-center space-x-2">
-          <Button>Modifier</Button>
+          <Button variant={"ghost"} className="flex items-center gap-2">
+            <PenLineIcon size={14} />
+            Modifier informations
+          </Button>
+          <Button variant={"ghost"} className="flex items-center gap-2">
+            <PrinterIcon size={14} />
+            Imprimer
+          </Button>
         </div>
       </Card>
 
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-        {/* Informations Personnelles */}
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-6 font-inter">
         <Card className="p-6 bg-white dark:bg-gray-900 shadow-lg rounded-lg">
           <h2 className="flex items-center font-bold mb-4 text-indigo-500">
             <User2 className=" mr-2" /> Informations Personnelles
@@ -115,24 +120,30 @@ const StudentDetailPage: React.FC = () => {
               <strong className="text-sm">Téléphone :</strong> {student.phone}
             </li>
             <li>
-              <strong className="text-sm">Email :</strong>
-              {student.email}
+              <strong className="text-sm">Email :</strong> {student.email}
             </li>
           </ul>
         </Card>
 
         {/* Informations du Tuteur */}
         <Card className="md:col-span-2 p-6 bg-white dark:bg-gray-900 shadow-lg rounded-lg">
-          <h2 className="flex items-center font-bold mb-4 text-indigo-600">
-            <User2 className="mr-2" /> Informations du Tuteur
-          </h2>
+          <div className="flex justify-between">
+            <h2 className="flex items-center font-bold mb-4 text-indigo-600">
+              <User2 className="mr-2" /> Informations du Tuteur
+            </h2>
+            <Button variant={"outline"} className="flex items-center gap-2">
+              <PenLineIcon size={14} />
+              Actualiser
+            </Button>
+          </div>
+
           <ul className="space-y-2">
             <li>
-              <strong className="text-sm">Nom du Tuteur :</strong>
+              <strong className="text-sm">Nom du Tuteur :</strong>{" "}
               {student.guardian_name}
             </li>
             <li>
-              <strong className="text-sm">Téléphone du Tuteur :</strong>
+              <strong className="text-sm">Téléphone du Tuteur :</strong>{" "}
               {student.guardian_phone}
             </li>
           </ul>
