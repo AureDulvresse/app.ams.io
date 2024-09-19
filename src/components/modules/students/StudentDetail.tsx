@@ -212,14 +212,6 @@ const StudentDetailPage: React.FC = () => {
           title="Modification"
           description="Modifier les informations du tuteur."
           content={<TutorForm />}
-          footer={
-            <Button
-              onClick={() => setIsTutorFormOpen(false)}
-              className="bg-indigo-500 border-indigo-400 hover:bg-indigo-400"
-            >
-              Close
-            </Button>
-          }
         />
       )}
     </div>
