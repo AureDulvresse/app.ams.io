@@ -9,7 +9,7 @@ const NotFoundPage : React.FC = () => {
       <p className="text-lg mt-2 font-inter">
         La page que vous recherchez n'existe pas ou a été déplacée.
       </p>
-      <Link to="/" className="mt-6 px-4 py-2 bg-teal-500 text-white rounded-md">
+      <Link to="/" className="mt-6 px-4 py-2 bg-purple-500 text-white rounded-md">
         Retour à la page d'accueil
       </Link>
     </div>
