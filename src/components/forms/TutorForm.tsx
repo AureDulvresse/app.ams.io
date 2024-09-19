@@ -32,13 +32,15 @@ const TutorForm: React.FC<StudentTutor> = ({
         placeholder="Entrer l'addresse mail du tuteur"
         value={email ?? null}
       />
-      <Button
-        type="button"
-        onClick={handleSubmit}
-        className="bg-gradient-to-tr from-indigo-400 to-indigo-500 px-3 py-2 rounded-md shadow-sm text-white dark:text-gray-950 font-semibold hover:scale-[1.02] transition-all"
-      >
-        Enregistrer
-      </Button>
+      <div className="text-end">
+        <Button
+          type="button"
+          onClick={handleSubmit}
+          className="w-48 bg-gradient-to-tr from-indigo-400 to-indigo-500 px-3 py-2 rounded-md shadow-sm text-white dark:text-gray-950 font-semibold hover:scale-[1.02] transition-all"
+        >
+          Enregistrer
+        </Button>
+      </div>
     </div>
   );
 };
