@@ -5,6 +5,7 @@ import { useParams } from "react-router-dom";
 import { File, IdCardIcon, Mail, PenLineIcon, PrinterIcon, User2 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from "@/components/ui/dropdown-menu";
+import Modal from "@/components/common/Modal";
 
 // Exemple de données fictives conformes à l'interface Student
 const exampleStudent = {
@@ -28,6 +29,7 @@ const StudentDetailPage: React.FC = () => {
   const { studentId } = useParams();
   const [student, setStudent] = useState<Student>();
   const [loading, setLoading] = useState(true);
+  const [isTutorFormOpen, setIsTutorFormOpen] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
@@ -60,16 +62,20 @@ const StudentDetailPage: React.FC = () => {
     return <div>Aucun étudiant trouvé.</div>;
   }
 
-  function handlePrintPDF(): void {
+  const handlePrintPDF = (): void => {
     throw new Error("Function not implemented.");
   }
 
-  function handlePrintStudentCard(): void {
+  const handlePrintStudentCard = (): void => {
     throw new Error("Function not implemented.");
   }
 
-  function openTutorForm(): void {
-    throw new Error("Function not implemented.");
+  const openTutorForm = (): void => {
+    setIsTutorFormOpen(!isTutorFormOpen);
+  }
+
+  const closeModal = (): void => {
+    setIsTutorFormOpen(false);
   }
 
   return (
@@ -166,7 +172,11 @@ const StudentDetailPage: React.FC = () => {
             <h2 className="flex items-center font-bold mb-4 text-indigo-600">
               <User2 className="mr-2" /> Informations du Tuteur
             </h2>
-            <Button variant={"outline"} className="flex items-center gap-2" onClick={() => openTutorForm()}>
+            <Button
+              variant={"outline"}
+              className="flex items-center gap-2"
+              onClick={() => openTutorForm()}
+            >
               <PenLineIcon size={14} />
               Actualiser
             </Button>
@@ -184,6 +194,33 @@ const StudentDetailPage: React.FC = () => {
           </ul>
         </Card>
       </div>
+
+      {/* Overlay */}
+      {isTutorFormOpen && (
+        <div
+          className="fixed inset-0 bg-transparent z-40"
+          onClick={closeModal}
+        ></div>
+      )}
+
+      {/* Modal Formulaire tuteur */}
+      {isTutorFormOpen && (
+        <Modal
+          isOpen={!!isTutorFormOpen}
+          onClose={() => setIsTutorFormOpen(false)}
+          title="Modification"
+          description="Modifier les informations du tuteur."
+          content={<p>{"Hello"}</p>}
+          footer={
+            <Button
+              onClick={() => setIsTutorFormOpen(false)}
+              className="bg-indigo-500 border-indigo-400 hover:bg-indigo-400"
+            >
+              Close
+            </Button>
+          }
+        />
+      )}
     </div>
   );
 };
