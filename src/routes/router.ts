@@ -3,7 +3,7 @@ import {
   Home as HomeIcon,
   Settings as SettingsIcon,
   Wallet as WalletIcon,
-  Users as UsersIcon,
+  Users2 as UsersIcon,
   GraduationCap as GraduationCapIcon,
   Book as BookCheck,
   Calendar as CalendarIcon,
