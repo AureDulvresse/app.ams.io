@@ -12,7 +12,7 @@ const NavLink: React.FC<NavLinkProps> = ({ name,  icon: Icon, link, isActive }) 
   return (
     <Link
       to={link}
-      className={`mb-1.5 rounded-lg px-1.5 py-3 flex items-center gap-4 transition-colors ${
+      className={`mb-1.5 rounded-lg px-1.5 py-3 flex items-center gap-4 transition-colors font-inter ${
         isActive
           ? "bg-indigo-200 dark:bg-indigo-600 text-indigo-600 dark:text-indigo-100 shadow-sm"
           : "hover:bg-indigo-50 dark:hover:bg-indigo-700"
@@ -25,10 +25,10 @@ const NavLink: React.FC<NavLinkProps> = ({ name,  icon: Icon, link, isActive }) 
             : "bg-gradient-to-tr from-indigo-400 to-indigo-500"
         }`}
       >
-        <Icon className="text-white" />
+        <Icon className="text-white" fontSize={"10px"} />
       </div>
       <span
-        className={`font-semibold text-base ${
+        className={`font-semibold text-sm ${
           isActive ? "text-indigo-600 dark:text-indigo-50" : "text-gray-700 dark:text-white"
         }`}
       >
