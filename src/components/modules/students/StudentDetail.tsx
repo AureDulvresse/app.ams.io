@@ -68,6 +68,10 @@ const StudentDetailPage: React.FC = () => {
     throw new Error("Function not implemented.");
   }
 
+  function openTutorForm(): void {
+    throw new Error("Function not implemented.");
+  }
+
   return (
     <div className="max-w-5xl mx-auto p-6 space-y-6">
       <Card className="flex items-start justify-between p-6 bg-gradient-to-r from-indigo-500 to-indigo-600 text-white shadow-lg rounded-lg">
@@ -162,7 +166,7 @@ const StudentDetailPage: React.FC = () => {
             <h2 className="flex items-center font-bold mb-4 text-indigo-600">
               <User2 className="mr-2" /> Informations du Tuteur
             </h2>
-            <Button variant={"outline"} className="flex items-center gap-2">
+            <Button variant={"outline"} className="flex items-center gap-2" onClick={() => openTutorForm()}>
               <PenLineIcon size={14} />
               Actualiser
             </Button>

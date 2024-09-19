@@ -14,3 +14,9 @@ export interface Student {
   class_id: number;
   school_id: number;
 }
+
+export interface StudentGuardian {
+  name: string;
+  phone: string;
+  email?: string;
+}
