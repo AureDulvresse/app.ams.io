@@ -209,7 +209,7 @@ const DataTable = <T,>({
           )}
           <Button
             variant="ghost"
-            className="flex items-center gap-2 border hover:bg-gray-800"
+            className="flex items-center gap-2 border hover:dark:bg-gray-800"
             onClick={handleExport}
           >
             <FileUp size={14} />
@@ -220,7 +220,7 @@ const DataTable = <T,>({
             <DropdownMenuTrigger asChild>
               <Button
                 variant="ghost"
-                className="flex items-center border hover:bg-gray-800"
+                className="flex items-center border hover:dark:bg-gray-800"
               >
                 Colonnes <ChevronDownIcon className="ml-2 h-4 w-4" />
               </Button>
@@ -253,7 +253,7 @@ const DataTable = <T,>({
             {table.getHeaderGroups().map((headerGroup) => (
               <TableRow key={headerGroup.id}>
                 {headerGroup.headers.map((header) => (
-                  <TableHead key={header.id} className="text-left">
+                  <TableHead key={header.id} className="text-left font-inter">
                     {header.isPlaceholder
                       ? null
                       : flexRender(
