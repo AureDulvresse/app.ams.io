@@ -14,22 +14,22 @@ const NavLink: React.FC<NavLinkProps> = ({ name,  icon: Icon, link, isActive }) 
       to={link}
       className={`mb-1.5 rounded-lg px-1.5 py-3 flex items-center gap-4 transition-colors ${
         isActive
-          ? "bg-purple-200 dark:bg-purple-600 text-purple-600 dark:text-purple-100 shadow-sm"
-          : "hover:bg-purple-50 dark:hover:bg-purple-700"
+          ? "bg-indigo-200 dark:bg-indigo-600 text-indigo-600 dark:text-indigo-100 shadow-sm"
+          : "hover:bg-indigo-50 dark:hover:bg-indigo-700"
       }`}
     >
       <div
         className={`shadow-lg rounded-lg p-2 ${
           isActive
-            ? "bg-gradient-to-tr from-purple-500 to-purple-600"
-            : "bg-gradient-to-tr from-purple-400 to-purple-500"
+            ? "bg-gradient-to-tr from-indigo-500 to-indigo-600"
+            : "bg-gradient-to-tr from-indigo-400 to-indigo-500"
         }`}
       >
         <Icon className="text-white" />
       </div>
       <span
         className={`font-semibold text-base ${
-          isActive ? "text-purple-600 dark:text-purple-50" : "text-gray-700 dark:text-white"
+          isActive ? "text-indigo-600 dark:text-indigo-50" : "text-gray-700 dark:text-white"
         }`}
       >
         {name}
