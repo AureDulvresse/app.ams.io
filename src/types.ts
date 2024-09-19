@@ -15,7 +15,7 @@ export interface Student {
   school_id: number;
 }
 
-export interface StudentGuardian {
+export interface StudentTutor {
   name: string;
   phone: string;
   email?: string;
