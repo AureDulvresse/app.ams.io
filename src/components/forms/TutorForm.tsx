@@ -1,14 +1,14 @@
 import React from "react";
 import { StudentTutor } from "@/types";
 import { Input } from "@/components/ui/input";
-import { Button } from "react-day-picker";
+import { Button } from "../ui/button";
 
 const TutorForm: React.FC<StudentTutor> = ({
   name = "",
   phone = "",
   email = "",
 }) => {
-    
+
   const handleSubmit = () => {
     console.log("Save");
   };
@@ -32,7 +32,11 @@ const TutorForm: React.FC<StudentTutor> = ({
         placeholder="Entrer l'addresse mail du tuteur"
         value={email ?? null}
       />
-      <Button type="button" onClick={handleSubmit} className="bg-indigo-500">
+      <Button
+        type="button"
+        onClick={handleSubmit}
+        className="bg-gradient-to-tr from-indigo-400 to-indigo-500 px-3 py-2 rounded-md shadow-sm text-white dark:text-gray-950 font-semibold hover:scale-[1.02] transition-all"
+      >
         Enregistrer
       </Button>
     </div>
