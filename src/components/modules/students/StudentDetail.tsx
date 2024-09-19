@@ -212,6 +212,7 @@ const StudentDetailPage: React.FC = () => {
           title="Modification"
           description="Modifier les informations du tuteur."
           content={<TutorForm />}
+          footer={<p className="text-[11px] text-gray-400">Veuillez à bien remplir le formulaire</p>}
         />
       )}
     </div>
