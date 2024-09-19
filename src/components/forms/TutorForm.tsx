@@ -1,8 +1,18 @@
 import React from "react";
 import { StudentTutor } from "@/types";
 import { Input } from "@/components/ui/input";
+import { Button } from "react-day-picker";
 
-const TutorForm: React.FC<StudentTutor> = ({ name = "", phone = "", email = "" }) => {
+const TutorForm: React.FC<StudentTutor> = ({
+  name = "",
+  phone = "",
+  email = "",
+}) => {
+    
+  const handleSubmit = () => {
+    console.log("Save");
+  };
+
   return (
     <div className="flex flex-col gap-3">
       <Input
@@ -22,6 +32,9 @@ const TutorForm: React.FC<StudentTutor> = ({ name = "", phone = "", email = "" }
         placeholder="Entrer l'addresse mail du tuteur"
         value={email ?? null}
       />
+      <Button type="button" onClick={handleSubmit} className="bg-indigo-500">
+        Enregistrer
+      </Button>
     </div>
   );
 };
