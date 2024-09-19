@@ -13,7 +13,7 @@ const Sidebar: React.FC = () => {
   const { theme } = useTheme();
 
   return (
-    <div className="fixed top-0 left-0 w-64 h-screen bg-white dark:bg-gray-900 shadow-lg z-50">
+    <div className="fixed top-0 left-0 w-64 h-screen bg-white dark:bg-gray-950 shadow-lg z-50">
       <div className="flex items-center gap-4 border-b p-4">
         <img
           src={theme === "light" ? logo_light : logo_dark}
