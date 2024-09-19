@@ -62,11 +62,8 @@ const Navbar: React.FC = () => {
   };
 
   return (
-    <div className="relative">
-      {/* Navbar */}
-      <div
-        className="bg-white dark:bg-gray-900 px-4 py-4 rounded-md shadow-md flex items-center justify-between transition-all"
-      >
+    <div className="fixed w-[calc(100%-280px)]">
+      <div className="bg-white dark:bg-gray-900 px-4 py-4 rounded-md shadow-md flex items-center justify-between transition-all">
         {/* Recherche */}
         <div className="w-96 h-10 relative">
           <Search
