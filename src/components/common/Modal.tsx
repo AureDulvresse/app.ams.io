@@ -37,7 +37,11 @@ const Modal: React.FC<ModalProps> = ({
           {footer ? (
             footer
           ) : (
-            <Button type="button" onClick={onClose} className="bg-indigo-500">
+            <Button
+              type="button"
+              onClick={onClose}
+              className="bg-gradient-to-tr from-indigo-400 to-indigo-500 px-3 py-2 rounded-md shadow-sm text-white dark:text-gray-950 font-semibold hover:scale-[1.02] transition-all"
+            >
               Close
             </Button>
           )}
