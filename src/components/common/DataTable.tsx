@@ -186,13 +186,13 @@ const DataTable = <T,>({
   });
 
   return (
-    <Card className="p-4 bg-white dark:bg-gray-950 shadow-lg rounded-lg">
+    <Card className="p-4 bg-white dark:bg-gray-900 shadow-lg rounded-lg">
       <div className="flex items-center justify-between py-4">
         <Input
           placeholder="Recherche..."
           value={globalFilter}
           onChange={(event) => setGlobalFilter(event.target.value)}
-          className="w-80 placeholder:text-gray-400 dark:placeholder:text-gray-500 bg-gray-100 dark:bg-gray-900"
+          className="w-80 placeholder:text-gray-400 dark:placeholder:text-gray-500 bg-gray-100 dark:bg-gray-800"
         />
         <div className="flex items-center space-x-2">
           {showSelection ? (
@@ -222,7 +222,7 @@ const DataTable = <T,>({
                 Colonnes <ChevronDownIcon className="ml-2 h-4 w-4" />
               </Button>
             </DropdownMenuTrigger>
-            <DropdownMenuContent className="bg-gray-950" align="end">
+            <DropdownMenuContent className="bg-gray-900" align="end">
               {table
                 .getAllColumns()
                 .filter((column) => column.getCanHide())
