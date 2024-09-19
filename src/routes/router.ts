@@ -17,7 +17,7 @@ export interface SidebarRoute {
 }
 
 export const routes: SidebarRoute[] = [
-  { path: "/", name: "Dashboard", icon: HomeIcon },
+  { path: "/", name: "Tableau de bord", icon: HomeIcon },
   { path: "/students", name: "Gestion étudiant", icon: GraduationCapIcon },
   { path: "/hr", name: "Ressources Humaine", icon: UsersIcon },
   { path: "/schedules", name: "Emploi du temps", icon: CalendarIcon },
