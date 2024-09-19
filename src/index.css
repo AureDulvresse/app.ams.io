@@ -75,7 +75,7 @@
 }
 
 .scrollbar-custom::-webkit-scrollbar-thumb {
-  background-color: rgba(168, 85, 247, .6);
+  background-color: rgba(79, 70, 229, .6);
   border-radius: 4px;
 }
 
