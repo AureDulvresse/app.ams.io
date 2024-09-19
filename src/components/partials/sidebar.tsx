@@ -20,7 +20,7 @@ const Sidebar: React.FC = () => {
           className="w-20 h-auto"
           alt="logo"
         />
-        <h1 className="text-base font-bold text-purple-500 font-fredoka">
+        <h1 className="text-base font-bold text-indigo-500 font-fredoka">
           Academia Management Sync
         </h1>
       </div>
