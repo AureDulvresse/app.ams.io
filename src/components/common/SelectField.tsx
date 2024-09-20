@@ -9,12 +9,12 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 
-// Définition des props pour rendre le composant flexible
 interface SelectFieldProps {
-  label: string; // Label du groupe
-  placeholder: string; // Placeholder dans le SelectTrigger
-  options: Array<{ label: string; value: string }>; // Options disponibles dans le Select
-  onChange?: (value: string) => void; // Optionnel : Fonction pour capturer la sélection
+  label: string;
+  placeholder: string;
+  options: Array<{ label: string; value: string }>;
+  onChange?: (value: string) => void;
+  error?: string; // Simplifié en string pour afficher un message d'erreur clair
 }
 
 const SelectField: React.FC<SelectFieldProps> = ({
@@ -22,23 +22,29 @@ const SelectField: React.FC<SelectFieldProps> = ({
   placeholder,
   options,
   onChange,
+  error,
 }) => {
   return (
-    <Select onValueChange={onChange}>
-      <SelectTrigger className="w-[180px]">
-        <SelectValue placeholder={placeholder} />
-      </SelectTrigger>
-      <SelectContent>
-        <SelectGroup>
-          <SelectLabel>{label}</SelectLabel>
-          {options.map((option) => (
-            <SelectItem key={option.value} value={option.value}>
-              {option.label}
-            </SelectItem>
-          ))}
-        </SelectGroup>
-      </SelectContent>
-    </Select>
+    <div className="w-full">
+      <Select onValueChange={onChange}>
+        <SelectTrigger className="w-full border-gray-300 dark:border-gray-700">
+          <SelectValue placeholder={placeholder} />
+        </SelectTrigger>
+        <SelectContent>
+          <SelectGroup>
+            <SelectLabel className="text-gray-500">{label}</SelectLabel>
+            {options.map((option) => (
+              <SelectItem key={option.value} value={option.value}>
+                {option.label}
+              </SelectItem>
+            ))}
+          </SelectGroup>
+        </SelectContent>
+      </Select>
+      {error && (
+        <p className="mt-1 text-sm text-red-600 dark:text-red-400">{error}</p>
+      )}
+    </div>
   );
 };
 
