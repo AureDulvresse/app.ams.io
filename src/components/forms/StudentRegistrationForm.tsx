@@ -74,7 +74,7 @@ const StudentRegistrationForm: React.FC = () => {
       )}
       {step === 2 && (
               <TutorForm
-                  title="Information tuteur"
+                  title="Etape 2 : Information tuteur"
           initialData={{
             name: formData.guardianName,
             phone: formData.guardianPhone,
