@@ -5,6 +5,7 @@ import StudentPage from "./pages/modules/students/StudentPage";
 import StaffPage from "./pages/modules/hr/StaffPage";
 import NotFoundPage from "./pages/NotFoundPage";
 import StudentDetailPage from "./pages/modules/students/StudentDetailsPage";
+import StudentRegisterPage from "./pages/modules/students/StudentRegisterPage";
 
 const router = createBrowserRouter([
   {
@@ -18,6 +19,10 @@ const router = createBrowserRouter([
   {
     path: "/students/:id",
     element: <StudentDetailPage />,
+  },
+  {
+    path: "/students/create",
+    element: <StudentRegisterPage />,
   },
   {
     path: "/hr",

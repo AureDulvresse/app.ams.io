@@ -36,22 +36,11 @@ const StudentRegistrationForm: React.FC = () => {
     schoolId: 0,
   });
 
-  const classOptions = [
-    { label: "Classe 1", value: 1 },
-    { label: "Classe 2", value: 2 },
-    { label: "Classe 3", value: 3 },
-    // Ajoute d'autres classes ici
-  ];
-
   // Fonction pour gérer les modifications de formulaire
   const handleInputChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>
   ) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
-  };
-
-  const handleClassChange = (value: number) => {
-    setFormData((prevData) => ({ ...prevData, classId: value }));
   };
 
   // Fonction pour passer à l'étape suivante
@@ -106,8 +95,12 @@ const StudentRegistrationForm: React.FC = () => {
             classId: formData.classId,
           }}
           onSubmit={handleSubmit}
-          classOptions={classOptions}
           isSubmitting={false}
+          handleInputChange={function (
+            e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>
+          ): void {
+            throw new Error("Function not implemented.");
+          }}
         />
       )}
     </div>
