@@ -100,12 +100,7 @@ const StudentRegistrationForm: React.FC = () => {
           }}
           onSubmit={handleSubmit}
           isSubmitting={false}
-          handleInputChange={function (
-            // eslint-disable-next-line @typescript-eslint/no-unused-vars
-            _e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>
-          ): void {
-            throw new Error("Function not implemented.");
-          }}
+          handleInputChange={handleInputChange}
         />
       )}
     </div>
