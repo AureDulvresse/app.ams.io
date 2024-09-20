@@ -64,7 +64,7 @@ const StudentRegistrationForm: React.FC = () => {
   };
 
   return (
-    <div className="p-6 bg-white shadow-lg rounded-lg">
+    <div className="p-6 bg-white shadow-lg rounded-lg mt-4">
       {step === 1 && (
         <PersonalInfoForm
           formData={formData}
