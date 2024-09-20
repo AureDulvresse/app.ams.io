@@ -1,8 +1,7 @@
 import React, { useState } from "react";
-import PersonalInfoForm from "@/components/forms/PersonalInfoForm";
 import TutorForm from "@/components/forms/TutorForm";
-import AcademicInfoForm from "@/components/forms/AcademicInfoForm";
-
+import PersonalInfoForm from "./PersonalInfoForm";
+import AcademicInfoForm from "./AcademicInfoForm";
 
 // Interface des données du formulaire
 interface StudentData {
@@ -37,11 +36,22 @@ const StudentRegistrationForm: React.FC = () => {
     schoolId: 0,
   });
 
+  const classOptions = [
+    { label: "Classe 1", value: 1 },
+    { label: "Classe 2", value: 2 },
+    { label: "Classe 3", value: 3 },
+    // Ajoute d'autres classes ici
+  ];
+
   // Fonction pour gérer les modifications de formulaire
   const handleInputChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>
   ) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
+  };
+
+  const handleClassChange = (value: number) => {
+    setFormData((prevData) => ({ ...prevData, classId: value }));
   };
 
   // Fonction pour passer à l'étape suivante
@@ -57,7 +67,6 @@ const StudentRegistrationForm: React.FC = () => {
   // Fonction pour soumettre le formulaire final
   const handleSubmit = async () => {
     try {
-      // Appel à une API ou logique d'enregistrement ici
       console.log("Données soumises :", formData);
       alert("Étudiant inscrit avec succès !");
     } catch (error) {
@@ -76,18 +85,29 @@ const StudentRegistrationForm: React.FC = () => {
       )}
       {step === 2 && (
         <TutorForm
-          formData={formData}
-          handleInputChange={handleInputChange}
-          nextStep={nextStep}
-          prevStep={prevStep}
+          initialData={{
+            name: formData.guardianName,
+            phone: formData.guardianPhone,
+          }}
+          onSubmit={(data) => {
+            setFormData({
+              ...formData,
+              guardianName: data.name,
+              guardianPhone: data.phone,
+            });
+            nextStep();
+          }}
         />
       )}
       {step === 3 && (
         <AcademicInfoForm
-          formData={formData}
-          handleInputChange={handleInputChange}
-          prevStep={prevStep}
-          handleSubmit={handleSubmit}
+          initialData={{
+            schoolName: formData.schoolId ? "Nom de l'école" : "",
+            classId: formData.classId,
+          }}
+          onSubmit={handleSubmit}
+          classOptions={classOptions}
+          isSubmitting={false}
         />
       )}
     </div>
