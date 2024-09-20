@@ -61,12 +61,14 @@ const PersonalInfoForm: React.FC<PersonalInfoFormProps> = ({
         Étape 1 : Informations Personnelles
       </h2>
       <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-        <SelectField
-          label="Sexe"
-          placeholder="Sélectionner le sexe"
-          options={genders}
-          onChange={handleGenderChange}
-        />
+        <div className="col-span-1 md:col-span-2">
+          <SelectField
+            label="Sexe"
+            placeholder="Sélectionner le sexe"
+            options={genders}
+            onChange={handleGenderChange}
+          />
+        </div>
         <Input
           type="text"
           name="firstName"
@@ -83,39 +85,38 @@ const PersonalInfoForm: React.FC<PersonalInfoFormProps> = ({
           placeholder="Nom"
           required
         />
-        <div className="col-span-1 md:col-span-2">
-          <DropdownMenu>
-            <DropdownMenuTrigger asChild>
-              <Button
-                variant="ghost"
-                className="flex items-center gap-2 border hover:dark:bg-gray-800 w-full"
-              >
-                <CalendarIcon />
-                Date de Naissance
-              </Button>
-            </DropdownMenuTrigger>
-            <DropdownMenuContent
-              className="bg-white dark:bg-gray-800"
-              align="end"
+
+        <DropdownMenu>
+          <DropdownMenuTrigger asChild>
+            <Button
+              variant="ghost"
+              className="flex items-center gap-2 border hover:dark:bg-gray-800 w-full"
             >
-              <div>
-                <Calendar
-                  mode="single"
-                  selected={date}
-                  onSelect={handleDateChange}
-                  className="rounded-md p-1.5"
-                  classNames={{
-                    day_selected: "bg-indigo-500 text-white",
-                  }}
-                  disabled={(date) =>
-                    date > new Date() || date < new Date("1900-01-01")
-                  }
-                  initialFocus
-                />
-              </div>
-            </DropdownMenuContent>
-          </DropdownMenu>
-        </div>
+              <CalendarIcon />
+              Date de Naissance
+            </Button>
+          </DropdownMenuTrigger>
+          <DropdownMenuContent
+            className="bg-white dark:bg-gray-800"
+            align="end"
+          >
+            <div>
+              <Calendar
+                mode="single"
+                selected={date}
+                onSelect={handleDateChange}
+                className="rounded-md p-1.5"
+                classNames={{
+                  day_selected: "bg-indigo-500 text-white",
+                }}
+                disabled={(date) =>
+                  date > new Date() || date < new Date("1900-01-01")
+                }
+                initialFocus
+              />
+            </div>
+          </DropdownMenuContent>
+        </DropdownMenu>
 
         <Input
           type="text"
