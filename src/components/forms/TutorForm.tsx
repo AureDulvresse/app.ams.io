@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { Input } from "@/components/ui/input";
 import { Button } from "../ui/button";
+import { title } from "process";
 
 interface TutorFormProps {
   title?: string;
@@ -49,68 +50,71 @@ const TutorForm: React.FC<TutorFormProps> = ({
   };
 
   return (
-    <div className="flex flex-col gap-4">
-      <Input
-        name="name"
-        className="w-full"
-        placeholder="Nom complet du tuteur"
-        value={formData.name}
-        onChange={handleChange}
-        required
-        aria-label="Nom complet du tuteur"
-      />
-      <Input
-        type="tel"
-        name="phone"
-        className="w-full"
-        placeholder="Numéro de téléphone du tuteur"
-        value={formData.phone}
-        onChange={handleChange}
-        required
-        aria-label="Numéro de téléphone du tuteur"
-      />
-      <Input
-        type="email"
-        name="email"
-        className="w-full"
-        placeholder="Adresse e-mail du tuteur (facultatif)"
-        value={formData.email}
-        onChange={handleChange}
-        aria-label="Adresse e-mail du tuteur"
-      />
+    <div>
+      {title && <h2 className="text-xl font-bold mb-4">{title}</h2>}
+      <div className="flex flex-col gap-4">
+        <Input
+          name="name"
+          className="w-full"
+          placeholder="Nom complet du tuteur"
+          value={formData.name}
+          onChange={handleChange}
+          required
+          aria-label="Nom complet du tuteur"
+        />
+        <Input
+          type="tel"
+          name="phone"
+          className="w-full"
+          placeholder="Numéro de téléphone du tuteur"
+          value={formData.phone}
+          onChange={handleChange}
+          required
+          aria-label="Numéro de téléphone du tuteur"
+        />
+        <Input
+          type="email"
+          name="email"
+          className="w-full"
+          placeholder="Adresse e-mail du tuteur (facultatif)"
+          value={formData.email}
+          onChange={handleChange}
+          aria-label="Adresse e-mail du tuteur"
+        />
 
-      {showNavigation ? (
-        <div className="flex justify-between mt-3">
-          {prevStep && (
+        {showNavigation ? (
+          <div className="flex justify-between mt-3">
+            {prevStep && (
+              <Button
+                type="button"
+                onClick={prevStep}
+                className="w-48 bg-gray-400 text-white"
+              >
+                Précédent
+              </Button>
+            )}
             <Button
               type="button"
-              onClick={prevStep}
-              className="w-48 bg-gray-400 text-white"
+              onClick={handleSubmit}
+              className="w-48 bg-gradient-to-tr from-indigo-400 to-indigo-500 text-white"
+              disabled={isSubmitting}
             >
-              Précédent
+              {isSubmitting ? "Enregistrement..." : "Suivant"}
             </Button>
-          )}
-          <Button
-            type="button"
-            onClick={handleSubmit}
-            className="w-48 bg-gradient-to-tr from-indigo-400 to-indigo-500 text-white"
-            disabled={isSubmitting}
-          >
-            {isSubmitting ? "Enregistrement..." : "Suivant"}
-          </Button>
-        </div>
-      ) : (
-        <div className="text-right mt-3">
-          <Button
-            type="button"
-            onClick={handleSubmit}
-            className="w-48 bg-gradient-to-tr from-indigo-400 to-indigo-500 text-white"
-            disabled={isSubmitting}
-          >
-            {isSubmitting ? "Enregistrement..." : "Enregistrer"}
-          </Button>
-        </div>
-      )}
+          </div>
+        ) : (
+          <div className="text-right mt-3">
+            <Button
+              type="button"
+              onClick={handleSubmit}
+              className="w-48 bg-gradient-to-tr from-indigo-400 to-indigo-500 text-white"
+              disabled={isSubmitting}
+            >
+              {isSubmitting ? "Enregistrement..." : "Enregistrer"}
+            </Button>
+          </div>
+        )}
+      </div>
     </div>
   );
 };
