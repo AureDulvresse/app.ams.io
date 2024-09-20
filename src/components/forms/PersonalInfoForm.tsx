@@ -152,7 +152,7 @@ const PersonalInfoForm: React.FC<PersonalInfoFormProps> = ({
                 toYear={new Date().getFullYear()}
                 className="rounded-md p-1.5"
                 classNames={{
-                  day_selected: "bg-indigo-500 text-white", // Classe pour la date sélectionnée
+                  day_selected: "bg-indigo-500 border-indigo-500 text-white", // Classe pour la date sélectionnée
                 }}
                 disabled={(date) =>
                   date > new Date() || date < new Date("1900-01-01")
