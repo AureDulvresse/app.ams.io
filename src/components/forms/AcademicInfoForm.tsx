@@ -29,7 +29,6 @@ const classOptions = [
   { label: "CP1", value: "1" },
 ];
 
-
 const AcademicInfoForm: React.FC<AcademicInfoFormProps> = ({
   initialData = { schoolName: "", classId: 0, year: "" },
   onSubmit,
@@ -65,42 +64,47 @@ const AcademicInfoForm: React.FC<AcademicInfoFormProps> = ({
   };
 
   return (
-    <div className="flex flex-col gap-4">
-      <Input
-        name="schoolName"
-        className="w-full"
-        placeholder="Nom de l'établissement"
-        value={formData.schoolName}
-        onChange={handleChange}
-        required
-        aria-label="Nom de l'établissement"
-      />
+    <div>
+      <h2 className="text-xl font-bold mb-4">
+        Étape 1 : Informations Personnelles
+      </h2>
+      <div className="flex flex-col gap-4">
+        <Input
+          name="schoolName"
+          className="w-full"
+          placeholder="Nom de l'établissement"
+          value={formData.schoolName}
+          onChange={handleChange}
+          required
+          aria-label="Nom de l'établissement"
+        />
 
-      <SelectField
-        label="Sélectionner la classe"
-        placeholder="Choisissez une classe"
-        options={classOptions}
-        onChange={() => handleClassChange}
-      />
+        <SelectField
+          label="Sélectionner la classe"
+          placeholder="Choisissez une classe"
+          options={classOptions}
+          onChange={() => handleClassChange}
+        />
 
-      <Input
-        name="year"
-        className="w-full"
-        placeholder="Année académique (facultatif)"
-        value={formData.year}
-        onChange={handleChange}
-        aria-label="Année académique"
-      />
+        <Input
+          name="year"
+          className="w-full"
+          placeholder="Année académique (facultatif)"
+          value={formData.year}
+          onChange={handleChange}
+          aria-label="Année académique"
+        />
 
-      <div className="text-right mt-3">
-        <Button
-          type="button"
-          onClick={handleSubmit}
-          className="w-48 bg-gradient-to-tr from-indigo-400 to-indigo-500 px-3 py-2 rounded-md shadow-sm text-white dark:text-gray-950 font-semibold hover:scale-105 transition-transform"
-          disabled={isSubmitting}
-        >
-          {isSubmitting ? "Enregistrement..." : "Enregistrer"}
-        </Button>
+        <div className="text-right mt-3">
+          <Button
+            type="button"
+            onClick={handleSubmit}
+            className="w-48 bg-gradient-to-tr from-indigo-400 to-indigo-500 px-3 py-2 rounded-md shadow-sm text-white dark:text-gray-950 font-semibold hover:scale-105 transition-transform"
+            disabled={isSubmitting}
+          >
+            {isSubmitting ? "Enregistrement..." : "Enregistrer"}
+          </Button>
+        </div>
       </div>
     </div>
   );
