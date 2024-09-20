@@ -50,7 +50,7 @@ const PersonalInfoForm: React.FC<PersonalInfoFormProps> = ({
     if (value) {
       setDate(value);
       handleInputChange({
-        target: { name: "dob", value: format(value, "yyyy-MM-dd") }, // Format date for the input
+        target: { name: "dob", value: format(value, "yyyy-MM-dd") },
       } as unknown as React.ChangeEvent<HTMLSelectElement>);
     }
   };
@@ -60,7 +60,13 @@ const PersonalInfoForm: React.FC<PersonalInfoFormProps> = ({
       <h2 className="text-xl font-bold mb-4 font-inter text-indigo-500">
         Étape 1 : Informations Personnelles
       </h2>
-      <div className="space-y-4">
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+        <SelectField
+          label="Sexe"
+          placeholder="Sélectionner le sexe"
+          options={genders}
+          onChange={handleGenderChange}
+        />
         <Input
           type="text"
           name="firstName"
@@ -77,39 +83,39 @@ const PersonalInfoForm: React.FC<PersonalInfoFormProps> = ({
           placeholder="Nom"
           required
         />
-
-        <DropdownMenu>
-          <DropdownMenuTrigger asChild>
-            <Button
-              variant="ghost"
-              className="flex items-center gap-2 border hover:dark:bg-gray-800"
+        <div className="col-span-1 md:col-span-2">
+          <DropdownMenu>
+            <DropdownMenuTrigger asChild>
+              <Button
+                variant="ghost"
+                className="flex items-center gap-2 border hover:dark:bg-gray-800 w-full"
+              >
+                <CalendarIcon />
+                Date de Naissance
+              </Button>
+            </DropdownMenuTrigger>
+            <DropdownMenuContent
+              className="bg-white dark:bg-gray-800"
+              align="end"
             >
-              <CalendarIcon />
-              Date de Naissance
-            </Button>
-          </DropdownMenuTrigger>
-          <DropdownMenuContent
-            className="bg-white dark:bg-gray-800"
-            align="end"
-          >
-            <div>
-              <Calendar
-                mode="single"
-                selected={date}
-                onSelect={handleDateChange}
-                className="rounded-md p-1.5"
-                classNames={{
-                  
-                  day_selected: "bg-indigo-500 text-white",
-                }}
-                disabled={(date) =>
-                  date > new Date() || date < new Date("1900-01-01")
-                }
-                initialFocus
-              />
-            </div>
-          </DropdownMenuContent>
-        </DropdownMenu>
+              <div>
+                <Calendar
+                  mode="single"
+                  selected={date}
+                  onSelect={handleDateChange}
+                  className="rounded-md p-1.5"
+                  classNames={{
+                    day_selected: "bg-indigo-500 text-white",
+                  }}
+                  disabled={(date) =>
+                    date > new Date() || date < new Date("1900-01-01")
+                  }
+                  initialFocus
+                />
+              </div>
+            </DropdownMenuContent>
+          </DropdownMenu>
+        </div>
 
         <Input
           type="text"
@@ -143,16 +149,12 @@ const PersonalInfoForm: React.FC<PersonalInfoFormProps> = ({
           placeholder="Email"
           required
         />
-        <SelectField
-          label="Sexe"
-          placeholder="Sélectionner le sexe"
-          options={genders}
-          onChange={handleGenderChange}
-        />
       </div>
-      <Button className="mt-4 bg-indigo-500 text-white" onClick={nextStep}>
-        Suivant
-      </Button>
+      <div className="mt-4 flex justify-end">
+        <Button className="bg-indigo-500 text-white" onClick={nextStep}>
+          Suivant
+        </Button>
+      </div>
     </div>
   );
 };
