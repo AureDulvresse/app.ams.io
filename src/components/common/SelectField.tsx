@@ -1,5 +1,4 @@
 import * as React from "react";
-
 import {
   Select,
   SelectContent,
@@ -10,24 +9,37 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 
-const SelectField : React.FC = () => {
+// Définition des props pour rendre le composant flexible
+interface SelectFieldProps {
+  label: string; // Label du groupe
+  placeholder: string; // Placeholder dans le SelectTrigger
+  options: Array<{ label: string; value: string }>; // Options disponibles dans le Select
+  onChange?: (value: string) => void; // Optionnel : Fonction pour capturer la sélection
+}
+
+const SelectField: React.FC<SelectFieldProps> = ({
+  label,
+  placeholder,
+  options,
+  onChange,
+}) => {
   return (
-    <Select>
+    <Select onValueChange={onChange}>
       <SelectTrigger className="w-[180px]">
-        <SelectValue placeholder="Select a fruit" />
+        <SelectValue placeholder={placeholder} />
       </SelectTrigger>
       <SelectContent>
         <SelectGroup>
-          <SelectLabel>Fruits</SelectLabel>
-          <SelectItem value="apple">Apple</SelectItem>
-          <SelectItem value="banana">Banana</SelectItem>
-          <SelectItem value="blueberry">Blueberry</SelectItem>
-          <SelectItem value="grapes">Grapes</SelectItem>
-          <SelectItem value="pineapple">Pineapple</SelectItem>
+          <SelectLabel>{label}</SelectLabel>
+          {options.map((option) => (
+            <SelectItem key={option.value} value={option.value}>
+              {option.label}
+            </SelectItem>
+          ))}
         </SelectGroup>
       </SelectContent>
     </Select>
   );
-}
+};
 
 export default SelectField;
