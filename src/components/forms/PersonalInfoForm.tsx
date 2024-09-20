@@ -44,7 +44,7 @@ const PersonalInfoForm: React.FC<PersonalInfoFormProps> = ({
   handlePhotoUpload, // Callback pour le téléchargement de la photo
   nextStep,
 }) => {
-  const [date, setDate] = useState<Date | undefined>(new Date());
+  const [date, setDate] = useState<Date | null>(null);
   const [errors, setErrors] = useState<Record<string, string>>({});
 
   const handleGenderChange = (value: string) => {
@@ -68,7 +68,7 @@ const PersonalInfoForm: React.FC<PersonalInfoFormProps> = ({
       personalInfoSchema.parse(formData);
       setErrors({});
       nextStep();
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
     } catch (error: any) {
       if (error instanceof z.ZodError) {
         // Gestion des erreurs Zod
@@ -143,7 +143,7 @@ const PersonalInfoForm: React.FC<PersonalInfoFormProps> = ({
             >
               <Calendar
                 mode="single"
-                selected={date} // La date pré-sélectionnée est affichée ici
+                selected={date??new Date()}
                 onSelect={handleDateChange}
                 className="rounded-md p-1.5"
                 classNames={{
@@ -156,7 +156,7 @@ const PersonalInfoForm: React.FC<PersonalInfoFormProps> = ({
             </DropdownMenuContent>
           </DropdownMenu>
 
-          {error && <p className="text-red-500">{error}</p>}
+          {errors.dob && <p className="text-red-500">{errors.dob}</p>}
         </div>
 
         <div>
