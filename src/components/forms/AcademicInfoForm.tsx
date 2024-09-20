@@ -66,7 +66,7 @@ const AcademicInfoForm: React.FC<AcademicInfoFormProps> = ({
   return (
     <div>
       <h2 className="text-xl font-bold mb-4">
-        Étape 1 : Informations Personnelles
+        Étape 3 : Informations academique
       </h2>
       <div className="flex flex-col gap-4">
         <Input
