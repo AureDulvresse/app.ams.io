@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import { Input } from "@/components/ui/input";
 import { Button } from "../ui/button";
-import { title } from "process";
 
 interface TutorFormProps {
   title?: string;
@@ -18,6 +17,7 @@ interface TutorFormProps {
 }
 
 const TutorForm: React.FC<TutorFormProps> = ({
+  title,
   initialData = { name: "", phone: "", email: "" },
   onSubmit,
   isSubmitting = false,
