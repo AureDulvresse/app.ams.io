@@ -2,20 +2,8 @@ import React, { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import { Card } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu";
-import {
-  File,
-  IdCardIcon,
-  Mail,
-  PenLineIcon,
-  PrinterIcon,
-  User2,
-} from "lucide-react";
+
+import { IdCardIcon, PenLineIcon, PrinterIcon, User2 } from "lucide-react";
 import Modal from "@/components/common/Modal";
 import TutorForm from "@/components/forms/TutorForm";
 import { Student } from "@/types";
@@ -45,7 +33,6 @@ const StudentDetailPage: React.FC = () => {
   const [isTutorFormOpen, setIsTutorFormOpen] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
-  // Simuler une requête pour obtenir les données de l'étudiant
   useEffect(() => {
     const fetchStudentData = async () => {
       try {
@@ -65,24 +52,12 @@ const StudentDetailPage: React.FC = () => {
   if (error) return <div>Erreur : {error}</div>;
   if (!student) return <div>Aucun étudiant trouvé.</div>;
 
-  // Gestion des actions
-  const handlePrintPDF = () => {
-    console.log("Impression PDF en cours...");
-    // Fonction pour imprimer en PDF
-  };
-
-  const handlePrintStudentCard = () => {
-    console.log("Impression de la carte d'étudiant en cours...");
-    // Fonction pour imprimer la carte d'étudiant
-  };
-
   const toggleTutorForm = () => {
     setIsTutorFormOpen(!isTutorFormOpen);
   };
 
   return (
     <div className="mx-auto p-6 space-y-6">
-      {/* Carte de l'étudiant */}
       <Card className="flex items-start justify-between p-6 bg-gradient-to-r from-indigo-500 to-indigo-600 text-white shadow-lg rounded-lg">
         <div className="flex items-center space-x-4">
           <img
@@ -99,43 +74,16 @@ const StudentDetailPage: React.FC = () => {
             <p>École ID : {student.school_id}</p>
           </div>
         </div>
-
         <div className="flex items-center space-x-2">
           <Button variant="ghost" className="flex items-center gap-2">
             <PenLineIcon size={14} />
             Modifier informations
           </Button>
-
-          <DropdownMenu>
-            <DropdownMenuTrigger asChild>
-              <Button variant="ghost" className="flex items-center gap-2">
-                <PrinterIcon size={14} />
-                Imprimer
-              </Button>
-            </DropdownMenuTrigger>
-            <DropdownMenuContent>
-              <DropdownMenuItem
-                onClick={handlePrintStudentCard}
-                className="flex items-center gap-2"
-              >
-                <IdCardIcon size={16} />
-                Carte Étudiante
-              </DropdownMenuItem>
-              <DropdownMenuItem
-                onClick={handlePrintPDF}
-                className="flex items-center gap-2"
-              >
-                <File size={16} />
-                Format PDF
-              </DropdownMenuItem>
-            </DropdownMenuContent>
-          </DropdownMenu>
         </div>
       </Card>
 
-      {/* Informations détaillées */}
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-        {/* Informations personnelles */}
+        {/* Informations Personnelles */}
         <Card className="p-6 bg-white dark:bg-gray-900 shadow-lg rounded-lg">
           <h2 className="flex items-center font-bold mb-4 text-indigo-500">
             <User2 className="mr-2" />
@@ -151,16 +99,6 @@ const StudentDetailPage: React.FC = () => {
             <li>
               <strong>Adresse :</strong> {student.address}
             </li>
-          </ul>
-        </Card>
-
-        {/* Informations de Contact */}
-        <Card className="p-6 bg-white dark:bg-gray-900 shadow-lg rounded-lg">
-          <h2 className="flex items-center font-bold mb-4 text-indigo-500">
-            <Mail className="mr-2" />
-            Informations de Contact
-          </h2>
-          <ul className="space-y-2">
             <li>
               <strong>Téléphone :</strong> {student.phone}
             </li>
@@ -170,56 +108,165 @@ const StudentDetailPage: React.FC = () => {
           </ul>
         </Card>
 
-        {/* Informations du Tuteur */}
-        <Card className="md:col-span-2 p-6 bg-white dark:bg-gray-900 shadow-lg rounded-lg">
-          <div className="flex justify-between items-center">
-            <h2 className="flex items-center font-bold mb-4 text-indigo-600">
-              <User2 className="mr-2" />
-              Informations du Tuteur
-            </h2>
-            <Button
-              variant="outline"
-              className="flex items-center gap-2"
-              onClick={toggleTutorForm}
-            >
-              <PenLineIcon size={14} />
-              Actualiser
-            </Button>
-          </div>
+        {/* Informations Tuteur */}
+        <Card className="p-6 bg-white dark:bg-gray-900 shadow-lg rounded-lg">
+          <h2 className="flex items-center font-bold mb-4 text-indigo-500">
+            <IdCardIcon className="mr-2" />
+            Tuteur
+          </h2>
           <ul className="space-y-2">
             <li>
-              <strong>Nom du Tuteur :</strong> {student.guardian_name}
+              <strong>Nom :</strong> {student.guardian_name}
             </li>
             <li>
-              <strong>Téléphone du Tuteur :</strong> {student.guardian_phone}
+              <strong>Téléphone :</strong> {student.guardian_phone}
+            </li>
+          </ul>
+          <Button
+            className="mt-4 bg-indigo-500 text-white"
+            onClick={toggleTutorForm}
+          >
+            Modifier le Tuteur
+          </Button>
+        </Card>
+
+        {/* Progression Académique */}
+        <Card className="p-6 bg-white dark:bg-gray-900 shadow-lg rounded-lg">
+          <h2 className="font-bold mb-4 text-indigo-500">
+            Progression Académique
+          </h2>
+          <ul className="space-y-2">
+            <li>
+              <strong>Moyenne Générale :</strong> 14.5/20
+            </li>
+            <li>
+              <strong>Statut :</strong> Promotion en cours
+            </li>
+            <li>
+              <strong>Matières suivies :</strong> Mathématiques, Physique,
+              Histoire
+            </li>
+            <li>
+              <strong>Dernier Résultat :</strong> 16/20 en Mathématiques
+            </li>
+          </ul>
+        </Card>
+
+        {/* Historique des Présences */}
+        <Card className="p-6 bg-white dark:bg-gray-900 shadow-lg rounded-lg">
+          <h2 className="font-bold mb-4 text-indigo-500">
+            Historique des Présences
+          </h2>
+          <ul className="space-y-2">
+            <li>
+              <strong>Nombre total d'absences :</strong> 3
+            </li>
+            <li>
+              <strong>Nombre total de retards :</strong> 1
+            </li>
+            <li>
+              <strong>Date de dernière absence :</strong> 10 septembre 2024
+            </li>
+          </ul>
+        </Card>
+
+        {/* Informations Financières */}
+        <Card className="p-6 bg-white dark:bg-gray-900 shadow-lg rounded-lg">
+          <h2 className="font-bold mb-4 text-indigo-500">
+            Informations Financières
+          </h2>
+          <ul className="space-y-2">
+            <li>
+              <strong>Solde à payer :</strong> 500€
+            </li>
+            <li>
+              <strong>Dernier paiement :</strong> 300€ le 1er septembre 2024
+            </li>
+            <li>
+              <strong>Mode de paiement :</strong> Carte bancaire
+            </li>
+          </ul>
+          <Button className="mt-4 bg-indigo-500 text-white">
+            Ajouter un Paiement
+          </Button>
+        </Card>
+
+        {/* Documents */}
+        <Card className="p-6 bg-white dark:bg-gray-900 shadow-lg rounded-lg">
+          <h2 className="font-bold mb-4 text-indigo-500 flex items-center gap-2">
+            {" "}
+            <PrinterIcon size={18} /> Documents
+          </h2>
+          <ul className="space-y-2">
+            <li>
+              <a href="/path-to-certificat" className="text-blue-600">
+                Certificat de Scolarité
+              </a>
+            </li>
+            <li>
+              <a href="/path-to-bulletin" className="text-blue-600">
+                Bulletin de Notes
+              </a>
+            </li>
+            <li>
+              <a href="/path-to-student-card" className="text-blue-600">
+                Carte Étudiante
+              </a>
+            </li>
+          </ul>
+        </Card>
+
+        {/* Calendrier */}
+        <Card className="p-6 bg-white dark:bg-gray-900 shadow-lg rounded-lg">
+          <h2 className="font-bold mb-4 text-indigo-500">Calendrier</h2>
+          <ul className="space-y-2">
+            <li>
+              <strong>Prochain examen :</strong> 25 septembre 2024 -
+              Mathématiques
+            </li>
+            <li>
+              <strong>Réunion parents-professeurs :</strong> 5 octobre 2024
+            </li>
+          </ul>
+        </Card>
+
+        {/* Historique des Activités */}
+        <Card className="p-6 bg-white dark:bg-gray-900 shadow-lg rounded-lg">
+          <h2 className="font-bold mb-4 text-indigo-500">
+            Historique des Activités
+          </h2>
+          <ul className="space-y-2">
+            <li>
+              <strong>Modification des informations du tuteur</strong> le 12
+              septembre 2024
+            </li>
+            <li>
+              <strong>Ajout d'une absence</strong> le 10 septembre 2024
             </li>
           </ul>
         </Card>
       </div>
 
-      {/* Modal pour actualiser les informations du tuteur */}
-      {isTutorFormOpen && (
-        <Modal
-          isOpen={isTutorFormOpen}
-          onClose={toggleTutorForm}
-          title="Modification du Tuteur"
-          description="Modifier les informations du tuteur de l'étudiant."
-          content={
-            <TutorForm
-              initialData={{
-                name: student.guardian_name,
-                phone: student.guardian_phone,
-              }}
-              onSubmit={(data) => console.log(data)}
-            />
-          }
-          footer={
-            <p className="text-xs text-gray-400">
-              Assurez-vous de remplir tous les champs.
-            </p>
-          }
-        />
-      )}
+      {/* Modal pour la modification du tuteur */}
+      <Modal
+        isOpen={isTutorFormOpen}
+        onClose={toggleTutorForm}
+        title="Modifier le Tuteur"
+        content={
+          <TutorForm
+            initialData={{
+              name: student.guardian_name,
+              phone: student.guardian_phone,
+            }}
+            onSubmit={(data) => console.log(data)}
+          />
+        }
+        footer={
+          <p className="text-xs text-gray-400">
+            Assurez-vous de remplir tous les champs.
+          </p>
+        }
+      />
     </div>
   );
 };
