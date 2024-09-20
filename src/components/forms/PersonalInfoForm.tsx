@@ -1,4 +1,5 @@
 import React from "react";
+import { z } from "zod";
 import { Button } from "../ui/button";
 import { Input } from "../ui/input";
 import SelectField from "../common/SelectField";
@@ -10,6 +11,8 @@ import {
   DropdownMenuContent,
   DropdownMenuTrigger,
 } from "../ui/dropdown-menu";
+import { personalInfoSchema } from "@/schemas/personalInfoSchema";
+
 
 interface PersonalInfoFormProps {
   formData: {
@@ -39,6 +42,7 @@ const PersonalInfoForm: React.FC<PersonalInfoFormProps> = ({
   nextStep,
 }) => {
   const [date, setDate] = React.useState<Date | undefined>(new Date());
+  const [errors, setErrors] = React.useState<Record<string, string>>({});
 
   const handleGenderChange = (value: string) => {
     handleInputChange({
@@ -55,6 +59,27 @@ const PersonalInfoForm: React.FC<PersonalInfoFormProps> = ({
     }
   };
 
+  const handleSubmit = () => {
+    try {
+      // Validation des données
+      personalInfoSchema.parse(formData);
+      setErrors({});
+      nextStep();
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    } catch (error: any) {
+      if (error instanceof z.ZodError) {
+        // Gestion des erreurs Zod
+        const newErrors: Record<string, string> = {};
+        error.errors.forEach((err) => {
+          if (err.path[0]) {
+            newErrors[err.path[0] as string] = err.message;
+          }
+        });
+        setErrors(newErrors);
+      }
+    }
+  };
+
   return (
     <div>
       <h2 className="text-xl font-bold mb-4 font-inter text-indigo-500">
@@ -67,6 +92,7 @@ const PersonalInfoForm: React.FC<PersonalInfoFormProps> = ({
             placeholder="Sélectionner le sexe"
             options={genders}
             onChange={handleGenderChange}
+            error={errors.gender} // Affichage de l'erreur
           />
         </div>
         <Input
@@ -77,6 +103,7 @@ const PersonalInfoForm: React.FC<PersonalInfoFormProps> = ({
           placeholder="Prénom"
           required
         />
+        {errors.firstName && <p className="text-red-500">{errors.firstName}</p>}
         <Input
           type="text"
           name="lastName"
@@ -85,6 +112,7 @@ const PersonalInfoForm: React.FC<PersonalInfoFormProps> = ({
           placeholder="Nom"
           required
         />
+        {errors.lastName && <p className="text-red-500">{errors.lastName}</p>}
 
         <DropdownMenu>
           <DropdownMenuTrigger asChild>
@@ -117,6 +145,7 @@ const PersonalInfoForm: React.FC<PersonalInfoFormProps> = ({
             </div>
           </DropdownMenuContent>
         </DropdownMenu>
+        {errors.dob && <p className="text-red-500">{errors.dob}</p>}
 
         <Input
           type="text"
@@ -126,6 +155,7 @@ const PersonalInfoForm: React.FC<PersonalInfoFormProps> = ({
           placeholder="Lieu de Naissance"
           required
         />
+        {errors.pob && <p className="text-red-500">{errors.pob}</p>}
         <Input
           type="text"
           name="address"
@@ -134,6 +164,7 @@ const PersonalInfoForm: React.FC<PersonalInfoFormProps> = ({
           placeholder="Adresse"
           required
         />
+        {errors.address && <p className="text-red-500">{errors.address}</p>}
         <Input
           type="tel"
           name="phone"
@@ -142,6 +173,7 @@ const PersonalInfoForm: React.FC<PersonalInfoFormProps> = ({
           placeholder="Téléphone"
           required
         />
+        {errors.phone && <p className="text-red-500">{errors.phone}</p>}
         <Input
           type="email"
           name="email"
@@ -150,9 +182,10 @@ const PersonalInfoForm: React.FC<PersonalInfoFormProps> = ({
           placeholder="Email"
           required
         />
+        {errors.email && <p className="text-red-500">{errors.email}</p>}
       </div>
       <div className="mt-4 flex justify-end">
-        <Button className="bg-indigo-500 text-white" onClick={nextStep}>
+        <Button className="bg-indigo-500 text-white" onClick={handleSubmit}>
           Suivant
         </Button>
       </div>
