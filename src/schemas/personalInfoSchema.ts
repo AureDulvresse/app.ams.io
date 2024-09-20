@@ -19,8 +19,8 @@ export const personalInfoSchema = z.object({
     .min(5, { message: "L'adresse doit comporter au moins 5 caractères" }),
   phone: z
     .string()
-    .regex(/^[0-9]{10}$/, {
-      message: "Le numéro de téléphone doit comporter 10 chiffres",
+    .regex(/^[0-9]{9}$/, {
+      message: "Le numéro de téléphone doit comporter 9 chiffres",
     }),
   email: z.string().email({ message: "Email invalide" }),
   gender: z.enum(["M", "F"], { message: "Le sexe est requis" }),
