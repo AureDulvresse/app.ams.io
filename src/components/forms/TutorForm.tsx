@@ -8,7 +8,7 @@ interface TutorFormProps {
     phone?: string;
     email?: string;
   };
-  onSubmit: (data: { name: string; phone: string; email: string }) => void;
+  onSubmit: (data: { name: string; phone: string; email?: string }) => void;
   isSubmitting?: boolean; // Pour indiquer si l'enregistrement est en cours
 }
 
@@ -29,18 +29,17 @@ const TutorForm: React.FC<TutorFormProps> = ({
   };
 
   const handleSubmit = () => {
-    if (formData.name && formData.phone && formData.email) {
+    if (formData.name && formData.phone) {
       onSubmit(formData);
     } else {
-      console.log("Form validation failed: Please fill in all fields.");
+      console.log(
+        "Form validation failed: Please fill in the required fields."
+      );
     }
   };
 
   return (
-    <div className="flex flex-col gap-4 p-4 bg-white dark:bg-gray-900 shadow-md rounded-lg">
-      <h2 className="text-lg font-semibold text-gray-800 dark:text-white">
-        Tuteur Étudiant
-      </h2>
+    <div className="flex flex-col gap-4">
       <Input
         name="name"
         className="w-full"
@@ -64,10 +63,9 @@ const TutorForm: React.FC<TutorFormProps> = ({
         type="email"
         name="email"
         className="w-full"
-        placeholder="Adresse e-mail du tuteur"
+        placeholder="Adresse e-mail du tuteur (facultatif)"
         value={formData.email}
         onChange={handleChange}
-        required
         aria-label="Adresse e-mail du tuteur"
       />
       <div className="text-right mt-3">
@@ -75,7 +73,7 @@ const TutorForm: React.FC<TutorFormProps> = ({
           type="button"
           onClick={handleSubmit}
           className="w-48 bg-gradient-to-tr from-indigo-400 to-indigo-500 px-3 py-2 rounded-md shadow-sm text-white dark:text-gray-950 font-semibold hover:scale-105 transition-transform"
-          disabled={isSubmitting} // Désactiver le bouton pendant la soumission
+          disabled={isSubmitting}
         >
           {isSubmitting ? "Enregistrement..." : "Enregistrer"}
         </Button>
