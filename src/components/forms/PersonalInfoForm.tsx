@@ -44,7 +44,10 @@ const PersonalInfoForm: React.FC<PersonalInfoFormProps> = ({
   handlePhotoUpload, // Callback pour le téléchargement de la photo
   nextStep,
 }) => {
-  const [date, setDate] = useState<Date | null>(null);
+  const [date, setDate] = useState<Date | null>(
+    new Date(new Date().setFullYear(new Date().getFullYear() - 18))
+  );
+
   const [errors, setErrors] = useState<Record<string, string>>({});
 
   const handleGenderChange = (value: string) => {
@@ -143,8 +146,10 @@ const PersonalInfoForm: React.FC<PersonalInfoFormProps> = ({
             >
               <Calendar
                 mode="single"
-                selected={date??new Date()}
+                selected={date ?? new Date()}
                 onSelect={handleDateChange}
+                fromYear={1900}
+                toYear={new Date().getFullYear()}
                 className="rounded-md p-1.5"
                 classNames={{
                   day_selected: "bg-indigo-500 text-white", // Classe pour la date sélectionnée
