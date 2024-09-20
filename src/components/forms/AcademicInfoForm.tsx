@@ -21,6 +21,7 @@ interface AcademicInfoFormProps {
     year?: string;
   }) => void;
   isSubmitting?: boolean;
+  prevStep?: () => void;
 }
 
 const classOptions = [
@@ -37,6 +38,7 @@ const AcademicInfoForm: React.FC<AcademicInfoFormProps> = ({
   onSubmit,
   isSubmitting = false,
   handleInputChange,
+  prevStep,
 }) => {
   const [formData, setFormData] = useState({
     schoolName: initialData.schoolName || "",
@@ -136,6 +138,15 @@ const AcademicInfoForm: React.FC<AcademicInfoFormProps> = ({
         />
 
         <div className="text-right mt-3">
+          {prevStep && (
+            <Button
+              type="button"
+              onClick={prevStep}
+              className="w-48 bg-gray-400 text-white"
+            >
+              Précédent
+            </Button>
+          )}
           <Button
             type="button"
             onClick={handleSubmit}
