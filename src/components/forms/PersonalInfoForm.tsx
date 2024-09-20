@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { z } from "zod";
 import { Button } from "../ui/button";
 import { Input } from "../ui/input";
@@ -12,6 +12,7 @@ import {
   DropdownMenuTrigger,
 } from "../ui/dropdown-menu";
 import { personalInfoSchema } from "@/schemas/personalInfoSchema";
+import PictureUpload from "../common/PictureUpload";
 
 interface PersonalInfoFormProps {
   formData: {
@@ -23,10 +24,12 @@ interface PersonalInfoFormProps {
     phone: string;
     email: string;
     gender: string;
+    photo?: File | null; // Ajout du champ photo optionnel
   };
   handleInputChange: (
     e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>
   ) => void;
+  handlePhotoUpload?: (file: File | null) => void; // Callback pour gérer la photo
   nextStep: () => void;
 }
 
@@ -38,10 +41,11 @@ const genders = [
 const PersonalInfoForm: React.FC<PersonalInfoFormProps> = ({
   formData,
   handleInputChange,
+  handlePhotoUpload, // Callback pour le téléchargement de la photo
   nextStep,
 }) => {
-  const [date, setDate] = React.useState<Date | undefined>(new Date());
-  const [errors, setErrors] = React.useState<Record<string, string>>({});
+  const [date, setDate] = useState<Date | undefined>(new Date());
+  const [errors, setErrors] = useState<Record<string, string>>({});
 
   const handleGenderChange = (value: string) => {
     handleInputChange({
@@ -64,7 +68,7 @@ const PersonalInfoForm: React.FC<PersonalInfoFormProps> = ({
       personalInfoSchema.parse(formData);
       setErrors({});
       nextStep();
-      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     } catch (error: any) {
       if (error instanceof z.ZodError) {
         // Gestion des erreurs Zod
@@ -85,42 +89,63 @@ const PersonalInfoForm: React.FC<PersonalInfoFormProps> = ({
         Étape 1 : Informations Personnelles
       </h2>
       <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-        <div className="col-span-1 md:col-span-2">
-          <div>
-            <SelectField
-              label="Sexe"
-              placeholder="Sélectionner le sexe"
-              options={genders}
-              onChange={handleGenderChange}
-              error={errors.gender} // Affichage de l'erreur
-            />
-          </div>
-        </div>
         <div>
+          <SelectField
+            label="Sexe"
+            placeholder="Sélectionner le sexe"
+            options={genders}
+            onChange={handleGenderChange}
+            error={errors.gender}
+          />
+        </div>
+
+        <div>
+          <PictureUpload
+            onUpload={() => handlePhotoUpload} // Permet le téléchargement de la photo
+          />
+          {formData.photo ? null : (
+            <p className="text-sm text-gray-500">
+              Télécharger une photo (optionnel)
+            </p>
+          )}
+        </div>
+
+        <div>
+          <label className="block mb-2 text-sm font-medium text-gray-700 dark:text-gray-300">
+            Prénom(s)
+          </label>
           <Input
             type="text"
             name="firstName"
             value={formData.firstName}
             onChange={handleInputChange}
-            placeholder="Prénom"
+            placeholder="Entrer le/les prénom(s)"
             required
           />
           {errors.firstName && (
             <p className="text-red-500">{errors.firstName}</p>
           )}
         </div>
+
         <div>
+          <label className="block mb-2 text-sm font-medium text-gray-700 dark:text-gray-300">
+            Nom(s)
+          </label>
           <Input
             type="text"
             name="lastName"
             value={formData.lastName}
             onChange={handleInputChange}
-            placeholder="Nom"
+            placeholder="Entrer le/les nom(s)"
             required
           />
           {errors.lastName && <p className="text-red-500">{errors.lastName}</p>}
         </div>
+
         <div>
+          <label className="block mb-2 text-sm font-medium text-gray-700 dark:text-gray-300">
+            Date de naissance
+          </label>
           <DropdownMenu>
             <DropdownMenuTrigger asChild>
               <Button
@@ -135,48 +160,58 @@ const PersonalInfoForm: React.FC<PersonalInfoFormProps> = ({
               className="bg-white dark:bg-gray-800"
               align="end"
             >
-              <div>
-                <Calendar
-                  mode="single"
-                  selected={date}
-                  onSelect={handleDateChange}
-                  className="rounded-md p-1.5"
-                  classNames={{
-                    day_selected: "bg-indigo-500 text-white",
-                  }}
-                  disabled={(date) =>
-                    date > new Date() || date < new Date("1900-01-01")
-                  }
-                  initialFocus
-                />
-              </div>
+              <Calendar
+                mode="single"
+                selected={date}
+                onSelect={handleDateChange}
+                className="rounded-md p-1.5"
+                classNames={{
+                  day_selected: "bg-indigo-500 text-white",
+                }}
+                disabled={(date) =>
+                  date > new Date() || date < new Date("1900-01-01")
+                }
+                initialFocus
+              />
             </DropdownMenuContent>
           </DropdownMenu>
           {errors.dob && <p className="text-red-500">{errors.dob}</p>}
         </div>
+
         <div>
+          <label className="block mb-2 text-sm font-medium text-gray-700 dark:text-gray-300">
+            Lieu de naissance
+          </label>
           <Input
             type="text"
             name="pob"
             value={formData.pob}
             onChange={handleInputChange}
-            placeholder="Lieu de Naissance"
+            placeholder="Entrer le lieu de Naissance"
             required
           />
           {errors.pob && <p className="text-red-500">{errors.pob}</p>}
         </div>
+
         <div>
+          <label className="block mb-2 text-sm font-medium text-gray-700 dark:text-gray-300">
+            Adresse
+          </label>
           <Input
             type="text"
             name="address"
             value={formData.address}
             onChange={handleInputChange}
-            placeholder="Adresse"
+            placeholder="Entrer l'adresse de l'etudiant"
             required
           />
           {errors.address && <p className="text-red-500">{errors.address}</p>}
         </div>
+
         <div>
+          <label className="block mb-2 text-sm font-medium text-gray-700 dark:text-gray-300">
+            Numéro de téléphone
+          </label>
           <Input
             type="tel"
             name="phone"
@@ -187,7 +222,11 @@ const PersonalInfoForm: React.FC<PersonalInfoFormProps> = ({
           />
           {errors.phone && <p className="text-red-500">{errors.phone}</p>}
         </div>
+
         <div>
+          <label className="block mb-2 text-sm font-medium text-gray-700 dark:text-gray-300">
+            Adresse electronique
+          </label>
           <Input
             type="email"
             name="email"
@@ -199,6 +238,7 @@ const PersonalInfoForm: React.FC<PersonalInfoFormProps> = ({
           {errors.email && <p className="text-red-500">{errors.email}</p>}
         </div>
       </div>
+
       <div className="mt-4 flex justify-end">
         <Button className="bg-indigo-500 text-white" onClick={handleSubmit}>
           Suivant

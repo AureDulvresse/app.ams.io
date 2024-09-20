@@ -26,6 +26,9 @@ const SelectField: React.FC<SelectFieldProps> = ({
 }) => {
   return (
     <div className="w-full">
+      <label className="block mb-2 text-sm font-medium text-gray-700 dark:text-gray-300">
+        {label}
+      </label>
       <Select onValueChange={onChange}>
         <SelectTrigger className="w-full border-gray-300 dark:border-gray-700">
           <SelectValue placeholder={placeholder} />

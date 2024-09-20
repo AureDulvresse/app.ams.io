@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { Input } from "../ui/input";
+import { UploadIcon, ImageIcon } from "lucide-react"; // Utilisation d'icônes
 
 interface PhotoUploadProps {
   label?: string;
@@ -29,21 +30,41 @@ const PictureUpload: React.FC<PhotoUploadProps> = ({
       <label className="block mb-2 text-sm font-medium text-gray-700 dark:text-gray-300">
         {label || "Télécharger une photo"}
       </label>
-      <Input
-        type="file"
-        accept="image/*"
-        onChange={handleFileChange}
-        className="block w-full text-sm text-gray-500 file:mr-4 file:py-2 file:px-4 file:rounded-lg file:border-0 file:text-sm file:font-semibold file:bg-indigo-100 file:text-indigo-600 hover:file:bg-indigo-200 dark:file:bg-gray-700 dark:file:text-gray-300 dark:hover:file:bg-gray-600"
-      />
-      {error && <p className="mt-1 text-sm text-red-600">{error}</p>}
 
-      {preview && (
-        <div className="mt-4">
+      <div className="relative">
+        <Input
+          type="file"
+          accept="image/*"
+          onChange={handleFileChange}
+          className="hidden"
+          id="file-input"
+        />
+
+        <label
+          htmlFor="file-input"
+          className="flex justify-center items-center cursor-pointer py-2 px-4 bg-indigo-600 text-white rounded-lg text-sm font-semibold hover:bg-indigo-700 transition duration-300 ease-in-out dark:bg-gray-700 dark:hover:bg-gray-600"
+        >
+          <UploadIcon className="mr-2" size={20} />
+          Sélectionner une photo
+        </label>
+      </div>
+
+      {error && <p className="mt-2 text-sm text-red-600">{error}</p>}
+
+      {preview ? (
+        <div className="mt-4 flex justify-center items-center">
           <img
             src={preview}
             alt="Prévisualisation"
-            className="w-32 h-32 object-cover rounded-md border"
+            className="w-40 h-40 object-cover rounded-md border border-gray-300 shadow-md dark:border-gray-600"
           />
+        </div>
+      ) : (
+        <div className="mt-4 flex flex-col justify-center items-center p-4 border border-dashed border-gray-300 rounded-md dark:border-gray-600">
+          <ImageIcon className="text-gray-400" size={40} />
+          <p className="mt-2 text-gray-500 text-sm dark:text-gray-400">
+            Aucune photo sélectionnée
+          </p>
         </div>
       )}
     </div>
