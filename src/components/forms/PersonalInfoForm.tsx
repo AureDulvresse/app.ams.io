@@ -4,6 +4,12 @@ import { Input } from "../ui/input";
 import SelectField from "../common/SelectField";
 import { Calendar } from "../ui/calendar";
 import { format } from "date-fns";
+import { CalendarIcon } from "lucide-react";
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuTrigger,
+} from "../ui/dropdown-menu";
 
 interface PersonalInfoFormProps {
   formData: {
@@ -72,19 +78,38 @@ const PersonalInfoForm: React.FC<PersonalInfoFormProps> = ({
           required
         />
 
-        <div className="flex flex-col">
-          <label className="mb-2">Date de Naissance</label>
-          <Calendar
-            mode="single"
-            selected={date}
-            onSelect={handleDateChange}
-            className="rounded-md border shadow"
-            disabled={(date) =>
-              date > new Date() || date < new Date("1900-01-01")
-            }
-            initialFocus
-          />
-        </div>
+        <DropdownMenu>
+          <DropdownMenuTrigger asChild>
+            <Button
+              variant="ghost"
+              className="flex items-center gap-2 border hover:dark:bg-gray-800"
+            >
+              <CalendarIcon />
+              Date de Naissance
+            </Button>
+          </DropdownMenuTrigger>
+          <DropdownMenuContent
+            className="bg-white dark:bg-gray-800"
+            align="end"
+          >
+            <div>
+              <Calendar
+                mode="single"
+                selected={date}
+                onSelect={handleDateChange}
+                className="rounded-md p-1.5"
+                classNames={{
+                  
+                  day_selected: "bg-indigo-500 text-white",
+                }}
+                disabled={(date) =>
+                  date > new Date() || date < new Date("1900-01-01")
+                }
+                initialFocus
+              />
+            </div>
+          </DropdownMenuContent>
+        </DropdownMenu>
 
         <Input
           type="text"
