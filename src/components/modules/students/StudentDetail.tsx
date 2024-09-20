@@ -1,7 +1,13 @@
-import { Card } from "@/components/ui/card";
-import { Student } from "@/types";
 import React, { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
+import { Card } from "@/components/ui/card";
+import { Button } from "@/components/ui/button";
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu";
 import {
   File,
   IdCardIcon,
@@ -10,15 +16,9 @@ import {
   PrinterIcon,
   User2,
 } from "lucide-react";
-import { Button } from "@/components/ui/button";
-import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu";
 import Modal from "@/components/common/Modal";
 import TutorForm from "@/components/forms/TutorForm";
+import { Student } from "@/types";
 
 // Exemple de données fictives conformes à l'interface Student
 const exampleStudent = {
@@ -40,18 +40,16 @@ const exampleStudent = {
 
 const StudentDetailPage: React.FC = () => {
   const { studentId } = useParams();
-  const [student, setStudent] = useState<Student>();
+  const [student, setStudent] = useState<Student | null>(null);
   const [loading, setLoading] = useState(true);
   const [isTutorFormOpen, setIsTutorFormOpen] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
+  // Simuler une requête pour obtenir les données de l'étudiant
   useEffect(() => {
-    // Simuler une requête pour obtenir les données de l'étudiant
     const fetchStudentData = async () => {
       try {
-        // Utilisation des données d'exemple
-        const data = exampleStudent;
-
+        const data = exampleStudent; // Remplacez par une requête API réelle
         setStudent(data);
       } catch (error) {
         setError((error as Error).message);
@@ -63,44 +61,36 @@ const StudentDetailPage: React.FC = () => {
     fetchStudentData();
   }, [studentId]);
 
-  if (loading) {
-    return <div>Chargement des données...</div>;
-  }
+  if (loading) return <div>Chargement des données...</div>;
+  if (error) return <div>Erreur : {error}</div>;
+  if (!student) return <div>Aucun étudiant trouvé.</div>;
 
-  if (error) {
-    return <div>Erreur : {error}</div>;
-  }
-
-  if (!student) {
-    return <div>Aucun étudiant trouvé.</div>;
-  }
-
-  const handlePrintPDF = (): void => {
-    throw new Error("Function not implemented.");
+  // Gestion des actions
+  const handlePrintPDF = () => {
+    console.log("Impression PDF en cours...");
+    // Fonction pour imprimer en PDF
   };
 
-  const handlePrintStudentCard = (): void => {
-    throw new Error("Function not implemented.");
+  const handlePrintStudentCard = () => {
+    console.log("Impression de la carte d'étudiant en cours...");
+    // Fonction pour imprimer la carte d'étudiant
   };
 
-  const openTutorForm = (): void => {
+  const toggleTutorForm = () => {
     setIsTutorFormOpen(!isTutorFormOpen);
-  };
-
-  const closeModal = (): void => {
-    setIsTutorFormOpen(false);
   };
 
   return (
     <div className="mx-auto p-6 space-y-6">
+      {/* Carte de l'étudiant */}
       <Card className="flex items-start justify-between p-6 bg-gradient-to-r from-indigo-500 to-indigo-600 text-white shadow-lg rounded-lg">
         <div className="flex items-center space-x-4">
           <img
             src={student.picture}
-            alt={`${student.first_name} ${student.last_name} Profile`}
+            alt={`${student.first_name} ${student.last_name}`}
             className="w-24 h-24 rounded-full shadow-md"
           />
-          <div className="font-inter">
+          <div>
             <h1 className="text-2xl font-bold">
               {student.first_name} {student.last_name}
             </h1>
@@ -111,53 +101,55 @@ const StudentDetailPage: React.FC = () => {
         </div>
 
         <div className="flex items-center space-x-2">
-          <Button variant={"ghost"} className="flex items-center gap-2">
+          <Button variant="ghost" className="flex items-center gap-2">
             <PenLineIcon size={14} />
             Modifier informations
           </Button>
+
           <DropdownMenu>
             <DropdownMenuTrigger asChild>
-              <Button variant={"ghost"} className="flex items-center gap-2">
+              <Button variant="ghost" className="flex items-center gap-2">
                 <PrinterIcon size={14} />
                 Imprimer
               </Button>
             </DropdownMenuTrigger>
             <DropdownMenuContent>
               <DropdownMenuItem
+                onClick={handlePrintStudentCard}
                 className="flex items-center gap-2"
-                onClick={() => handlePrintStudentCard()}
               >
                 <IdCardIcon size={16} />
-                <span>Carte Etudiante</span>
+                Carte Étudiante
               </DropdownMenuItem>
               <DropdownMenuItem
+                onClick={handlePrintPDF}
                 className="flex items-center gap-2"
-                onClick={() => handlePrintPDF()}
               >
                 <File size={16} />
-                <span>Format PDF</span>
+                Format PDF
               </DropdownMenuItem>
             </DropdownMenuContent>
           </DropdownMenu>
         </div>
       </Card>
 
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-6 font-inter">
+      {/* Informations détaillées */}
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+        {/* Informations personnelles */}
         <Card className="p-6 bg-white dark:bg-gray-900 shadow-lg rounded-lg">
           <h2 className="flex items-center font-bold mb-4 text-indigo-500">
-            <User2 className=" mr-2" /> Informations Personnelles
+            <User2 className="mr-2" />
+            Informations Personnelles
           </h2>
           <ul className="space-y-2">
             <li>
-              <strong className="text-sm">Date de Naissance :</strong>{" "}
-              {student.dob}
+              <strong>Date de Naissance :</strong> {student.dob}
             </li>
             <li>
-              <strong className="text-sm">Lieu de Naissance :</strong>{" "}
-              {student.pob}
+              <strong>Lieu de Naissance :</strong> {student.pob}
             </li>
             <li>
-              <strong className="text-sm">Adresse :</strong> {student.address}
+              <strong>Adresse :</strong> {student.address}
             </li>
           </ul>
         </Card>
@@ -165,70 +157,69 @@ const StudentDetailPage: React.FC = () => {
         {/* Informations de Contact */}
         <Card className="p-6 bg-white dark:bg-gray-900 shadow-lg rounded-lg">
           <h2 className="flex items-center font-bold mb-4 text-indigo-500">
-            <Mail className="mr-2" /> Informations de Contact
+            <Mail className="mr-2" />
+            Informations de Contact
           </h2>
           <ul className="space-y-2">
             <li>
-              <strong className="text-sm">Téléphone :</strong> {student.phone}
+              <strong>Téléphone :</strong> {student.phone}
             </li>
             <li>
-              <strong className="text-sm">Email :</strong> {student.email}
+              <strong>Email :</strong> {student.email}
             </li>
           </ul>
         </Card>
 
         {/* Informations du Tuteur */}
         <Card className="md:col-span-2 p-6 bg-white dark:bg-gray-900 shadow-lg rounded-lg">
-          <div className="flex justify-between">
+          <div className="flex justify-between items-center">
             <h2 className="flex items-center font-bold mb-4 text-indigo-600">
-              <User2 className="mr-2" /> Informations du Tuteur
+              <User2 className="mr-2" />
+              Informations du Tuteur
             </h2>
             <Button
-              variant={"outline"}
+              variant="outline"
               className="flex items-center gap-2"
-              onClick={() => openTutorForm()}
+              onClick={toggleTutorForm}
             >
               <PenLineIcon size={14} />
               Actualiser
             </Button>
           </div>
-
           <ul className="space-y-2">
             <li>
-              <strong className="text-sm">Nom du Tuteur :</strong>{" "}
-              {student.guardian_name}
+              <strong>Nom du Tuteur :</strong> {student.guardian_name}
             </li>
             <li>
-              <strong className="text-sm">Téléphone du Tuteur :</strong>{" "}
-              {student.guardian_phone}
+              <strong>Téléphone du Tuteur :</strong> {student.guardian_phone}
             </li>
           </ul>
         </Card>
-
-        {/* Overlay */}
-        {isTutorFormOpen && (
-          <div
-            className="fixed inset-0 bg-transparent z-40"
-            onClick={closeModal}
-          ></div>
-        )}
-
-        {/* Modal Formulaire tuteur */}
-        {isTutorFormOpen && (
-          <Modal
-            isOpen={!!isTutorFormOpen}
-            onClose={() => setIsTutorFormOpen(false)}
-            title="Modification"
-            description="Modifier les informations du tuteur."
-            content={<TutorForm />}
-            footer={
-              <p className="text-[11px] text-gray-400">
-                Veuillez à bien remplir le formulaire
-              </p>
-            }
-          />
-        )}
       </div>
+
+      {/* Modal pour actualiser les informations du tuteur */}
+      {isTutorFormOpen && (
+        <Modal
+          isOpen={isTutorFormOpen}
+          onClose={toggleTutorForm}
+          title="Modification du Tuteur"
+          description="Modifier les informations du tuteur de l'étudiant."
+          content={
+            <TutorForm
+              initialData={{
+                name: student.guardian_name,
+                phone: student.guardian_phone,
+              }}
+              onSubmit={(data) => console.log(data)}
+            />
+          }
+          footer={
+            <p className="text-xs text-gray-400">
+              Assurez-vous de remplir tous les champs.
+            </p>
+          }
+        />
+      )}
     </div>
   );
 };
