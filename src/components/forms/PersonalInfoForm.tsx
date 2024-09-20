@@ -1,22 +1,42 @@
 import React from "react";
 import { Button } from "@/components/ui/button";
 import { Input } from "../ui/input";
-import { Select } from "../ui/select";
+import SelectField from "../common/SelectField";
 
 interface PersonalInfoFormProps {
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  formData: any;
+  formData: {
+    firstName: string;
+    lastName: string;
+    dob: string;
+    pob: string;
+    address: string;
+    phone: string;
+    email: string;
+    gender: string;
+  };
   handleInputChange: (
-    e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>
+    e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement> | string
   ) => void;
   nextStep: () => void;
 }
+
+const genders = [
+  { label: "Masculin", value: "M" },
+  { label: "Feminin", value: "F" },
+];
 
 const PersonalInfoForm: React.FC<PersonalInfoFormProps> = ({
   formData,
   handleInputChange,
   nextStep,
 }) => {
+  // Fonction pour gérer le changement dans le SelectField (sexe)
+  const handleGenderChange = (value: string) => {
+    handleInputChange({
+      target: { name: "gender", value }, // Simule un event de changement
+    } as unknown as React.ChangeEvent<HTMLInputElement>);
+  };
+
   return (
     <div>
       <h2 className="text-xl font-bold mb-4">
@@ -72,18 +92,12 @@ const PersonalInfoForm: React.FC<PersonalInfoFormProps> = ({
           onChange={handleInputChange}
           placeholder="Email"
         />
-        <Select
-          name="gender"
-          value={formData.gender}
-          onChange={handleInputChange}
-          className="Input"
-        >
-          <option value="" disabled>
-            Sexe
-          </option>
-          <option value="Masculin">Masculin</option>
-          <option value="Féminin">Féminin</option>
-        </Select>
+        <SelectField
+          label="Sexe"
+          placeholder="Sélectionner le sexe"
+          options={genders}
+          onChange={handleGenderChange} // Utilise la nouvelle fonction pour changer le sexe
+        />
       </div>
       <Button className="mt-4 bg-indigo-500 text-white" onClick={nextStep}>
         Suivant
