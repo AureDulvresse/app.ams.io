@@ -86,6 +86,9 @@ const StudentRegistrationForm: React.FC = () => {
             });
             nextStep();
           }}
+          nextStep={nextStep} // Ajouter le nextStep ici
+          prevStep={prevStep} // Ajouter le prevStep ici
+          showNavigation={true} // Afficher les boutons de navigation
         />
       )}
       {step === 3 && (
