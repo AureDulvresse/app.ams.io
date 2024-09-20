@@ -125,6 +125,7 @@ const PersonalInfoForm: React.FC<PersonalInfoFormProps> = ({
           <label className="block mb-2 text-sm font-medium text-gray-700 dark:text-gray-300">
             Date de naissance
           </label>
+
           <DropdownMenu>
             <DropdownMenuTrigger asChild>
               <Button
@@ -132,29 +133,30 @@ const PersonalInfoForm: React.FC<PersonalInfoFormProps> = ({
                 className="flex items-center gap-2 border hover:dark:bg-gray-800 w-full"
               >
                 <CalendarIcon />
-                Date de Naissance
+                {date ? format(date, "dd/MM/yyyy") : "Date de Naissance"}
               </Button>
             </DropdownMenuTrigger>
+
             <DropdownMenuContent
               className="bg-white dark:bg-gray-800"
               align="end"
             >
               <Calendar
                 mode="single"
-                selected={date}
+                selected={date} // La date pré-sélectionnée est affichée ici
                 onSelect={handleDateChange}
                 className="rounded-md p-1.5"
                 classNames={{
-                  day_selected: "bg-indigo-500 text-white",
+                  day_selected: "bg-indigo-500 text-white", // Classe pour la date sélectionnée
                 }}
                 disabled={(date) =>
                   date > new Date() || date < new Date("1900-01-01")
                 }
-                initialFocus
               />
             </DropdownMenuContent>
           </DropdownMenu>
-          {errors.dob && <p className="text-red-500">{errors.dob}</p>}
+
+          {error && <p className="text-red-500">{error}</p>}
         </div>
 
         <div>
