@@ -38,7 +38,7 @@ const PersonalInfoForm: React.FC<PersonalInfoFormProps> = ({
 
   return (
     <div>
-      <h2 className="text-xl font-bold mb-4">
+      <h2 className="text-xl font-bold mb-4 font-inter text-indigo-500">
         Étape 1 : Informations Personnelles
       </h2>
       <div className="space-y-4">
