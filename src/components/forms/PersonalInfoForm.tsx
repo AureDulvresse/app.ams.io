@@ -90,27 +90,6 @@ const PersonalInfoForm: React.FC<PersonalInfoFormProps> = ({
       </h2>
       <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
         <div>
-          <SelectField
-            label="Sexe"
-            placeholder="Sélectionner le sexe"
-            options={genders}
-            onChange={handleGenderChange}
-            error={errors.gender}
-          />
-        </div>
-
-        <div>
-          <PictureUpload
-            onUpload={() => handlePhotoUpload} // Permet le téléchargement de la photo
-          />
-          {formData.photo ? null : (
-            <p className="text-sm text-gray-500">
-              Télécharger une photo (optionnel)
-            </p>
-          )}
-        </div>
-
-        <div>
           <label className="block mb-2 text-sm font-medium text-gray-700 dark:text-gray-300">
             Prénom(s)
           </label>
@@ -194,6 +173,16 @@ const PersonalInfoForm: React.FC<PersonalInfoFormProps> = ({
         </div>
 
         <div>
+          <SelectField
+            label="Sexe"
+            placeholder="Sélectionner le sexe"
+            options={genders}
+            onChange={handleGenderChange}
+            error={errors.gender}
+          />
+        </div>
+
+        <div>
           <label className="block mb-2 text-sm font-medium text-gray-700 dark:text-gray-300">
             Adresse
           </label>
@@ -236,6 +225,16 @@ const PersonalInfoForm: React.FC<PersonalInfoFormProps> = ({
             required
           />
           {errors.email && <p className="text-red-500">{errors.email}</p>}
+        </div>
+        <div>
+          <PictureUpload
+            onUpload={() => handlePhotoUpload} // Permet le téléchargement de la photo
+          />
+          {formData.photo ? null : (
+            <p className="text-sm text-gray-500">
+              Télécharger une photo (optionnel)
+            </p>
+          )}
         </div>
       </div>
 
