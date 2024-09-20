@@ -13,7 +13,6 @@ import {
 } from "../ui/dropdown-menu";
 import { personalInfoSchema } from "@/schemas/personalInfoSchema";
 
-
 interface PersonalInfoFormProps {
   formData: {
     firstName: string;
@@ -65,7 +64,7 @@ const PersonalInfoForm: React.FC<PersonalInfoFormProps> = ({
       personalInfoSchema.parse(formData);
       setErrors({});
       nextStep();
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
     } catch (error: any) {
       if (error instanceof z.ZodError) {
         // Gestion des erreurs Zod
@@ -87,102 +86,118 @@ const PersonalInfoForm: React.FC<PersonalInfoFormProps> = ({
       </h2>
       <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
         <div className="col-span-1 md:col-span-2">
-          <SelectField
-            label="Sexe"
-            placeholder="Sélectionner le sexe"
-            options={genders}
-            onChange={handleGenderChange}
-            error={errors.gender} // Affichage de l'erreur
-          />
+          <div>
+            <SelectField
+              label="Sexe"
+              placeholder="Sélectionner le sexe"
+              options={genders}
+              onChange={handleGenderChange}
+              error={errors.gender} // Affichage de l'erreur
+            />
+          </div>
         </div>
-        <Input
-          type="text"
-          name="firstName"
-          value={formData.firstName}
-          onChange={handleInputChange}
-          placeholder="Prénom"
-          required
-        />
-        {errors.firstName && <p className="text-red-500">{errors.firstName}</p>}
-        <Input
-          type="text"
-          name="lastName"
-          value={formData.lastName}
-          onChange={handleInputChange}
-          placeholder="Nom"
-          required
-        />
-        {errors.lastName && <p className="text-red-500">{errors.lastName}</p>}
-
-        <DropdownMenu>
-          <DropdownMenuTrigger asChild>
-            <Button
-              variant="ghost"
-              className="flex items-center gap-2 border hover:dark:bg-gray-800 w-full"
+        <div>
+          <Input
+            type="text"
+            name="firstName"
+            value={formData.firstName}
+            onChange={handleInputChange}
+            placeholder="Prénom"
+            required
+          />
+          {errors.firstName && (
+            <p className="text-red-500">{errors.firstName}</p>
+          )}
+        </div>
+        <div>
+          <Input
+            type="text"
+            name="lastName"
+            value={formData.lastName}
+            onChange={handleInputChange}
+            placeholder="Nom"
+            required
+          />
+          {errors.lastName && <p className="text-red-500">{errors.lastName}</p>}
+        </div>
+        <div>
+          <DropdownMenu>
+            <DropdownMenuTrigger asChild>
+              <Button
+                variant="ghost"
+                className="flex items-center gap-2 border hover:dark:bg-gray-800 w-full"
+              >
+                <CalendarIcon />
+                Date de Naissance
+              </Button>
+            </DropdownMenuTrigger>
+            <DropdownMenuContent
+              className="bg-white dark:bg-gray-800"
+              align="end"
             >
-              <CalendarIcon />
-              Date de Naissance
-            </Button>
-          </DropdownMenuTrigger>
-          <DropdownMenuContent
-            className="bg-white dark:bg-gray-800"
-            align="end"
-          >
-            <div>
-              <Calendar
-                mode="single"
-                selected={date}
-                onSelect={handleDateChange}
-                className="rounded-md p-1.5"
-                classNames={{
-                  day_selected: "bg-indigo-500 text-white",
-                }}
-                disabled={(date) =>
-                  date > new Date() || date < new Date("1900-01-01")
-                }
-                initialFocus
-              />
-            </div>
-          </DropdownMenuContent>
-        </DropdownMenu>
-        {errors.dob && <p className="text-red-500">{errors.dob}</p>}
-
-        <Input
-          type="text"
-          name="pob"
-          value={formData.pob}
-          onChange={handleInputChange}
-          placeholder="Lieu de Naissance"
-          required
-        />
-        {errors.pob && <p className="text-red-500">{errors.pob}</p>}
-        <Input
-          type="text"
-          name="address"
-          value={formData.address}
-          onChange={handleInputChange}
-          placeholder="Adresse"
-          required
-        />
-        {errors.address && <p className="text-red-500">{errors.address}</p>}
-        <Input
-          type="tel"
-          name="phone"
-          value={formData.phone}
-          onChange={handleInputChange}
-          placeholder="Téléphone"
-          required
-        />
-        {errors.phone && <p className="text-red-500">{errors.phone}</p>}
-        <Input
-          type="email"
-          name="email"
-          value={formData.email}
-          onChange={handleInputChange}
-          placeholder="Email"
-          required
-        />
-        {errors.email && <p className="text-red-500">{errors.email}</p>}
+              <div>
+                <Calendar
+                  mode="single"
+                  selected={date}
+                  onSelect={handleDateChange}
+                  className="rounded-md p-1.5"
+                  classNames={{
+                    day_selected: "bg-indigo-500 text-white",
+                  }}
+                  disabled={(date) =>
+                    date > new Date() || date < new Date("1900-01-01")
+                  }
+                  initialFocus
+                />
+              </div>
+            </DropdownMenuContent>
+          </DropdownMenu>
+          {errors.dob && <p className="text-red-500">{errors.dob}</p>}
+        </div>
+        <div>
+          <Input
+            type="text"
+            name="pob"
+            value={formData.pob}
+            onChange={handleInputChange}
+            placeholder="Lieu de Naissance"
+            required
+          />
+          {errors.pob && <p className="text-red-500">{errors.pob}</p>}
+        </div>
+        <div>
+          <Input
+            type="text"
+            name="address"
+            value={formData.address}
+            onChange={handleInputChange}
+            placeholder="Adresse"
+            required
+          />
+          {errors.address && <p className="text-red-500">{errors.address}</p>}
+        </div>
+        <div>
+          <Input
+            type="tel"
+            name="phone"
+            value={formData.phone}
+            onChange={handleInputChange}
+            placeholder="Téléphone"
+            required
+          />
+          {errors.phone && <p className="text-red-500">{errors.phone}</p>}
+        </div>
+        <div>
+          <Input
+            type="email"
+            name="email"
+            value={formData.email}
+            onChange={handleInputChange}
+            placeholder="Email"
+            required
+          />
+          {errors.email && <p className="text-red-500">{errors.email}</p>}
+        </div>
       </div>
       <div className="mt-4 flex justify-end">
         <Button className="bg-indigo-500 text-white" onClick={handleSubmit}>
