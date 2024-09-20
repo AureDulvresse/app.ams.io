@@ -30,6 +30,12 @@ const PersonalInfoForm: React.FC<PersonalInfoFormProps> = ({
   handleInputChange,
   nextStep,
 }) => {
+  const handleGenderChange = (value: string) => {
+    handleInputChange({
+      target: { name: "gender", value }, // Directement utiliser la valeur
+    } as unknown as React.ChangeEvent<HTMLSelectElement>);
+  };
+
   return (
     <div>
       <h2 className="text-xl font-bold mb-4">
@@ -95,9 +101,7 @@ const PersonalInfoForm: React.FC<PersonalInfoFormProps> = ({
           label="Sexe"
           placeholder="Sélectionner le sexe"
           options={genders}
-          onChange={(value) =>
-            handleInputChange({ target: { name: "gender", value } })
-          }
+          onChange={handleGenderChange} // Passer directement la fonction
         />
       </div>
       <Button className="mt-4 bg-indigo-500 text-white" onClick={nextStep}>
