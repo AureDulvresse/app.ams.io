@@ -10,12 +10,18 @@ interface TutorFormProps {
   };
   onSubmit: (data: { name: string; phone: string; email?: string }) => void;
   isSubmitting?: boolean; // Pour indiquer si l'enregistrement est en cours
+  nextStep?: () => void; // Fonction pour passer à l'étape suivante (facultatif)
+  prevStep?: () => void; // Fonction pour revenir à l'étape précédente (facultatif)
+  showNavigation?: boolean; // Pour déterminer si les boutons de navigation doivent être affichés
 }
 
 const TutorForm: React.FC<TutorFormProps> = ({
   initialData = { name: "", phone: "", email: "" },
   onSubmit,
   isSubmitting = false,
+  nextStep,
+  prevStep,
+  showNavigation = false, // Valeur par défaut
 }) => {
   const [formData, setFormData] = useState({
     name: initialData.name || "",
@@ -31,6 +37,9 @@ const TutorForm: React.FC<TutorFormProps> = ({
   const handleSubmit = () => {
     if (formData.name && formData.phone) {
       onSubmit(formData);
+      if (isSubmitting && nextStep) {
+        nextStep(); // Passer à l'étape suivante si isSubmitting est true
+      }
     } else {
       console.log(
         "Form validation failed: Please fill in the required fields."
@@ -68,16 +77,39 @@ const TutorForm: React.FC<TutorFormProps> = ({
         onChange={handleChange}
         aria-label="Adresse e-mail du tuteur"
       />
-      <div className="text-right mt-3">
-        <Button
-          type="button"
-          onClick={handleSubmit}
-          className="w-48 bg-gradient-to-tr from-indigo-400 to-indigo-500 px-3 py-2 rounded-md shadow-sm text-white dark:text-gray-950 font-semibold hover:scale-105 transition-transform"
-          disabled={isSubmitting}
-        >
-          {isSubmitting ? "Enregistrement..." : "Enregistrer"}
-        </Button>
-      </div>
+
+      {showNavigation ? (
+        <div className="flex justify-between mt-3">
+          {prevStep && (
+            <Button
+              type="button"
+              onClick={prevStep}
+              className="w-48 bg-gray-400 text-white"
+            >
+              Précédent
+            </Button>
+          )}
+          <Button
+            type="button"
+            onClick={handleSubmit}
+            className="w-48 bg-gradient-to-tr from-indigo-400 to-indigo-500 text-white"
+            disabled={isSubmitting}
+          >
+            {isSubmitting ? "Enregistrement..." : "Enregistrer"}
+          </Button>
+        </div>
+      ) : (
+        <div className="text-right mt-3">
+          <Button
+            type="button"
+            onClick={handleSubmit}
+            className="w-48 bg-gradient-to-tr from-indigo-400 to-indigo-500 text-white"
+            disabled={isSubmitting}
+          >
+            {isSubmitting ? "Enregistrement..." : "Enregistrer"}
+          </Button>
+        </div>
+      )}
     </div>
   );
 };
