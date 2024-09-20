@@ -73,7 +73,8 @@ const StudentRegistrationForm: React.FC = () => {
         />
       )}
       {step === 2 && (
-        <TutorForm
+              <TutorForm
+                  title="Information tuteur"
           initialData={{
             name: formData.guardianName,
             phone: formData.guardianPhone,

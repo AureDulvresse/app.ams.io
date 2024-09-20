@@ -3,16 +3,17 @@ import { Input } from "@/components/ui/input";
 import { Button } from "../ui/button";
 
 interface TutorFormProps {
+  title?: string;
   initialData?: {
     name?: string;
     phone?: string;
     email?: string;
   };
   onSubmit: (data: { name: string; phone: string; email?: string }) => void;
-  isSubmitting?: boolean; // Pour indiquer si l'enregistrement est en cours
-  nextStep?: () => void; // Fonction pour passer à l'étape suivante (facultatif)
-  prevStep?: () => void; // Fonction pour revenir à l'étape précédente (facultatif)
-  showNavigation?: boolean; // Pour déterminer si les boutons de navigation doivent être affichés
+  isSubmitting?: boolean;
+  nextStep?: () => void; 
+  prevStep?: () => void;
+  showNavigation?: boolean;
 }
 
 const TutorForm: React.FC<TutorFormProps> = ({
@@ -95,7 +96,7 @@ const TutorForm: React.FC<TutorFormProps> = ({
             className="w-48 bg-gradient-to-tr from-indigo-400 to-indigo-500 text-white"
             disabled={isSubmitting}
           >
-            {isSubmitting ? "Enregistrement..." : "Enregistrer"}
+            {isSubmitting ? "Enregistrement..." : "Suivant"}
           </Button>
         </div>
       ) : (
