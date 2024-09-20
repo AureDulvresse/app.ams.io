@@ -2,11 +2,14 @@ import React, { useState } from "react";
 import { Input } from "@/components/ui/input";
 import { Button } from "../ui/button";
 import SelectField from "../common/SelectField";
+import { academicInfoSchema } from "@/schemas/academicInfoSchema";
+import { useToast } from "@/hooks/use-toast";
+import { ToastAction } from "../ui/toast";
 
 interface AcademicInfoFormProps {
   initialData?: {
     schoolName?: string;
-    classId?: number; // ID de la classe sélectionnée
+    classId?: number;
     year?: string;
   };
   handleInputChange: (
@@ -17,7 +20,7 @@ interface AcademicInfoFormProps {
     classId: number;
     year?: string;
   }) => void;
-  isSubmitting?: boolean; // Pour indiquer si l'enregistrement est en cours
+  isSubmitting?: boolean;
 }
 
 const classOptions = [
@@ -41,6 +44,10 @@ const AcademicInfoForm: React.FC<AcademicInfoFormProps> = ({
     year: initialData.year || "",
   });
 
+  const [errors, setErrors] = useState<Record<string, string>>({});
+
+  const { toast } = useToast();
+
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
     setFormData((prevData) => ({ ...prevData, [name]: value }));
@@ -49,42 +56,75 @@ const AcademicInfoForm: React.FC<AcademicInfoFormProps> = ({
   const handleClassChange = (value: number) => {
     setFormData((prevData) => ({ ...prevData, classId: value }));
     handleInputChange({
-      target: { name: "classId", value: String(value) }, // Convertir en string
-    } as unknown as React.ChangeEvent<HTMLInputElement>); // Utiliser unknown pour contourner l'erreur de typage
+      target: { name: "classId", value: String(value) },
+    } as unknown as React.ChangeEvent<HTMLInputElement>);
   };
 
   const handleSubmit = () => {
-    if (formData.schoolName && formData.classId) {
-      onSubmit(formData);
+    // Validation des données avec Zod
+    const result = academicInfoSchema.safeParse(formData);
+
+    if (!result.success) {
+      // Extraire les erreurs de validation de Zod et les afficher
+      const validationErrors: Record<string, string> = {};
+      result.error.errors.forEach((err) => {
+        if (err.path[0]) {
+          validationErrors[err.path[0] as string] = err.message;
+        }
+      });
+      setErrors(validationErrors);
+
+      toast({
+        variant: "destructive",
+        title: "Uh oh! Something went wrong.",
+        description: "Veuillez corriger les erreurs dans le formulaire.",
+        action: <ToastAction altText="Try again">Try again</ToastAction>,
+      });
     } else {
-      console.log(
-        "Form validation failed: Please fill in the required fields."
-      );
+      // Réinitialiser les erreurs si la validation passe
+      setErrors({});
+      onSubmit(formData);
+
+      toast({
+        variant: "default",
+        title: "Informations",
+        description: "Informations enregistrées avec succès !",
+      });
     }
   };
 
   return (
     <div>
       <h2 className="text-xl font-bold mb-4">
-        Étape 3 : Informations academique
+        Étape 3 : Informations académiques
       </h2>
       <div className="flex flex-col gap-4">
-        <Input
-          name="schoolName"
-          className="w-full"
-          placeholder="Nom de l'établissement"
-          value={formData.schoolName}
-          onChange={handleChange}
-          required
-          aria-label="Nom de l'établissement"
-        />
+        <div>
+          <Input
+            name="schoolName"
+            className="w-full"
+            placeholder="Nom de l'établissement"
+            value={formData.schoolName}
+            onChange={handleChange}
+            required
+            aria-label="Nom de l'établissement"
+          />
+          {errors.schoolName && (
+            <p className="text-red-500 mt-1 text-sm">{errors.schoolName}</p>
+          )}
+        </div>
 
-        <SelectField
-          label="Sélectionner la classe"
-          placeholder="Choisissez une classe"
-          options={classOptions}
-          onChange={() => handleClassChange}
-        />
+        <div>
+          <SelectField
+            label="Sélectionner la classe"
+            placeholder="Choisissez une classe"
+            options={classOptions}
+            onChange={(value) => handleClassChange(Number(value))}
+          />
+          {errors.classId && (
+            <p className="text-red-500 mt-1 text-sm">{errors.classId}</p>
+          )}
+        </div>
 
         <Input
           name="year"
