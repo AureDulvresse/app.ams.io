@@ -6,6 +6,7 @@ import StaffPage from "./pages/modules/hr/StaffPage";
 import NotFoundPage from "./pages/NotFoundPage";
 import StudentDetailPage from "./pages/modules/students/StudentDetailsPage";
 import StudentRegisterPage from "./pages/modules/students/StudentRegisterPage";
+import { Toast } from "./components/ui/toast";
 
 const router = createBrowserRouter([
   {
@@ -38,6 +39,7 @@ const App = () => {
   return (
     <>
       <ThemeProvider defaultTheme="dark" storageKey="vite-ui-theme">
+        <Toast />
         <RouterProvider router={router} />
       </ThemeProvider>
     </>
