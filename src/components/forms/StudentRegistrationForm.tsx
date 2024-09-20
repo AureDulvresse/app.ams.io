@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import PersonalInfoForm from "@/components/forms/PersonalInfoForm";
 import TutorForm from "@/components/forms/TutorForm";
 import AcademicInfoForm from "@/components/forms/AcademicInfoForm";
-import { Button } from "@/components/ui/button";
+
 
 // Interface des données du formulaire
 interface StudentData {
