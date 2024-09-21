@@ -1,9 +1,10 @@
 import React, { useState } from "react";
-import PersonalInfoForm from "./PersonalInfoForm";
-import AdministrativeInfoForm from "./AdministrativeInfoForm";
+import TutorForm from "@/components/forms/TutorForm";
+import PersonalInfoForm from "../../forms/PersonalInfoForm";
+import AcademicInfoForm from "../../forms/AcademicInfoForm";
 
 // Interface des données du formulaire
-interface StaffData {
+interface StudentData {
   firstName: string;
   lastName: string;
   dob: string;
@@ -12,15 +13,15 @@ interface StaffData {
   phone: string;
   email: string;
   gender: string;
-  department_id: number;
-  daily_salary: number;
-  hire_at: Date | string;
+  guardianName: string;
+  guardianPhone: string;
+  classId: number;
   schoolId: number;
 }
 
-const StaffRegistrationForm: React.FC = () => {
+const StudentRegistrationForm: React.FC = () => {
   const [step, setStep] = useState(1); // Étape actuelle
-  const [formData, setFormData] = useState<StaffData>({
+  const [formData, setFormData] = useState<StudentData>({
     firstName: "",
     lastName: "",
     dob: "",
@@ -29,9 +30,9 @@ const StaffRegistrationForm: React.FC = () => {
     phone: "",
     email: "",
     gender: "",
-    department_id: 1,
-    daily_salary: 4000,
-    hire_at: new Date("2022-09-17"),
+    guardianName: "",
+    guardianPhone: "",
+    classId: 0,
     schoolId: 0,
   });
 
@@ -56,9 +57,9 @@ const StaffRegistrationForm: React.FC = () => {
   const handleSubmit = async () => {
     try {
       console.log("Données soumises :", formData);
-      alert("Personel enregistré avec succès !");
+      alert("Étudiant inscrit avec succès !");
     } catch (error) {
-      console.error("Erreur lors de l'enregistrement :", error);
+      console.error("Erreur lors de l'inscription :", error);
     }
   };
 
@@ -72,19 +73,38 @@ const StaffRegistrationForm: React.FC = () => {
         />
       )}
       {step === 2 && (
-        <AdministrativeInfoForm
+        <TutorForm
+          title="Etape 2 : Information tuteur"
+          initialData={{
+            name: formData.guardianName,
+            phone: formData.guardianPhone,
+          }}
+          onSubmit={(data) => {
+            setFormData({
+              ...formData,
+              guardianName: data.name,
+              guardianPhone: data.phone,
+            });
+            nextStep();
+          }}
+          nextStep={nextStep} // Ajouter le nextStep ici
+          prevStep={prevStep} // Ajouter le prevStep ici
+          showNavigation={true} // Afficher les boutons de navigation
+        />
+      )}
+      {step === 3 && (
+        <AcademicInfoForm
           initialData={{
             schoolName: formData.schoolId ? "Nom de l'école" : "",
-            department_id: formData.department_id,
+            classId: formData.classId,
           }}
           onSubmit={handleSubmit}
           isSubmitting={false}
           handleInputChange={handleInputChange}
-          prevStep={prevStep}
         />
       )}
     </div>
   );
 };
 
-export default StaffRegistrationForm;
+export default StudentRegistrationForm;

@@ -2,7 +2,7 @@ import React from "react";
 import Navbar from "@/components/partials/Navbar";
 import Sidebar from "@/components/partials/Sidebar";
 import DynamicBreadcrumb from "@/components/common/DynamicBreadcrumb";
-import StudentRegistrationForm from "@/components/forms/StudentRegistrationForm";
+import StudentRegistrationForm from "@/components/modules/students/StudentRegistrationForm";
 
 const breadcrumbItems = [
   { href: "/", label: "Accueil" },
