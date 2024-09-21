@@ -31,7 +31,7 @@ const router = createBrowserRouter([
     element: <StaffPage />,
   },
   {
-    path: "/hr/staff/hire/",
+    path: "/hr/staff/create/",
     element: <StaffRegisterPage />
   },
   {

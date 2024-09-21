@@ -102,7 +102,7 @@ const Staff: React.FC = () => {
           Ressources Humaine
         </h2>
         <Link
-          to={"/hr/staff/hire/"}
+          to={"/staff/create/"}
           className="font-inter flex items-center gap-2 bg-gradient-to-tr from-indigo-400 to-indigo-500 px-3 py-2 rounded-md shadow-sm text-white dark:text-gray-950 font-semibold hover:scale-[1.02] transition-all"
         >
           <Plus className="font-semibold" size={16} />
