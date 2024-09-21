@@ -30,6 +30,10 @@ const router = createBrowserRouter([
     element: <StaffPage />,
   },
   {
+    path: "/hr/staff/hire/",
+    element: <StaffRegisterPage />
+  }
+  {
     path: "*",
     element: <NotFoundPage />,
   },
