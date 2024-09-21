@@ -2,12 +2,12 @@ import React, { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import { format } from "date-fns";
 import { Card } from "@/components/ui/card";
-import { Button } from "@/components/ui/button";import { IdCardIcon, PenLineIcon, PrinterIcon, User2 } from "lucide-react";
+import { Button } from "@/components/ui/button";
+import { IdCardIcon, PenLineIcon, PrinterIcon, User2 } from "lucide-react";
 import Modal from "@/components/common/Modal";
 import TutorForm from "@/components/forms/TutorForm";
 import { Student } from "@/types";
 import { toast } from "@/hooks/use-toast";
-
 
 // Exemple de données fictives conformes à l'interface Student
 const exampleStudent = {
@@ -68,6 +68,7 @@ const StudentDetailPage: React.FC = () => {
       title: "Informations",
       description: "Informations enregistrées avec succès !",
     });
+    setIsTutorFormOpen(false);
   };
 
   return (
