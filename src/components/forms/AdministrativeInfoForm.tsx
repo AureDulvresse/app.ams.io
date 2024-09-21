@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { format } from "date-fns";
 import { Input } from "@/components/ui/input";
 import { Button } from "../ui/button";
 import SelectField from "../common/SelectField";
@@ -9,16 +10,16 @@ import { ToastAction } from "../ui/toast";
 interface AcademicInfoFormProps {
   initialData?: {
     schoolName?: string;
-    classId?: number;
-    year?: string;
+    department_id?: number;
+    hire_at?: string | Date;
   };
   handleInputChange: (
     e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>
   ) => void;
   onSubmit: (data: {
     schoolName: string;
-    classId: number;
-    year?: string;
+    department_id: number;
+    hire_at?: string | Date;
   }) => void;
   isSubmitting?: boolean;
   prevStep?: () => void;
@@ -34,7 +35,7 @@ const classOptions = [
 ];
 
 const AdministrativeInfoForm: React.FC<AcademicInfoFormProps> = ({
-  initialData = { schoolName: "", classId: 0, year: "" },
+  initialData = { schoolName: "", department_id: 0, hire_at: new Date() },
   onSubmit,
   isSubmitting = false,
   handleInputChange,
@@ -42,8 +43,8 @@ const AdministrativeInfoForm: React.FC<AcademicInfoFormProps> = ({
 }) => {
   const [formData, setFormData] = useState({
     schoolName: initialData.schoolName || "",
-    classId: initialData.classId || 0,
-    year: initialData.year || "",
+    department_id: initialData.department_id || 0,
+    hire_at: initialData.hire_at || "",
   });
 
   const [errors, setErrors] = useState<Record<string, string>>({});
@@ -141,12 +142,12 @@ const AdministrativeInfoForm: React.FC<AcademicInfoFormProps> = ({
         </div>
 
         <Input
-          name="year"
+          name="hire_at"
           className="w-full"
-          placeholder="Année académique (facultatif)"
-          value={formData.year}
+          placeholder="Engagé le (facultatif)"
+          value={format(formData.hire_at, "yyyy-MM-dd")}
           onChange={handleChange}
-          aria-label="Année académique"
+          aria-label="Engagé le"
         />
 
         <div className="text-right mt-3">

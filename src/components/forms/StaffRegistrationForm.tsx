@@ -80,6 +80,7 @@ const StaffRegistrationForm: React.FC = () => {
           onSubmit={handleSubmit}
           isSubmitting={false}
           handleInputChange={handleInputChange}
+          prevStep={prevStep}
         />
       )}
     </div>
