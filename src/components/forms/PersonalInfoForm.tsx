@@ -44,9 +44,7 @@ const PersonalInfoForm: React.FC<PersonalInfoFormProps> = ({
   handlePhotoUpload, // Callback pour le téléchargement de la photo
   nextStep,
 }) => {
-  const [date, setDate] = useState<Date | null>(
-    new Date(new Date().setFullYear(new Date().getFullYear() - 18))
-  );
+  const [date, setDate] = useState<Date | null>(null);
 
   const [errors, setErrors] = useState<Record<string, string>>({});
 
@@ -136,7 +134,7 @@ const PersonalInfoForm: React.FC<PersonalInfoFormProps> = ({
                 className="flex items-center gap-2 border hover:dark:bg-gray-800 w-full"
               >
                 <CalendarIcon />
-                {date ? format(date, "dd/MM/yyyy") : "Date de Naissance"}
+                {date ? format(date, "dd/MM/yyyy") : "Selectionner la date de naissance"}
               </Button>
             </DropdownMenuTrigger>
 
@@ -173,7 +171,7 @@ const PersonalInfoForm: React.FC<PersonalInfoFormProps> = ({
             name="pob"
             value={formData.pob}
             onChange={handleInputChange}
-            placeholder="Entrer le lieu de Naissance"
+            placeholder="Entrer le lieu de naissance"
             required
           />
           {errors.pob && <p className="text-red-500">{errors.pob}</p>}
