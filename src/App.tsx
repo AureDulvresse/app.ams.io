@@ -7,6 +7,7 @@ import NotFoundPage from "./pages/NotFoundPage";
 import StudentDetailPage from "./pages/modules/students/StudentDetailsPage";
 import StudentRegisterPage from "./pages/modules/students/StudentRegisterPage";
 import { Toaster } from "./components/ui/toaster";
+import StaffRegisterPage from "./pages/modules/hr/StaffRegisterPage";
 
 const router = createBrowserRouter([
   {
@@ -32,7 +33,7 @@ const router = createBrowserRouter([
   {
     path: "/hr/staff/hire/",
     element: <StaffRegisterPage />
-  }
+  },
   {
     path: "*",
     element: <NotFoundPage />,
