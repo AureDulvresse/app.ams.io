@@ -1,12 +1,12 @@
 import React, { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
+import { format } from "date-fns";
 import { Card } from "@/components/ui/card";
-import { Button } from "@/components/ui/button";
-
-import { IdCardIcon, PenLineIcon, PrinterIcon, User2 } from "lucide-react";
+import { Button } from "@/components/ui/button";import { IdCardIcon, PenLineIcon, PrinterIcon, User2 } from "lucide-react";
 import Modal from "@/components/common/Modal";
 import TutorForm from "@/components/forms/TutorForm";
 import { Student } from "@/types";
+
 
 // Exemple de données fictives conformes à l'interface Student
 const exampleStudent = {
@@ -91,7 +91,8 @@ const StudentDetailPage: React.FC = () => {
           </h2>
           <ul className="space-y-2">
             <li>
-              <strong>Date de Naissance :</strong> {student.dob}
+              <strong>Date de Naissance :</strong>{" "}
+              {format(student.dob, "yyyy-MM-dd")}
             </li>
             <li>
               <strong>Lieu de Naissance :</strong> {student.pob}
