@@ -2,6 +2,7 @@ import React from "react";
 import Navbar from "@/components/partials/Navbar";
 import Sidebar from "@/components/partials/Sidebar";
 import DynamicBreadcrumb from "@/components/common/DynamicBreadcrumb";
+import StaffRegistrationForm from "@/components/modules/hr/StaffRegistrationForm";
 
 const breadcrumbItems = [
   { href: "/", label: "Accueil" },
@@ -17,7 +18,7 @@ const StaffRegisterPage: React.FC = () => {
         <Navbar />
         <main className="flex-1 mt-20">
           <DynamicBreadcrumb items={breadcrumbItems} />
-          <StaffRegisterPage />
+          <StaffRegistrationForm />
         </main>
       </div>
     </div>
