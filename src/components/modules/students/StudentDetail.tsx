@@ -6,6 +6,7 @@ import { Button } from "@/components/ui/button";import { IdCardIcon, PenLineIcon
 import Modal from "@/components/common/Modal";
 import TutorForm from "@/components/forms/TutorForm";
 import { Student } from "@/types";
+import { toast } from "@/hooks/use-toast";
 
 
 // Exemple de données fictives conformes à l'interface Student
@@ -54,6 +55,19 @@ const StudentDetailPage: React.FC = () => {
 
   const toggleTutorForm = () => {
     setIsTutorFormOpen(!isTutorFormOpen);
+  };
+
+  const handleSubmit = (data: {
+    name: string;
+    phone: string;
+    email?: string;
+  }) => {
+    console.log(data);
+    toast({
+      variant: "default",
+      title: "Informations",
+      description: "Informations enregistrées avec succès !",
+    });
   };
 
   return (
@@ -259,7 +273,7 @@ const StudentDetailPage: React.FC = () => {
               name: student.guardian_name,
               phone: student.guardian_phone,
             }}
-            onSubmit={(data) => console.log(data)}
+            onSubmit={(data) => handleSubmit(data)}
           />
         }
         footer={
