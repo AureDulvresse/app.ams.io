@@ -1,8 +1,4 @@
-import {
-  createBrowserRouter,
-  RouterProvider,
-  Navigate,
-} from "react-router-dom";
+import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import { ThemeProvider } from "@/hooks/theme-provider";
 import DashboardPage from "./pages/DashboardPage";
 import StudentPage from "./pages/modules/students/StudentPage";
@@ -12,40 +8,32 @@ import StudentDetailPage from "./pages/modules/students/StudentDetailsPage";
 import StudentRegisterPage from "./pages/modules/students/StudentRegisterPage";
 import { Toaster } from "./components/ui/toaster";
 import StaffRegisterPage from "./pages/modules/hr/StaffRegisterPage";
-import { AuthProvider, useAuth } from "./context/AuthProvider";
 import Login from "./pages/auth/Login";
 
-// Composant pour protéger les routes privées
-const PrivateRoute: React.FC<{ element: React.ReactNode }> = ({ element }) => {
-  const { isAuthenticated } = useAuth();
-  return isAuthenticated ? <>{element}</> : <Navigate to="/login" />;
-};
-
-// Configuration des routes
 const router = createBrowserRouter([
   {
     path: "/",
-    element: <PrivateRoute element={<DashboardPage />} />,
+    element: <DashboardPage />,
   },
   {
     path: "/students",
-    element: <PrivateRoute element={<StudentPage />} />,
+    element: <StudentPage />,
   },
   {
     path: "/students/:id",
-    element: <PrivateRoute element={<StudentDetailPage />} />,
+    element: <StudentDetailPage />,
   },
   {
     path: "/students/create",
-    element: <PrivateRoute element={<StudentRegisterPage />} />,
+    element: <StudentRegisterPage />,
   },
   {
     path: "/hr",
-    element: <PrivateRoute element={<StaffPage />} />,
+    element: <StaffPage />,
   },
   {
     path: "/staff/create",
-    element: <PrivateRoute element={<StaffRegisterPage />} />,
+    element: <StaffRegisterPage />,
   },
   {
     path: "/login",
@@ -60,10 +48,8 @@ const router = createBrowserRouter([
 const App = () => {
   return (
     <ThemeProvider defaultTheme="dark" storageKey="vite-ui-theme">
-      <AuthProvider>
-        <RouterProvider router={router} />
-        <Toaster />
-      </AuthProvider>
+      <RouterProvider router={router} />
+      <Toaster />
     </ThemeProvider>
   );
 };

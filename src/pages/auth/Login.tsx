@@ -21,11 +21,13 @@ const Login: React.FC = () => {
     // Logique de connexion (appel API pour vérifier les identifiants)
     const isAuthenticated = true; // Simuler une authentification réussie
     if (isAuthenticated) {
-      navigate("/dashboard"); // Redirection vers le tableau de bord ou la page principale
+      navigate("/"); // Redirection vers le tableau de bord ou la page principale
     } else {
       setError("Email ou mot de passe incorrect");
     }
   };
+
+  console.log("Login")
 
   return (
     <div className="container mx-auto mt-8">
