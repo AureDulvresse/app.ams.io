@@ -21,7 +21,7 @@ const PrivateRoute: React.FC<{ element: React.ReactNode }> = ({ element }) => {
   return isAuthenticated ? <>{element}</> : <Navigate to="/login" />;
 };
 
-// Configuration des routes avec des routes protégées spécifiques
+// Configuration des routes
 const router = createBrowserRouter([
   {
     path: "/",
