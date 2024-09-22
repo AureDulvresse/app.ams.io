@@ -1,4 +1,8 @@
-import { createBrowserRouter, RouterProvider } from "react-router-dom";
+import {
+  createBrowserRouter,
+  RouterProvider,
+  Navigate,
+} from "react-router-dom";
 import { ThemeProvider } from "@/hooks/theme-provider";
 import DashboardPage from "./pages/DashboardPage";
 import StudentPage from "./pages/modules/students/StudentPage";
@@ -8,31 +12,44 @@ import StudentDetailPage from "./pages/modules/students/StudentDetailsPage";
 import StudentRegisterPage from "./pages/modules/students/StudentRegisterPage";
 import { Toaster } from "./components/ui/toaster";
 import StaffRegisterPage from "./pages/modules/hr/StaffRegisterPage";
+import { AuthProvider, useAuth } from "./context/AuthProvider";
+import Login from "./pages/auth/Login";
 
+// Composant pour protéger les routes privées
+const PrivateRoute: React.FC<{ element: React.ReactNode }> = ({ element }) => {
+  const { isAuthenticated } = useAuth();
+  return isAuthenticated ? <>{element}</> : <Navigate to="/login" />;
+};
+
+// Configuration des routes avec des routes protégées spécifiques
 const router = createBrowserRouter([
   {
     path: "/",
-    element: <DashboardPage />,
+    element: <PrivateRoute element={<DashboardPage />} />,
   },
   {
     path: "/students",
-    element: <StudentPage />,
+    element: <PrivateRoute element={<StudentPage />} />,
   },
   {
     path: "/students/:id",
-    element: <StudentDetailPage />,
+    element: <PrivateRoute element={<StudentDetailPage />} />,
   },
   {
     path: "/students/create",
-    element: <StudentRegisterPage />,
+    element: <PrivateRoute element={<StudentRegisterPage />} />,
   },
   {
     path: "/hr",
-    element: <StaffPage />,
+    element: <PrivateRoute element={<StaffPage />} />,
   },
   {
     path: "/staff/create",
-    element: <StaffRegisterPage />
+    element: <PrivateRoute element={<StaffRegisterPage />} />,
+  },
+  {
+    path: "/login",
+    element: <Login />,
   },
   {
     path: "*",
@@ -42,12 +59,12 @@ const router = createBrowserRouter([
 
 const App = () => {
   return (
-    <>
-      <ThemeProvider defaultTheme="dark" storageKey="vite-ui-theme">
+    <ThemeProvider defaultTheme="dark" storageKey="vite-ui-theme">
+      <AuthProvider>
         <RouterProvider router={router} />
         <Toaster />
-      </ThemeProvider>
-    </>
+      </AuthProvider>
+    </ThemeProvider>
   );
 };
 
