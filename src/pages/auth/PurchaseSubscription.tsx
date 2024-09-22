@@ -66,7 +66,7 @@ const PurchaseSubscription: React.FC = () => {
               ))}
             </ul>
             <Button
-              variant={selectedPlan === plan.id ? "primary" : "secondary"}
+              variant={selectedPlan === plan.id ? "default" : "secondary"}
               onClick={() => setSelectedPlan(plan.id)}
             >
               Sélectionner
