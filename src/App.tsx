@@ -1,39 +1,76 @@
-import { createBrowserRouter, RouterProvider } from "react-router-dom";
-import { ThemeProvider } from "@/hooks/theme-provider";
+import React from "react";
+import {
+  createBrowserRouter,
+  RouterProvider,
+  Navigate,
+} from "react-router-dom";
+import { AuthProvider, useAuth } from "./context/AuthProvider"; // Assurez-vous que AuthProvider est configuré
 import DashboardPage from "./pages/DashboardPage";
 import StudentPage from "./pages/modules/students/StudentPage";
 import StaffPage from "./pages/modules/hr/StaffPage";
 import NotFoundPage from "./pages/NotFoundPage";
 import StudentDetailPage from "./pages/modules/students/StudentDetailsPage";
 import StudentRegisterPage from "./pages/modules/students/StudentRegisterPage";
-import { Toaster } from "./components/ui/toaster";
 import StaffRegisterPage from "./pages/modules/hr/StaffRegisterPage";
 import Login from "./pages/auth/Login";
+import { ThemeProvider } from "@/hooks/theme-provider";
+import { Toaster } from "./components/ui/toaster";
+
+const PrivateRoute: React.FC<{ children: React.ReactNode }> = ({
+  children,
+}) => {
+  const { isAuthenticated } = useAuth();
+  return isAuthenticated ? <>{children}</> : <Navigate to="/login" />;
+};
 
 const router = createBrowserRouter([
   {
     path: "/",
-    element: <DashboardPage />,
+    element: (
+      <PrivateRoute>
+        <DashboardPage />
+      </PrivateRoute>
+    ),
   },
   {
     path: "/students",
-    element: <StudentPage />,
+    element: (
+      <PrivateRoute>
+        <StudentPage />
+      </PrivateRoute>
+    ),
   },
   {
     path: "/students/:id",
-    element: <StudentDetailPage />,
+    element: (
+      <PrivateRoute>
+        <StudentDetailPage />
+      </PrivateRoute>
+    ),
   },
   {
     path: "/students/create",
-    element: <StudentRegisterPage />,
+    element: (
+      <PrivateRoute>
+        <StudentRegisterPage />
+      </PrivateRoute>
+    ),
   },
   {
     path: "/hr",
-    element: <StaffPage />,
+    element: (
+      <PrivateRoute>
+        <StaffPage />
+      </PrivateRoute>
+    ),
   },
   {
     path: "/staff/create",
-    element: <StaffRegisterPage />,
+    element: (
+      <PrivateRoute>
+        <StaffRegisterPage />
+      </PrivateRoute>
+    ),
   },
   {
     path: "/login",
@@ -48,8 +85,10 @@ const router = createBrowserRouter([
 const App = () => {
   return (
     <ThemeProvider defaultTheme="dark" storageKey="vite-ui-theme">
-      <RouterProvider router={router} />
-      <Toaster />
+      <AuthProvider>
+        <RouterProvider router={router} />
+        <Toaster />
+      </AuthProvider>
     </ThemeProvider>
   );
 };
