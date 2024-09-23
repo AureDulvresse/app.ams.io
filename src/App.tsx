@@ -1,32 +1,14 @@
 import React from "react";
-import {
-  createBrowserRouter,
-  RouterProvider,
-  Navigate,
-} from "react-router-dom";
-import { AuthProvider, useAuth } from "./context/AuthProvider"; // Assurez-vous que AuthProvider est configuré
+import { createBrowserRouter, RouterProvider } from "react-router-dom";
+import { AuthProvider } from "./context/AuthContext";
 import DashboardPage from "./pages/DashboardPage";
 import StudentPage from "./pages/modules/students/StudentPage";
 import StaffPage from "./pages/modules/hr/StaffPage";
 import NotFoundPage from "./pages/NotFoundPage";
-import StudentDetailPage from "./pages/modules/students/StudentDetailsPage";
-import StudentRegisterPage from "./pages/modules/students/StudentRegisterPage";
-import StaffRegisterPage from "./pages/modules/hr/StaffRegisterPage";
 import Login from "./pages/auth/Login";
-import { ThemeProvider } from "@/hooks/theme-provider";
 import { Toaster } from "./components/ui/toaster";
-
-const PrivateRoute: React.FC<{ children: React.ReactNode }> = ({
-  children,
-}) => {
-  const { isAuthenticated } = useAuth(); // Vérifie si l'utilisateur est authentifié
-  return isAuthenticated ? (
-    <>{children}</> // Si authentifié, rend les enfants
-  ) : (
-    <Navigate to="/login" /> // Sinon, redirige vers la page de login
-  );
-};
-
+import { ThemeProvider } from "@/hooks/theme-provider"; // Si tu utilises un ThemeProvider
+import PrivateRoute from "./routes/PrivateRoute";
 
 const router = createBrowserRouter([
   {
@@ -46,34 +28,10 @@ const router = createBrowserRouter([
     ),
   },
   {
-    path: "/students/:id",
-    element: (
-      <PrivateRoute>
-        <StudentDetailPage />
-      </PrivateRoute>
-    ),
-  },
-  {
-    path: "/students/create",
-    element: (
-      <PrivateRoute>
-        <StudentRegisterPage />
-      </PrivateRoute>
-    ),
-  },
-  {
     path: "/hr",
     element: (
       <PrivateRoute>
         <StaffPage />
-      </PrivateRoute>
-    ),
-  },
-  {
-    path: "/staff/create",
-    element: (
-      <PrivateRoute>
-        <StaffRegisterPage />
       </PrivateRoute>
     ),
   },
