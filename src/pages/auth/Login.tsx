@@ -26,7 +26,7 @@ const Login: React.FC = () => {
 
   // Gestion de la soumission du formulaire
   const handleSubmit = () => {
-    // Logique de connexion (simuler un appel API pour vérifier les identifiants)
+    
     login();
 
     if (isAuthenticated) {
@@ -36,7 +36,7 @@ const Login: React.FC = () => {
       } else {
         sessionStorage.setItem("user", JSON.stringify(formData)); // Stocke uniquement pour la session
       }
-      alert("Bienvenue");
+      
       navigate("/"); // Redirection vers le tableau de bord ou la page principale
     } else {
       setError("Email ou mot de passe incorrect");
