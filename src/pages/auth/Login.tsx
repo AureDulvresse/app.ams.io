@@ -8,7 +8,7 @@ const Login: React.FC = () => {
   const [formData, setFormData] = useState({ email: "", password: "" });
   const [rememberMe, setRememberMe] = useState(false);
   const [error, setError] = useState<string | null>(null);
-  const { isAuthenticated, login } = useAuth();
+  const { isAuthenticated, login } = useAuth(); // Retirer `isAuthenticated` ici, vérifié après le login
   const navigate = useNavigate();
 
   // Gestion des champs de formulaire
@@ -26,14 +26,20 @@ const Login: React.FC = () => {
 
   // Gestion de la soumission du formulaire
   const handleSubmit = async () => {
+    console.log(isAuthenticated)
     try {
-      await login(formData.email, formData.password, rememberMe);
+      await login(formData.email, formData.password, rememberMe); // Connexion réussie
 
-      if(isAuthenticated) navigate('/');
-      
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      // Redirection après le succès de l'authentification
+      navigate("/");
+
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
     } catch (err: any) {
-      setError(err.message);
+      // Définir un message d'erreur explicite si l'API renvoie un problème
+      setError(
+        err.response?.data?.message ||
+          "Échec de la connexion. Veuillez vérifier vos identifiants."
+      );
     }
   };
 
