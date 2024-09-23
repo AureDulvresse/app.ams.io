@@ -1,15 +1,15 @@
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import { useAuth } from "@/context/AuthContext";
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { useAuth } from "@/context/AuthContext";
 
 const Login: React.FC = () => {
   const [formData, setFormData] = useState({ email: "", password: "" });
   const [rememberMe, setRememberMe] = useState(false);
   const [error, setError] = useState<string | null>(null);
+  const { login } = useAuth();
   const navigate = useNavigate();
-  const { login, isAuthenticated } = useAuth();
 
   // Gestion des champs de formulaire
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -25,21 +25,13 @@ const Login: React.FC = () => {
   };
 
   // Gestion de la soumission du formulaire
-  const handleSubmit = () => {
-    
-    login();
-
-    if (isAuthenticated) {
-      // Si "se souvenir de moi" est activé, on stocke dans localStorage
-      if (rememberMe) {
-        localStorage.setItem("user", JSON.stringify(formData)); // Stocke l'utilisateur
-      } else {
-        sessionStorage.setItem("user", JSON.stringify(formData)); // Stocke uniquement pour la session
-      }
-      
-      navigate("/"); // Redirection vers le tableau de bord ou la page principale
-    } else {
-      setError("Email ou mot de passe incorrect");
+  const handleSubmit = async () => {
+    try {
+      await login(formData.email, formData.password, rememberMe);
+      // L'utilisateur est maintenant connecté et redirigé dans le AuthProvider
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    } catch (err: any) {
+      setError(err.message);
     }
   };
 
