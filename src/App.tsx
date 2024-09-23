@@ -19,9 +19,14 @@ import { Toaster } from "./components/ui/toaster";
 const PrivateRoute: React.FC<{ children: React.ReactNode }> = ({
   children,
 }) => {
-  const { isAuthenticated } = useAuth();
-  return isAuthenticated ? <>{children}</> : <Navigate to="/login" />;
+  const { isAuthenticated } = useAuth(); // Vérifie si l'utilisateur est authentifié
+  return isAuthenticated ? (
+    <>{children}</> // Si authentifié, rend les enfants
+  ) : (
+    <Navigate to="/login" /> // Sinon, redirige vers la page de login
+  );
 };
+
 
 const router = createBrowserRouter([
   {
@@ -86,6 +91,8 @@ const App = () => {
   return (
     <ThemeProvider defaultTheme="dark" storageKey="vite-ui-theme">
       <AuthProvider>
+        {" "}
+        {/* AuthProvider doit entourer l'application entière */}
         <RouterProvider router={router} />
         <Toaster />
       </AuthProvider>
