@@ -1,6 +1,6 @@
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "@/context/AuthContext";
 
@@ -8,8 +8,16 @@ const Login: React.FC = () => {
   const [formData, setFormData] = useState({ email: "", password: "" });
   const [rememberMe, setRememberMe] = useState(false);
   const [error, setError] = useState<string | null>(null);
-  const { isAuthenticated, login } = useAuth(); // Retirer `isAuthenticated` ici, vérifié après le login
+  const [loading, setLoading] = useState(false); // État pour le chargement
+  const { isAuthenticated, login } = useAuth();
   const navigate = useNavigate();
+
+  // Si l'utilisateur est déjà connecté, rediriger automatiquement
+  useEffect(() => {
+    if (isAuthenticated) {
+      navigate("/"); // Redirection vers la page d'accueil ou tableau de bord
+    }
+  }, [isAuthenticated, navigate]);
 
   // Gestion des champs de formulaire
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -26,20 +34,20 @@ const Login: React.FC = () => {
 
   // Gestion de la soumission du formulaire
   const handleSubmit = async () => {
-    console.log(isAuthenticated)
+    setLoading(true); // Démarrer le chargement
+    setError(null); // Réinitialiser l'erreur
+
     try {
       await login(formData.email, formData.password, rememberMe); // Connexion réussie
-
-      // Redirection après le succès de l'authentification
-      navigate("/");
-
-      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      navigate("/"); // Redirection après le succès de l'authentification
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     } catch (err: any) {
-      // Définir un message d'erreur explicite si l'API renvoie un problème
       setError(
         err.response?.data?.message ||
           "Échec de la connexion. Veuillez vérifier vos identifiants."
       );
+    } finally {
+      setLoading(false); // Arrêter le chargement
     }
   };
 
@@ -83,10 +91,13 @@ const Login: React.FC = () => {
         </div>
         {error && <p className="text-red-500 mb-4">{error}</p>}
         <Button
-          className="bg-indigo-500 text-white w-full"
+          className={`bg-indigo-500 text-white w-full ${
+            loading ? "opacity-50 cursor-not-allowed" : ""
+          }`}
           onClick={handleSubmit}
+          disabled={loading} // Désactiver le bouton pendant le chargement
         >
-          Se connecter
+          {loading ? "Chargement..." : "Se connecter"} {/* Texte dynamique */}
         </Button>
         <p className="mt-4 text-sm text-gray-600">
           Pas encore de compte ?{" "}
