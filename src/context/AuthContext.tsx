@@ -3,7 +3,11 @@ import React, { createContext, useContext, useEffect, useState } from "react";
 
 interface AuthContextType {
   isAuthenticated: boolean;
-  login:  (email: string, password: string, rememberMe: boolean) => Promise<void>;
+  login: (
+    email: string,
+    password: string,
+    rememberMe: boolean
+  ) => Promise<void>;
   logout: () => void;
 }
 
@@ -12,17 +16,17 @@ const AuthContext = createContext<AuthContextType | undefined>(undefined);
 export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({
   children,
 }) => {
-    const [isAuthenticated, setIsAuthenticated] = useState(false);
-    const [token, setToken] = useState<string | null>(null);
-    
-    useEffect(() => {
-      const storedToken =
-        localStorage.getItem("token") || sessionStorage.getItem("token");
-      if (storedToken) {
-        setToken(storedToken);
-        setIsAuthenticated(true);
-      }
-    }, []);
+  const [isAuthenticated, setIsAuthenticated] = useState(false);
+  const [token, setToken] = useState<string | null>(null);
+
+  useEffect(() => {
+    const storedToken =
+      localStorage.getItem("token") || sessionStorage.getItem("token");
+    if (storedToken) {
+      setToken(storedToken);
+      setIsAuthenticated(true);
+    }
+  }, []);
 
   const login = async (
     email: string,
@@ -40,27 +44,26 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({
 
       // Stocker le token selon le choix de l'utilisateur
       if (rememberMe) {
-        localStorage.setItem("token", token??"");
+        localStorage.setItem("token", token ?? "");
       } else {
-        sessionStorage.setItem("token", token??"");
+        sessionStorage.setItem("token", token ?? "");
       }
 
       setIsAuthenticated(true);
-      
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any, @typescript-eslint/no-unused-vars
-    } catch (error : any) {
+
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any, @typescript-eslint/no-unused-vars
+    } catch (error: any) {
       // Gérer les erreurs d'authentification
       throw new Error("Email ou mot de passe incorrect");
     }
   };
 
- const logout = () => {
-   setIsAuthenticated(false);
-   setToken(null);
-   localStorage.removeItem("token");
-   sessionStorage.removeItem("token");
- };
-
+  const logout = () => {
+    setIsAuthenticated(false);
+    setToken(null);
+    localStorage.removeItem("token");
+    sessionStorage.removeItem("token");
+  };
 
   return (
     <AuthContext.Provider value={{ isAuthenticated, login, logout }}>

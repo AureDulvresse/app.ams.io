@@ -8,7 +8,7 @@ const Login: React.FC = () => {
   const [formData, setFormData] = useState({ email: "", password: "" });
   const [rememberMe, setRememberMe] = useState(false);
   const [error, setError] = useState<string | null>(null);
-  const { login } = useAuth();
+  const { isAuthenticated, login } = useAuth();
   const navigate = useNavigate();
 
   // Gestion des champs de formulaire
@@ -28,7 +28,9 @@ const Login: React.FC = () => {
   const handleSubmit = async () => {
     try {
       await login(formData.email, formData.password, rememberMe);
-      // L'utilisateur est maintenant connecté et redirigé dans le AuthProvider
+
+      if(isAuthenticated) navigate('/');
+      
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     } catch (err: any) {
       setError(err.message);
