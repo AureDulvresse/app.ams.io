@@ -1,12 +1,14 @@
-import React, { createContext, useContext, useState, useEffect } from "react";
+import React, { createContext, useContext, useState } from "react";
 import { useNavigate } from "react-router-dom";
 
-interface AuthContextType {
+// Définition du type du contexte d'authentification
+type AuthContextType = {
   isAuthenticated: boolean;
-  login: (token: string) => void;
+  login: () => void;
   logout: () => void;
-}
+};
 
+// Crée le contexte avec un type explicite
 const AuthContext = createContext<AuthContextType | undefined>(undefined);
 
 export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({
@@ -15,23 +17,14 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   const navigate = useNavigate();
 
-  useEffect(() => {
-    const token = localStorage.getItem("authToken");
-    if (token) {
-      setIsAuthenticated(true);
-    }
-  }, []);
-
-  const login = (token: string) => {
-    localStorage.setItem("authToken", token);
+  const login = () => {
     setIsAuthenticated(true);
-    navigate("/"); // Redirige vers la page d'accueil ou le tableau de bord
+    navigate("/"); // Redirige vers le dashboard après login
   };
 
   const logout = () => {
-    localStorage.removeItem("authToken");
     setIsAuthenticated(false);
-    navigate("/login"); // Redirige vers la page de connexion
+    navigate("/login"); // Redirige vers login après déconnexion
   };
 
   return (
@@ -41,7 +34,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({
   );
 };
 
-// eslint-disable-next-line react-refresh/only-export-components
+// Hook pour utiliser le contexte d'authentification
 export const useAuth = () => {
   const context = useContext(AuthContext);
   if (context === undefined) {

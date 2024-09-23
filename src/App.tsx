@@ -91,8 +91,6 @@ const App = () => {
   return (
     <ThemeProvider defaultTheme="dark" storageKey="vite-ui-theme">
       <AuthProvider>
-        {" "}
-        {/* AuthProvider doit entourer l'application entière */}
         <RouterProvider router={router} />
         <Toaster />
       </AuthProvider>
