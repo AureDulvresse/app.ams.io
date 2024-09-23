@@ -1,5 +1,6 @@
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
+import { useAuth } from "@/context/AuthContext";
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 
@@ -8,6 +9,7 @@ const Login: React.FC = () => {
   const [rememberMe, setRememberMe] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const navigate = useNavigate();
+  const { login, isAuthenticated } = useAuth();
 
   // Gestion des champs de formulaire
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -25,7 +27,7 @@ const Login: React.FC = () => {
   // Gestion de la soumission du formulaire
   const handleSubmit = () => {
     // Logique de connexion (simuler un appel API pour vérifier les identifiants)
-    const isAuthenticated = true; // Simuler une authentification réussie
+    login();
 
     if (isAuthenticated) {
       // Si "se souvenir de moi" est activé, on stocke dans localStorage
@@ -34,6 +36,7 @@ const Login: React.FC = () => {
       } else {
         sessionStorage.setItem("user", JSON.stringify(formData)); // Stocke uniquement pour la session
       }
+      alert("Bienvenue");
       navigate("/"); // Redirection vers le tableau de bord ou la page principale
     } else {
       setError("Email ou mot de passe incorrect");
