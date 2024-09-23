@@ -33,6 +33,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({
     password: string,
     rememberMe: boolean
   ) => {
+      console.log("Traitement connexion...")
     try {
       // Remplacez l'URL par celle de votre endpoint d'authentification
       const response = await api.post("/login/", {

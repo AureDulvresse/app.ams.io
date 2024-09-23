@@ -14,6 +14,7 @@ const Login: React.FC = () => {
 
   // Si l'utilisateur est déjà connecté, rediriger automatiquement
   useEffect(() => {
+    console.log(isAuthenticated);
     if (isAuthenticated) {
       navigate("/"); // Redirection vers la page d'accueil ou tableau de bord
     }
@@ -33,14 +34,16 @@ const Login: React.FC = () => {
   };
 
   // Gestion de la soumission du formulaire
-  const handleSubmit = async () => {
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault(); // Empêche le rechargement de la page
+    console.log("Soumission du formulaire");
     setLoading(true); // Démarrer le chargement
     setError(null); // Réinitialiser l'erreur
 
     try {
-      await login(formData.email, formData.password, rememberMe); // Connexion réussie
-      navigate("/"); // Redirection après le succès de l'authentification
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      await login(formData.email, formData.password, rememberMe);
+      // Redirection après le succès de l'authentification
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
     } catch (err: any) {
       setError(
         err.response?.data?.message ||
@@ -54,7 +57,7 @@ const Login: React.FC = () => {
   return (
     <div className="container mx-auto mt-8">
       <h1 className="text-2xl font-bold mb-6">Connexion</h1>
-      <div className="w-full max-w-md mx-auto">
+      <form className="w-full max-w-md mx-auto" onSubmit={handleSubmit}>
         <div className="mb-4">
           <label className="block mb-2 text-sm font-medium">Email</label>
           <Input
@@ -91,11 +94,11 @@ const Login: React.FC = () => {
         </div>
         {error && <p className="text-red-500 mb-4">{error}</p>}
         <Button
-          className={`bg-indigo-500 text-white w-full ${
+          className={`bg-indigo-500 text-white w-full hover:bg-indigo-400 focus:bg-indigo-500 ${
             loading ? "opacity-50 cursor-not-allowed" : ""
           }`}
-          onClick={handleSubmit}
-          disabled={loading} // Désactiver le bouton pendant le chargement
+          type="submit"
+          disabled={loading}
         >
           {loading ? "Chargement..." : "Se connecter"} {/* Texte dynamique */}
         </Button>
@@ -108,7 +111,7 @@ const Login: React.FC = () => {
             Créer un compte
           </span>
         </p>
-      </div>
+      </form>
     </div>
   );
 };
