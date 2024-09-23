@@ -2,7 +2,7 @@ import axios from "axios";
 
 // Créer une instance Axios
 const api = axios.create({
-  baseURL: "http://localhost:8000/api", // Remplace par l'URL de ton backend
+  baseURL: "localhost:8000/api", // Remplace par l'URL de ton backend
 });
 
 // Intercepteur pour ajouter le token aux en-têtes des requêtes
