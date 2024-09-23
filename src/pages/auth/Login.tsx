@@ -1,15 +1,15 @@
-// Login.tsx
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 
-
 const Login: React.FC = () => {
   const [formData, setFormData] = useState({ email: "", password: "" });
+  const [rememberMe, setRememberMe] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const navigate = useNavigate();
 
+  // Gestion des champs de formulaire
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setFormData({
       ...formData,
@@ -17,17 +17,28 @@ const Login: React.FC = () => {
     });
   };
 
+  // Gestion du "se souvenir de moi"
+  const handleRememberMeChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setRememberMe(e.target.checked);
+  };
+
+  // Gestion de la soumission du formulaire
   const handleSubmit = () => {
-    // Logique de connexion (appel API pour vérifier les identifiants)
+    // Logique de connexion (simuler un appel API pour vérifier les identifiants)
     const isAuthenticated = true; // Simuler une authentification réussie
+
     if (isAuthenticated) {
+      // Si "se souvenir de moi" est activé, on stocke dans localStorage
+      if (rememberMe) {
+        localStorage.setItem("user", JSON.stringify(formData)); // Stocke l'utilisateur
+      } else {
+        sessionStorage.setItem("user", JSON.stringify(formData)); // Stocke uniquement pour la session
+      }
       navigate("/"); // Redirection vers le tableau de bord ou la page principale
     } else {
       setError("Email ou mot de passe incorrect");
     }
   };
-
-  console.log("Login")
 
   return (
     <div className="container mx-auto mt-8">
@@ -54,6 +65,18 @@ const Login: React.FC = () => {
             placeholder="Entrer votre mot de passe"
             required
           />
+        </div>
+        <div className="flex items-center mb-4">
+          <input
+            type="checkbox"
+            id="rememberMe"
+            checked={rememberMe}
+            onChange={handleRememberMeChange}
+            className="mr-2"
+          />
+          <label htmlFor="rememberMe" className="text-sm text-gray-700">
+            Se souvenir de moi
+          </label>
         </div>
         {error && <p className="text-red-500 mb-4">{error}</p>}
         <Button
