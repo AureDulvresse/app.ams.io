@@ -33,7 +33,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({
     password: string,
     rememberMe: boolean
   ) => {
-      console.log("Traitement connexion...")
+    console.log("Traitement connexion...");
     try {
       // Remplacez l'URL par celle de votre endpoint d'authentification
       const response = await api.post("/login/", {
@@ -52,9 +52,11 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({
 
       setIsAuthenticated(true);
 
-      // eslint-disable-next-line @typescript-eslint/no-explicit-any, @typescript-eslint/no-unused-vars
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
     } catch (error: any) {
       // Gérer les erreurs d'authentification
+      console.log("Traitement Terminé");
+      console.log(error.message);
       throw new Error("Email ou mot de passe incorrect");
     }
   };
